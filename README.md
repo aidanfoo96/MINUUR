@@ -12,7 +12,9 @@ MINUUR is a configurable snakemake pipeline to extract short shotgun sequencing 
 MINUUR is run using the bioinformatics workflow manager [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html)
 
 Snakemake is best installed using the package manager [Mamba](https://github.com/mamba-org/mamba)
+
 Once Mamba is installed run 
+
 `mamba create -c bioconda -c conda-forge --name snakemake snakemake`
 
 # Installation of MINUUR
