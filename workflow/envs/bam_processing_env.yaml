@@ -1,0 +1,8 @@
+channels: 
+  - defaults
+  - bioconda
+  - conda-forge
+  - yuxiang
+dependencies: 
+  - samtools 
+  - bam2fastq

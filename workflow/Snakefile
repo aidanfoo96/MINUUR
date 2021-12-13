@@ -1,0 +1,38 @@
+################ MINUUR #############################
+    # Microbial INsight Using Unmapped Reads
+    # Author: Aidan Foo
+    # Email: 248064@lstmed.ac.uk
+    # Version: v0.1
+#####################################################
+
+import pandas as pd
+
+configfile: "../config/config.yaml"
+
+sample_table = (
+    pd.read_csv(config["samples"], sep = "\t", dtype = {"sampleID": str})
+    .set_index(["sampleID"], drop = False)
+    .sort_index()
+)
+
+samples = sample_table["sampleID"].tolist()
+
+
+include: "rules/BamProcessRaw.smk"
+include: "rules/BamProcessFromFastq.smk"
+include: "rules/ReadClassification.smk"
+include: "rules/QC.smk"
+include: "rules/Assembly.smk"
+include: "rules/MapCoverageBin.smk"
+include: "rules/BinQA.smk"
+include: "rules/ReadFunction.smk"
+include: "rules/Functions.smk"
+
+rule all:
+    """
+        Run the whole pipeline according to parameters set in ../config/config.yaml
+    """
+    input: 
+        RunPipeline
+
+

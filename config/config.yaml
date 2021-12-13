@@ -1,0 +1,133 @@
+# Samples
+samples: ../config/samples_fastq.tsv.txt
+
+# Put your kraken database path here
+kraken_db_location: /home/db/Kraken2_db
+# Put your contaminant database path here
+contam_db_location: 
+  /home/db/User_dbs/aidan_foo/aedes_ref/aegypti_ref
+
+# Put your human contaminant database path here
+human_db: 
+  /home/db/User_dbs/aidan_foo/human_contam_kneaddata_db/
+
+input_type: 
+  fastq: True
+  bam: False
+# FASTQ Processing
+  # Activate = True to: 
+    # Perform QC and Trimming on Raw Fastq
+    # Remove Host Associated Reads from Raw Fastq
+    # Convert Raw FASTQ to BAM for Processing Steps
+  # If you have Raw BAM files: 
+    # QC: Activate = False
+    # RemoveHostFromFastqGz: Activate = False
+      # Move to: "ProcessBams"
+
+QC: 
+  Activate: False
+  CutadaptParams: "--minimum-length 50 -q 30"
+
+# Remove HostReads from Fastq Files and convert to BAM
+RemoveHostFromFastqGz: 
+  Activate: False
+  Threads: 20
+  # Give path to Hisat2 indexed host genome
+  ContaminantIndex: /home/db/User_dbs/aidan_foo/aedes_ref/aegypti_ref
+
+# Generate statistics and extract unmapped reads from BAM file
+ProcessBam:
+  Activate: True
+  # Activate if input was Fastq (prior). If Input is bam then FromFastq = False
+  FromFastq: True
+
+# READ CLASSIFICATION 
+  # User has the option of performing read classification with Kraken2 and MetaPhlAn3
+  # Input are QC trimmed unmapped reads processed above
+
+#------------------------#
+# Classify Unmapped Reads with Kraken
+KrakenClassification:
+  Activate: False
+  Threads: 20
+  # Confidence score between 0-1 (0 = default, 1 = very stringent)
+  ConfidenceScore: 0
+#------------------------#
+# Create Clean Kraken Summaries + Plots
+KrakenSummaries: 
+  Activate: False 
+  GenusReadThreshold: 6000
+  SpeciesReadThreshold: 10000
+  StratThreshold: 10000
+  KrakenDbStandard: True
+
+#------------------------#
+# Extract a taxon of your choosing? 
+ExtractKrakenTaxa: 
+  Activate: False
+  # Place TaxID number here (e.g. Extract bacteria = 2)
+  taxon_choice: "2"
+
+#------------------------#
+# Perform Baysian reestiamation of Kraken Classified Reads using Bracken
+BrackenReestimation:
+  Activate: False
+  # Provide path to Bracken build db
+  BrakenDb: /home/db/Kraken2_db
+  # Choose classification level, S = species, G = genus etc
+  ClassificationLvl: 'S'
+  DistributionThresh: 10
+  PlotThreshold: 10000
+
+#------------------------#
+# Perform Read Classification with MetaPhlAn3?
+MetaphlanClassification:
+  Activate: False
+  # Provide path to MetaPhlAn3 database
+  Database: /home/db/User_db/metaphlan_db
+  CleanMetaphlanReport: True
+  NProc: 8
+
+#------------------------#
+# Perform Functional Profiling of reads with Humann3?
+HumannAnalysis:
+  Activate: True
+  NTDatabase: /home/db/User_dbs/aidan_foo/chocophlan/
+  ProtDatabase: /home/db/User_dbs/aidan_foo/uniref/
+  Threads: 20
+
+#------------------------#
+# Convert Humann Reads?
+RenameHumannGeneNames: 
+  Activate: True
+  Rename: /home/db/User_dbs/aidan_foo/utility_mapping/map_uniref90_name.txt.bz2 
+
+#------------------------#
+# Extract Specific Biological Process of interest from Humann Output?
+GetBiologicalProcess:   
+  Activate: True
+  Process: 
+    siderophore: "siderophore"
+
+#------------------------#
+# Do Metagenome Assembly from Unmapped Fastq Files
+MetagenomeAssm: 
+  Activate: False
+  UseKrakenExtracted: False
+  Threads: 14
+  Memory: 0.5
+  MetagenomeCoAssm: False
+
+MetagenomeCoAssm:
+  Activate: False
+  Threads: 20
+  Memory: 0.5
+
+MetagenomeBinning: 
+  Activate: False
+  Threads: 30
+  MinimumContigLength: 1500
+
+CheckmBinQA: 
+  Activate: False
+  Threads: 8
