@@ -9,7 +9,7 @@ MINUUR is a configurable snakemake pipeline to extract short shotgun sequencing 
 3. Megahit to assemble reads to metagenome assembled genomes followed by binning and quality assurance
 
 # Installation of Snakemake
-MINUUR is run using the bioinformatics workflow manager [Snakemake https://snakemake.readthedocs.io/en/stable/index.html]
+MINUUR is run using the bioinformatics workflow manager [Snakemake] (https://snakemake.readthedocs.io/en/stable/index.html)
 
 # Installation of MINUUR
 Use `git clone` this repository 
