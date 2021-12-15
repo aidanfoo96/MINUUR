@@ -23,10 +23,10 @@ Use `git clone` this repository
 # Database requirements
 For host removal, read classification and functional classification, MINUUR requires several databases to be installed on the users system
 
-## Bowtie2 Indexed Host Database
+### Bowtie2 Indexed Host Database
 Download a high quality host genome of choosing. Follow [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) build tutorial here to create the index
 
-## Kraken2 Database
+### Kraken2 Database
 Download the indexed [Kraken2](https://benlangmead.github.io/aws-indexes/k2) database of your choosing. The standard Kraken2 database may omit for important taxa, as such MINUUR also supports classification using a larger database of Bacterial and Archaeal sequences are available from the [struo](https://github.com/leylabmpi/Struo) github repository, which prodvides indexed Kraken2 databases from the [GTDB](https://gtdb.ecogenomic.org/) taxonomy database. 
 
 
