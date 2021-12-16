@@ -1,6 +1,4 @@
 # MINUUR - Microbial INsight Using Unmapped Reads
-
-## About
 MINUUR is a configurable snakemake pipeline to extract short shotgun sequencing reads that are unmapped to a particular organism and utilise a range of downstream metagenomic analysis steps. MINUUR differs from other metagenomic analysis pipelines by using a wide range of approaches to widely 'scavenge' biological information for host associated microbes, and to produce 'tidy' data suitable for parsing to R or Python. MINUUR utilises several programmes to extract information: 
 
 1. Kraken2 and MetaPhlAn to classify taxa to species level
