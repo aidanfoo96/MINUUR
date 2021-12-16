@@ -18,7 +18,7 @@ Once Mamba is installed run
 `mamba create -c bioconda -c conda-forge --name snakemake snakemake`
 
 # Installation of MINUUR
-Use `git clone` this repository 
+Use `git clone https://github.com/aidanfoo96/MINUUR/` and `cd MINUUR/workflow`. This is the reference point from which the pipeline will be run. See the WIKI page for a full tutorial on establishing the configuration file to run the pipeline
 
 ### Host Genome
 MINUUR separates unmapped reads from typical host whole genome sequences. A high quality host genome is required for raw fastq inputs in order to separate reads. Download a high quality reference database of your choosing (in fasta format) and follow [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) build tutorial here to create the index.
