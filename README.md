@@ -1,4 +1,4 @@
-MINUUR is still in development - any feedback is welcome!
+MINUUR is still in development - any feedback is welcome! Please contact: 248064@lstmed.ac.uk or dm me on Twitter: https://twitter.com/fooheesoon
 
 # MINUUR - Microbial INsight Using Unmapped Reads
 MINUUR is a snakemake pipeline to extract unmapped whole genome shotgun sequencing reads and utilise a range of metagenomic analyses to characterise host-associated microbes. MINUUR aims to leverage pre-existing WGS data to 'scavenge' for microbial information pertaining to host associated microbiomes - the key advantage being metagenomic reads as inputs to produce species level classifications, functional inference and assembly of metagenome assembled genomes (MAGs). 
