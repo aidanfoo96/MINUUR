@@ -16,8 +16,7 @@ MINUUR utilises several softwares in its pipeline:
 
 In addition, MINUUR will produce 'tidy' data suitable for parsing to R or Python.
 
-[workflow_fig2.pdf](https://github.com/aidanfoo96/MINUUR/files/7848451/workflow_fig2.pdf)
-
+![workflow_fig](https://user-images.githubusercontent.com/80700844/148985870-deed8d97-766e-4aef-9290-b97f9a377ac7.png)
 
 ## Installation of Snakemake
 MINUUR is run using the bioinformatics workflow manager [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html)
