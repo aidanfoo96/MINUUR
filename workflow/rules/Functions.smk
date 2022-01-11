@@ -87,6 +87,10 @@ def RunPipeline(wildcards):
                     "../results/kraken_results/classification_stat/classified_reads_long.txt",
                     "../results/kraken_results/plots/classified_proportions.pdf",
                     "../results/kraken_results/plots/genus_heatmap.pdf", 
+                    "../results/kraken_results/classified_summary/{sample}_classified_summary.txt", 
+                    "../results/kraken_results/concatenated_kraken_summary.txt",
+
+
 
                 ],
                 sample = samples
@@ -206,15 +210,6 @@ def RunPipeline(wildcards):
             )
         )
 
-    if config["MetagenomeAssm"]["MetagenomeCoAssm"]: 
-        final_input.extend(
-            expand(
-                [
-                    "../results/megahit_coassm/final.contigs.fa", 
-                ],
-                sample = samples
-            )
-        )
 
     if config["MetagenomeBinning"]["Activate"]: 
         final_input.extend(
@@ -246,14 +241,12 @@ def RunPipeline(wildcards):
                     "../results/binning/checkm_out/concatenated_bin_stats.tsv",
                     "../results/binning/plots/CompletenessVsContam.pdf",
                     "../results/binning/plots/NumContigsVsCompleteness.pdf",
-        
+                    "../results/binning/plots/CompletenessVsContam_Per_Sample.pdf",
+                    "../results/binning/plots/BarChartCompletenessContamination.pdf", 
+
                 ],
                 sample = samples
             )
         )
 
     return(final_input)
-
-
-
-
