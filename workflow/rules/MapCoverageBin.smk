@@ -23,7 +23,6 @@ def megahit_input_2(wildcards):
         return("../results/unmapped_fastq/{sample}_unmapped_2.fastq")
 
 
-
 rule index_megahit_contigs:
     """
         Index megahit assembled contigs using bwa
@@ -38,6 +37,8 @@ rule index_megahit_contigs:
         "../results/megahit_assm/{sample}_assm/final.contigs.fa",
     log:
         "logs/bwa_index/{sample}.log",
+    conda:
+        "../envs/map_coverage_bin.yaml",
     params:
         prefix = "../results/megahit_assm/{sample}_assm/{sample}",
         algorithm = "bwtsw",
@@ -54,9 +55,11 @@ rule map_reads_to_contig:
     input: 
         reads = megahit_input_1 and megahit_input_2
     log: 
-        "logs/bwa_mem/{sample}.log"
+        "logs/bwa_mem/{sample}.log",
+    conda:
+        "../envs/map_coverage_bin.yaml",
     threads: 
-        config["MetagenomeBinning"]["Threads"],
+        25
     params: 
         index = "../results/megahit_assm/{sample}_assm/{sample}",
         sorting = "samtools", 
