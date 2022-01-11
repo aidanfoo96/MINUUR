@@ -54,19 +54,22 @@ rule kraken_classification:
     input: 
         r1 = classification_input_r1,
         r2 = classification_input_r2,
-    threads: config["KrakenClassification"]["Threads"]
     conda: 
         "../envs/classification_env.yaml",
     params:
         kraken_db = config["kraken_db_location"],
-        conf_score = config["KrakenClassification"]["ConfidenceScore"]
+        conf_score = config["KrakenClassification"]["ConfidenceScore"],
+        threads = config["KrakenClassification"]["Threads"],
+    log: 
+        "logs/kraken2/{sample}_classification.log",
     shell: 
         r"""
             kraken2 -db {params.kraken_db} \
             --output {output.report} \
             --report {output.txt} \
             --confidence {params.conf_score} \
-            --paired {input.r1} {input.r2}
+            --threads {params.threads} \
+            --paired {input.r1} {input.r2} 2> {log}
          """
 
 
@@ -82,13 +85,14 @@ rule extract_taxon:
         krak_reprt = "../results/kraken_out/mpa_report/{sample}_report.txt",
         r1 = classification_input_r1,
         r2 = classification_input_r2,
-
     conda: 
         "../envs/classification_env.yaml",
     params: 
         taxa = config["ExtractKrakenTaxa"]["taxon_choice"],
     threads: 
         8
+    log: 
+        "logs/kraken2_taxonextract/{sample}.log",
     shell: 
         """
         extract_kraken_reads.py -k {input.krak_file} \
@@ -98,7 +102,7 @@ rule extract_taxon:
         --fastq-output \
         --taxid {params.taxa} \
         --include-children \
-        --report {input.krak_reprt} 
+        --report {input.krak_reprt} 2> {log}
         """
 
 
@@ -157,9 +161,35 @@ rule generate_classification_summary:
         long_read_tbl = "../results/kraken_results/classification_stat/classified_reads_long.txt",
     input: 
         classified_reads = "../results/kraken_results/tables/classified_reads_table.txt",
-        alignment_stats = classification_sum_input
+        alignment_stats = "../results/alignment_stats_ffq/concatenated_alignment_statistics.txt",
     script: 
         "../scripts/combined_kraken_alignment_stat_ffq.R"
+
+rule get_classified_unclassified_summary: 
+    """
+        Extract classified and unclassified number from kraken 'metaphlan' style report
+    """
+    output: 
+        classified_summaries = "../results/kraken_results/classified_summary/{sample}_classified_summary.txt", 
+    input: 
+        krak_mpa_report = "../results/kraken_out/mpa_report/{sample}_report.txt",
+    shell: 
+        "sed -n '1p;2p' {input.krak_mpa_report} > {output.classified_summaries}"
+
+rule concatenate_kraken_mpa_summary:
+    """
+        Concatenate kraken mpa style summary of 'classified' 'unclassifed reads'
+    """
+    output: 
+        concatenated_out = "../results/kraken_results/concatenated_kraken_summary.txt",
+    input: 
+        classified_summaries = expand("../results/kraken_results/classified_summary/{sample}_classified_summary.txt", sample = samples), 
+    params: 
+        filename = "FILENAME",
+    shell: 
+        r"""
+            awk '{{print $0 "\t" {params.filename}}}' {input.classified_summaries} > {output.concatenated_out}
+         """ 
 
 
 rule plot_classifiedVsUnclassified_reads: 
@@ -207,7 +237,9 @@ rule generate_metaphlan_report:
         db_loc = config["MetaphlanClassification"]["Database"],
         proc = config["MetaphlanClassification"]["NProc"]
     conda: 
-        "../envs/classification_env.yaml",
+        "../envs/metaphlan_classification.yaml",
+    log: 
+        "logs/metaphlan_classification/{sample}_classification.log"
     shell: 
         r"""
             metaphlan {input.read_1},{input.read_2} \
@@ -216,7 +248,7 @@ rule generate_metaphlan_report:
             -o {output.txt_out} \
             --unknown_estimation \
             --add_viruses \
-            --nproc {params.proc}
+            --nproc {params.proc} 2> {log}
             
          """
 
@@ -230,7 +262,7 @@ rule concatenate_clean_samples:
     input: 
         cln_out = expand("../results/metaphlan_out/taxa_profile/{sample}_taxa_prof.txt", sample = samples),
     conda: 
-        "../envs/classification_env.yaml",
+        "../envs/metaphlan_classification.yaml",
     shell: 
         "merge_metaphlan_tables.py {input.cln_out} > {output.concat_tbl}" 
 
@@ -273,6 +305,10 @@ rule bracken_reestimation:
         bracken_db = config["BrackenReestimation"]["BrakenDb"],
         class_lvl = config["BrackenReestimation"]["ClassificationLvl"],
         dist_thresh = config["BrackenReestimation"]["DistributionThresh"],
+    conda: 
+        "../envs/classification_env.yaml",
+    log: 
+        "logs/bracken_classification/{sample}.log"
     shell: 
         r"""
             bracken -d {params.bracken_db} \
