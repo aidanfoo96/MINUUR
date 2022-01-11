@@ -48,6 +48,8 @@ rule generate_humann_profile:
         prot_db = config["HumannAnalysis"]["ProtDatabase"],
         num_threads = config["HumannAnalysis"]["Threads"],
         outdir = directory("../results/humann_out/{sample}_humann3_profile/"),
+    log:
+        "log/humann_profiling/{sample}.log",
     shell: 
         r"""
             humann3 --nucleotide-database {params.nt_db} \
@@ -55,7 +57,7 @@ rule generate_humann_profile:
             --threads {params.num_threads} \
             --input {input.concat_reads} \
             --output {params.outdir} \
-            --taxonomic-profile {input.mtphlan_prof}
+            --taxonomic-profile {input.mtphlan_prof} 2> {log}
          """
 
 
@@ -117,6 +119,7 @@ rule normalise_abundance:
         joined_coverages = "../results/humann_out/concatenated_humann_files/all_samples_pathcoverage_humann3.tsv",
     conda: 
         "../envs/readfunction_env.yaml",
+    
     shell: 
         r"""
             humann_renorm_table -i {input.joined_genes} -u relab -p -o {output.relab_genes}
