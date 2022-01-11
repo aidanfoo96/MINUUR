@@ -34,6 +34,8 @@ rule megahit_assembly:
         read2 = megahit_input_2
     conda: 
         "../envs/metagenome_assm_env.yaml",
+    log:
+        "logs/megahit_assm/{sample}.log",
     params: 
         outdir = "../results/megahit_assm/{sample}_assm/tmp",
         threads = config["MetagenomeAssm"]["Threads"],
@@ -47,7 +49,8 @@ rule megahit_assembly:
             -1 {input.read1} \
             -2 {input.read2} \
             -o {params.outdir} \
-            -t {params.threads} -m {params.memory} 
+            -t {params.threads} -m {params.memory} \
+            --k-step 10 2> {log}
 
             mv ../results/megahit_assm/{wildcards.sample}_assm/tmp/* \
             ../results/megahit_assm/{wildcards.sample}_assm/
@@ -64,6 +67,8 @@ rule quast:
         megahit_out = "../results/megahit_assm/{sample}_assm/final.contigs.fa",
     conda: 
         "../envs/metagenome_assm_env.yaml",
+    log:
+        "logs/quast/{sample}.log",
     params: 
         outdir = "../results/quast_out/{sample}_quast_output/",
         threads = config["MetagenomeAssm"]["Threads"],
@@ -72,7 +77,7 @@ rule quast:
             quast.py -o {params.outdir} \
             -t {params.threads} \
             --labels megahit \
-            {input.megahit_out}
+            {input.megahit_out} 2> {log}
 
          """
 
