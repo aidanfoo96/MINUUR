@@ -1,7 +1,7 @@
 ################ Quality Control and Host Alignment ##############
     # fastqc: (Andrews et al., 2010)
     # cutadapt: (Martin et al., 2011)
-    # hisat2: (Kim et al., 2019)
+    # bowtie2: (Author?)
 ##################################################################
 
 def get_input(wildcards): 
@@ -54,7 +54,9 @@ rule trim_sequences:
     input:
         get_input
     params: 
-        extra = config["QC"]["CutadaptParams"]
+        extra = config["QC"]["CutadaptParams"],
+    log: 
+        "logs/cutadapt/{sample}.log", 
     threads: 
         4
     wrapper:
@@ -91,15 +93,18 @@ rule align_fastq:
         read1 = "../results/qc/trimmed_fastq/{sample}_trimmed_1.fastq",
         read2 = "../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq", 
     conda: 
-        "envs/qc_env.yaml"
+        "../envs/qc_env.yaml",
+    log: 
+        "logs/bowtie2_align/{sample}.log", 
     params: 
         db = config['RemoveHostFromFastqGz']["ContaminantIndex"],
         threads = config['RemoveHostFromFastqGz']['Threads'],
+        sensitivity = config['RemoveHostFromFastqGz']['AlignmentSensitivty']
     shell: 
         r"""
-            hisat2 -x {params.db} \
+            bowtie2 -x {params.db} \
             -1 {input.read1} -2 {input.read2} \
-            -t --threads {params.threads} | 
+            -t --threads {params.threads} {params.sensitivity} | 
             samtools view -bS - | samtools sort - \
-            -o {output.bam}
+            -o {output.bam} 2> {log}
          """
