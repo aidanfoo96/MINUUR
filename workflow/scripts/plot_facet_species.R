@@ -1,5 +1,6 @@
 #!/usr/bin/env Rscript
 library(tidyverse)
+library(MetBrewer)
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
 ##### Import Data #####s
@@ -40,12 +41,19 @@ spp_thres <- as.numeric(spp_thres)
 
 spp_tbl_clean %>%
   filter(read_number > spp_thres) %>%
+  filter(species != "Homo_sapiens") %>%
   ggplot() + 
   aes(x = sample, y = species) + 
   geom_tile(aes(fill = log(read_number)), linejoin = "round") + 
-  scale_fill_gradientn(colours = c("white", "orange", "blue")) +
+  scale_fill_gradientn(colours = met.brewer("Hiroshige", 4, type = "discrete")) +
   theme_classic(base_size = 20) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1), 
+        legend.position = "top", 
+        legend.text = element_text(size = 15), 
+        legend.title = element_text(size = 15)) + 
+  labs(fill = "Read Number (log)") + 
+  xlab("Sample") + 
+  ylab("Species")
 
 ggsave(snakemake@output[["species_heatmap"]], height = 20, width = 15)
 
