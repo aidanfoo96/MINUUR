@@ -10,6 +10,10 @@ rule lineage_checkm:
         "../results/binning/checkm_out/{sample}_checkm/lineage.ms",
     input: 
         direc = "../results/binning/metabat_out/{sample}_bins/{sample}",
+    log: 
+        "logs/BinQA/{sample}.log",
+    conda:
+        "../envs/map_coverage_bin.yaml",
     params: 
         outdir = "../results/binning/checkm_out/{sample}_checkm/",
         indir = "../results/binning/metabat_out/{sample}_bins/",
@@ -18,7 +22,7 @@ rule lineage_checkm:
         r"""
             checkm lineage_wf -t {params.threads} \
             --pplacer_threads {params.threads} \
-            -x .fa {params.indir} {params.outdir}    
+            -x .fa {params.indir} {params.outdir} 2> {log}  
          """
 
 rule QA_checkm: 
@@ -29,6 +33,8 @@ rule QA_checkm:
         "../results/binning/checkm_out/QA_out/{sample}_checkm_out.tsv",
     input: 
         lineage = "../results/binning/checkm_out/{sample}_checkm/lineage.ms",
+    log: 
+        "logs/checkmQA/{sample}.log"
     params: 
         threads = config["CheckmBinQA"]["Threads"],
         out = "../results/binning/{sample}/checkm_out/lineage.ms",
@@ -36,7 +42,7 @@ rule QA_checkm:
     shell: 
         r"""
             checkm qa -t {params.threads} -f {output} --tab_table -o 2 \
-            {input.lineage} {params.direc}
+            {input.lineage} {params.direc} 2> {log}
          """
 
 rule concatenate_checkm_out: 
@@ -63,6 +69,8 @@ rule plot_QA_stats:
     output: 
         CompletenessVsContam = "../results/binning/plots/CompletenessVsContam.pdf",
         NumContigsVsCompleteness = "../results/binning/plots/NumContigsVsCompleteness.pdf",
+        CompletenessVsContam_Per_Sample = "../results/binning/plots/CompletenessVsContam_Per_Sample.pdf",
+        BarChartCompletenessContamination = "../results/binning/plots/BarChartCompletenessContamination.pdf", 
     input: 
         checkm_conc_result = "../results/binning/checkm_out/concatenated_bin_stats.tsv",
     script:
