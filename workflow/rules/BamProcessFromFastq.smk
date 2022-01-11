@@ -12,6 +12,8 @@ rule bam_file_statsistic_fq:
         txt = "../results/bam_stats_ffq/{sample}_stats.txt",
     input: 
         sample = "../results/aligned_bam/{sample}_sorted.bam",
+    log: 
+        "logs/samtool_stats_ffq/{sample}.log", 
     wrapper: 
         "0.79.0/bio/samtools/stats"
 
@@ -55,9 +57,10 @@ rule extract_unmapped_bam_from_fastq:
         sample = "../results/aligned_bam/{sample}_sorted.bam",
     conda: 
         "../envs/bam_processing_env.yaml",
+    log: 
+        "logs/samtools_extract_ffq/{sample}.log", 
     shell: 
-        "samtools view -b -f 12 -F 256 {input.sample} > {output.bam} "
-
+        "samtools view -b -f 12 -F 256 {input.sample} > {output.bam} 2> {log}"
 
 
 rule bam_to_fastq_ffq: 
@@ -73,23 +76,3 @@ rule bam_to_fastq_ffq:
         "../envs/bam_processing_env.yaml",
     shell: 
         "bamToFastq -i {input.sample} -fq {output.fastq1} -fq2 {output.fastq2}"
-
-
-rule count_reads_fastq_ffq: 
-    """
-        Count number of reads from fastq file
-    """
-    output: 
-        fq_count = "../results/alignment_stats_ffq/{sample}_count.txt",
-        fq_count2 = "../results/alignment_stats_ffq/{sample}_count2.txt",
-
-    input: 
-        fastq = expand("../results/unmapped_fastq_ffq/{sample}_unmapped_1.fastq", sample = samples),
-        fastq2 = expand("../results/unmapped_fastq_ffq/{sample}_unmapped_2.fastq", sample = samples),
-
-    shell: 
-        r"""
-            echo $(( $(wc -l <{input.fastq}) / 4 )) > {output.fq_count} 
-            echo $(( $(wc -l <{input.fastq2}) / 4 )) > {output.fq_count2}
-
-         """
