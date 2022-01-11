@@ -1,7 +1,7 @@
 MINUUR is still in development - any feedback is welcome! Please contact: 248064@lstmed.ac.uk or dm me on Twitter: https://twitter.com/fooheesoon
 
 # MINUUR - Microbial INsight Using Unmapped Reads
-MINUUR is a snakemake pipeline to extract unmapped whole genome shotgun sequencing reads and utilise a range of metagenomic analyses to characterise host-associated microbes. MINUUR aims to leverage pre-existing WGS data to 'scavenge' for microbial information pertaining to host associated microbiomes - the key advantage being metagenomic reads as inputs to produce species level classifications, functional inference and assembly of metagenome assembled genomes (MAGs). 
+MINUUR is a snakemake pipeline to extract unmapped whole genome shotgun sequencing reads and utilise a range of metagenomic analyses to characterise host-associated microbes. Orginally, MINUUR was intended to be used for the extraction of mosquito-associated bacterial symbionts, however, its application can be used in other host-associated WGS data. MINUUR aims to leverage pre-existing WGS data to 'scavenge' for microbial information pertaining to host associated microbiomes - the key advantage being metagenomic reads as inputs to produce species level classifications, functional inference and assembly of metagenome assembled genomes (MAGs). 
 
 MINUUR utilises several softwares in its pipeline: 
 - Kraken2 to classify microbial taxa to species level from read sequences
@@ -16,7 +16,7 @@ MINUUR utilises several softwares in its pipeline:
 
 In addition, MINUUR will produce 'tidy' data suitable for parsing to R or Python.
 
-![workflow_fig](https://user-images.githubusercontent.com/80700844/148985870-deed8d97-766e-4aef-9290-b97f9a377ac7.png)
+![workflow_fig_crop](https://user-images.githubusercontent.com/80700844/148986377-3df4a613-fd43-49e1-9093-cc631a5a0d68.png)
 
 ## Installation of Snakemake
 MINUUR is run using the bioinformatics workflow manager [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html)
