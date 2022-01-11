@@ -34,7 +34,7 @@ QC:
 RemoveHostFromFastqGz: 
   Activate: True
   Threads: 12
-  # Give path to Hisat2 indexed host genome
+  # Give path to Bowtie2 indexed host genome
   ContaminantIndex: ../resources/aedes_ref/aedes_aegypti_idx
   AlignmentSensitivty: "--sensitive-local"
   
