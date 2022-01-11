@@ -31,9 +31,11 @@ rule bam_file_statistic:
         txt = "../results/bam_stats/{sample}_stats.txt",
     input: 
         get_input
+    log: 
+        "logs/samtool_stats/{sample}.log", 
     shell: 
         r"""
-            samtools stats {input} > {output.txt}
+            samtools stats {input} > {output.txt} 2> {log}
          """
 
 
@@ -63,7 +65,6 @@ rule concatenate_alignment_statistics:
     shell: 
         r"""
             awk '{{print $0 "\t" {params.filename}}}' {input.sample} > {output.txt}
-        
          """
 
 
@@ -77,8 +78,10 @@ rule extract_unmapped_bam:
         get_input
     conda: 
         "../envs/bam_processing_env.yaml",
+    log: 
+        "logs/samtools_extract/{sample}.log", 
     shell: 
-        "samtools view -b -f 4 {input} > {output.bam} "
+        "samtools view -b -f 4 {input} > {output.bam} 2> {log}"
 
 
 rule bam_to_fastq: 
