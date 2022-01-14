@@ -1,9 +1,9 @@
-MINUUR is still in development - any feedback is welcome! Please contact: 248064@lstmed.ac.uk or dm me on Twitter: https://twitter.com/fooheesoon
+MInUUR is still in development - any feedback is welcome! Please contact: 248064@lstmed.ac.uk or dm me on Twitter: https://twitter.com/fooheesoon
 
-# MINUUR - Microbial INsight Using Unmapped Reads
-MINUUR is a snakemake pipeline to extract unmapped whole genome shotgun sequencing reads and utilise a range of metagenomic analyses to characterise host-associated microbes. Orginally, MINUUR was intended to be used for the extraction of mosquito-associated bacterial symbionts, however, its application can be used in other host-associated WGS data. MINUUR aims to leverage pre-existing WGS data to 'scavenge' for microbial information pertaining to host associated microbiomes - the key advantage being metagenomic reads as inputs to produce species level classifications, functional inference and assembly of metagenome assembled genomes (MAGs). 
+# MInUUR - Microbial INsight Using Unmapped Reads
+MInUUR is a snakemake pipeline to extract unmapped whole genome shotgun sequencing reads and utilise a range of metagenomic analyses to characterise host-associated microbes. Orginally, MInUUR was intended to be used for the extraction of mosquito-associated bacterial symbionts, however, its application can be used in other host-associated WGS data. MInUUR aims to leverage pre-existing WGS data to 'scavenge' for microbial information pertaining to host associated microbiomes - the key advantage being metagenomic reads as inputs to produce species level classifications, functional inference and assembly of metagenome assembled genomes (MAGs). 
 
-MINUUR utilises several softwares in its pipeline: 
+MInUUR utilises several softwares in its pipeline: 
 - Kraken2 to classify microbial taxa to species level from read sequences
 - KrakenTools to extract classified reads pertaining to microbes for downstream analysis
 - Bracken to reestimate taxonomic abundance from Kraken2 taxonomic report
@@ -14,12 +14,12 @@ MINUUR utilises several softwares in its pipeline:
 - MetaBat2 to bin assembled contigs
 - CheckM to assess bin quality
 
-In addition, MINUUR will produce 'tidy' data suitable for parsing to R or Python.
+In addition, MInUUR will produce 'tidy' data suitable for parsing to R or Python.
 
 ![workflow_fig_crop](https://user-images.githubusercontent.com/80700844/148986377-3df4a613-fd43-49e1-9093-cc631a5a0d68.png)
 
 ## Installation of Snakemake
-MINUUR is run using the bioinformatics workflow manager [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html)
+MInUUR is run using the bioinformatics workflow manager [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html)
 
 Snakemake is best installed using the package manager [Mamba](https://github.com/mamba-org/mamba)
 
@@ -27,7 +27,7 @@ Once Mamba is installed run
 
 `mamba create -c bioconda -c conda-forge --name snakemake snakemake`
 
-## Installation of MINUUR
+## Installation of MInUUR
 Use `git clone https://github.com/aidanfoo96/MINUUR/` and `cd MINUUR/workflow`. This is the reference point from which the pipeline will be run. See the WIKI page for a full tutorial on establishing the configuration file to run the pipeline
 
 #### Host Genome
