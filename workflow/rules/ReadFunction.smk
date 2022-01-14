@@ -92,9 +92,9 @@ rule join_humann_outputs:
         joined_abundances = "../results/humann_out/concatenated_humann_files/all_samples_pathabundance_humann3.tsv", 
         joined_coverages = "../results/humann_out/concatenated_humann_files/all_samples_pathcoverage_humann3.tsv",
     input: 
-        moved_genes = "../results/humann_out/sorted_abundance_profiles/",
-        moved_abun = "../results/humann_out/sorted_abundance_profiles/",
-        moved_coverage = "../results/humann_out/sorted_abundance_profiles/",
+        moved_genes = expand("../results/humann_out/sorted_abundance_profiles/{sample}_unmapped_conc_genefamilies.tsv", sample=samples),
+        moved_abun = expand("../results/humann_out/sorted_abundance_profiles/{sample}_unmapped_conc_pathabundance.tsv", sample=samples),
+        moved_coverage = expand("../results/humann_out/sorted_abundance_profiles/{sample}_unmapped_conc_pathcoverage.tsv", sample=samples),
     conda: 
         "../envs/readfunction_env.yaml",
     shell: 
