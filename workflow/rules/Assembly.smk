@@ -89,7 +89,7 @@ rule concatenate_quast_report:
     output:    
         txt =  "../results/quast_out/concat_transposed_report.tsv"
     input: 
-        sample = expand("../results/quast_out/{sample}_quast_output/transposed_report.tsv", sample = samples), 
+        sample = expand("../results/quast_out/{sample}_quast_output/report.txt", sample = samples), 
     params: 
         filename = "FILENAME", 
     shell: 
