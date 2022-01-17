@@ -39,6 +39,8 @@ rule QA_checkm:
         threads = config["CheckmBinQA"]["Threads"],
         out = "../results/binning/{sample}/checkm_out/lineage.ms",
         direc = "../results/binning/checkm_out/{sample}_checkm/",
+    conda:
+        "../envs/map_coverage_bin.yaml",
     shell: 
         r"""
             checkm qa -t {params.threads} -f {output} --tab_table -o 2 \
