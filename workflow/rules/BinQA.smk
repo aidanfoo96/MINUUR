@@ -73,5 +73,7 @@ rule plot_QA_stats:
         BarChartCompletenessContamination = "../results/binning/plots/BarChartCompletenessContamination.pdf", 
     input: 
         checkm_conc_result = "../results/binning/checkm_out/concatenated_bin_stats.tsv",
+    conda: 
+        "../envs/r_and_plotting_env.yaml",
     script:
         "../scripts/plot_checkm_QA.R" 
