@@ -93,15 +93,17 @@ rule join_humann_outputs:
         joined_coverages = "../results/humann_out/concatenated_humann_files/all_samples_pathcoverage_humann3.tsv",
     input: 
         moved_genes = expand("../results/humann_out/sorted_abundance_profiles/{sample}_unmapped_conc_genefamilies.tsv", sample=samples),
-        moved_abun = expand("../results/humann_out/sorted_abundance_profiles/{sample}_unmapped_conc_pathabundance.tsv", sample=samples),
+        moved_abun = expand("../results/humann_out/sorted_abundance_profiles/{sample}_unmapped_conc_pathabundance.tsv", sample = samples),
         moved_coverage = expand("../results/humann_out/sorted_abundance_profiles/{sample}_unmapped_conc_pathcoverage.tsv", sample=samples),
+    params: 
+        indir = "../results/humann_out/sorted_abundance_profiles/",
     conda: 
         "../envs/readfunction_env.yaml",
     shell: 
         r"""
-            humann_join_tables -i {input.moved_genes} -o {output.joined_genes} --file_name genefamilies
-            humann_join_tables -i {input.moved_abun} -o {output.joined_abundances} --file_name pathabundance
-            humann_join_tables -i {input.moved_coverage} -o {output.joined_coverages} --file_name pathcoverage
+            humann_join_tables -i {params.indir} -o {output.joined_genes} --file_name genefamilies
+            humann_join_tables -i {params.indir} -o {output.joined_abundances} --file_name pathabundance
+            humann_join_tables -i {params.indir} -o {output.joined_coverages} --file_name pathcoverage
          """
 
 
@@ -145,6 +147,8 @@ rule split_output:
         relab_cov = "../results/humann_out/concatenated_humann_files/relative_abund/all_samples_pathcoverage_humann3_relab.tsv",
     params: 
         outdir = directory("../results/humann_out/concatenated_humann_files/relab_strat/"), 
+    conda: 
+        "../envs/readfunction_env.yaml",
     shell: 
         r"""
             humann_split_stratified_table -i {input.relab_genes} -o {params.outdir}
@@ -163,6 +167,8 @@ rule rename_humann_genes:
         g_strat = "../results/humann_out/concatenated_humann_files/relab_strat/all_samples_genefamilies_humann3_relab_stratified.tsv",
     params: 
         rename = config["RenameHumannGeneNames"]["Rename"],
+    conda: 
+        "../envs/readfunction_env.yaml",
     shell: 
         r"""
             humann_rename_table --input {input.g_strat} \
@@ -182,6 +188,8 @@ rule plot_function:
         renamed_table = "../results/humann_out/concatenated_humann_files/renamed_abund_tbl/all_samples_genesfamilies_humann3_relab_stratified_uniref90.tsv",
     params:
         role = config["GetBiologicalProcess"]["Process"],
+    conda: 
+        "../envs/r_and_plotting_env.yaml",
     script: 
         "../scripts/extract_humann_function.R"
 
