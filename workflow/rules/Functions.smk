@@ -168,6 +168,10 @@ def RunPipeline(wildcards):
                     "../results/humann_out/concatenated_humann_files/relab_strat/all_samples_pathabundance_humann3_relab_unstratified.tsv",
                     "../results/humann_out/concatenated_humann_files/relab_strat/all_samples_pathcoverage_humann3_relab_stratified.tsv",
                     "../results/humann_out/concatenated_humann_files/relab_strat/all_samples_pathcoverage_humann3_relab_unstratified.tsv",
+                    "../results/humann_out/summarised_bowtie2_stats/{sample}_bowtie2_alignment_summarised_gene_number.tsv",
+                    "../results/humann_out/summarised_bowtie2_stats/concatenated_bowtie2_alignment_summarised_gene_number.tsv",
+
+
                 ],
                 sample = samples
             )
