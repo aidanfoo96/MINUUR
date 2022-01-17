@@ -54,14 +54,14 @@ rule kraken_classification:
     input: 
         r1 = classification_input_r1,
         r2 = classification_input_r2,
-    conda: 
-        "../envs/classification_env.yaml",
     params:
         kraken_db = config["kraken_db_location"],
         conf_score = config["KrakenClassification"]["ConfidenceScore"],
         threads = config["KrakenClassification"]["Threads"],
     log: 
         "logs/kraken2/{sample}_classification.log",
+    conda: 
+        "../envs/classification_env.yaml",
     shell: 
         r"""
             kraken2 -db {params.kraken_db} \
@@ -162,6 +162,8 @@ rule generate_classification_summary:
     input: 
         classified_reads = "../results/kraken_results/tables/classified_reads_table.txt",
         alignment_stats = "../results/alignment_stats_ffq/concatenated_alignment_statistics.txt",
+    conda: 
+        "../envs/r_and_plotting_env.yaml",
     script: 
         "../scripts/combined_kraken_alignment_stat_ffq.R"
 
@@ -200,6 +202,8 @@ rule plot_classifiedVsUnclassified_reads:
         classified_proportions = "../results/kraken_results/plots/classified_proportions.pdf", 
     input: 
         long_read_tbl = "../results/kraken_results/classification_stat/classified_reads_long.txt",
+    conda: 
+        "../envs/r_and_plotting_env.yaml",
     script: 
         "../scripts/plot_classifiedVsunclassified_reads.R"
 
@@ -218,7 +222,9 @@ rule plot_stratified_classifications:
     params: 
         strat_thresh = config["KrakenSummaries"]["StratThreshold"],
         genus_thresh = config["KrakenSummaries"]["GenusReadThreshold"],
-        species_thresh = config["KrakenSummaries"]["SpeciesReadThreshold"]
+        species_thresh = config["KrakenSummaries"]["SpeciesReadThreshold"],
+    conda: 
+        "../envs/r_and_plotting_env.yaml",
     script: 
         "../scripts/plot_facet_species.R"
 
@@ -347,5 +353,7 @@ rule plot_bracken_results:
         conc_input = "../results/bracken_reestimation/concat_bracken_out/concatenated_bracken_report.txt",
     params: 
         bracken_threshold = config["BrackenReestimation"]["PlotThreshold"],
+    conda: 
+        "../envs/r_and_plotting_env.yaml",
     script: 
         "../scripts/plot_bracken_results.R"
