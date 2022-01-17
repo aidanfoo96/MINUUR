@@ -193,4 +193,31 @@ rule plot_function:
     script: 
         "../scripts/extract_humann_function.R"
 
-## Add a rule to colour a specific taxa + function in plot! 
+rule get_bowtie2_alignment_statistics:
+    """
+        Get bowtie2 alignment sensitvity
+    """
+    output:
+        summarised_genes = "../results/humann_out/summarised_bowtie2_stats/{sample}_bowtie2_alignment_summarised_gene_number.tsv",
+    input: 
+        bowtie2_humann_align = "../results/humann_out/{sample}_humann3_profile/{sample}_unmapped_conc_humann_temp/{sample}_unmapped_conc_bowtie2_aligned.tsv",
+    conda: 
+        "../envs/r_and_plotting_env.yaml",
+    script: 
+        "../scripts/extract_humann_bowtie2_percentidentity.R"
+
+rule combine_bowtie2_humann_stat: 
+    """
+        Combine bowtie2 alignment_sensitvity plots
+    """
+    output: 
+        combined_summarised_genes = "../results/humann_out/summarised_bowtie2_stats/concatenated_bowtie2_alignment_summarised_gene_number.tsv",
+    input: 
+        summarised_genes = expand("../results/humann_out/summarised_bowtie2_stats/{sample}_bowtie2_alignment_summarised_gene_number.tsv", sample=samples),
+    params: 
+        filename = "FILENAME",
+    shell: 
+        r"""
+            awk '{{print $0 "\t" {params.filename}}}' {input.summarised_genes} > {output.combined_summarised_genes}
+         """
+
