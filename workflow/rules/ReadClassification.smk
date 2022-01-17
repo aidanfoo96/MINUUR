@@ -147,7 +147,9 @@ rule generate_clean_kraken_summaries:
     input:
         combined_report = "../results/kraken_out/combined_report/kraken_bacterial_report.txt"
     params:
-        kraken_db_type = config["KrakenSummaries"]["KrakenDbStandard"]
+        kraken_db_type = config["KrakenSummaries"]["KrakenDbStandard"],
+    conda:  
+        "../envs/r_and_plotting_env.yaml",
     script: 
         "../scripts/generate_kraken_summaries.R"
 
@@ -178,6 +180,7 @@ rule get_classified_unclassified_summary:
     shell: 
         "sed -n '1p;2p' {input.krak_mpa_report} > {output.classified_summaries}"
 
+
 rule concatenate_kraken_mpa_summary:
     """
         Concatenate kraken mpa style summary of 'classified' 'unclassifed reads'
@@ -201,8 +204,8 @@ rule plot_classifiedVsUnclassified_reads:
     output: 
         classified_proportions = "../results/kraken_results/plots/classified_proportions.pdf", 
     input: 
-        long_read_tbl = "../results/kraken_results/classification_stat/classified_reads_long.txt",
-    conda: 
+        concatenated_kraken_summary = "../results/kraken_results/concatenated_kraken_summary.txt",
+    conda:  
         "../envs/r_and_plotting_env.yaml",
     script: 
         "../scripts/plot_classifiedVsunclassified_reads.R"
@@ -243,7 +246,7 @@ rule generate_metaphlan_report:
         db_loc = config["MetaphlanClassification"]["Database"],
         proc = config["MetaphlanClassification"]["NProc"]
     conda: 
-        "../envs/metaphlan_classification.yaml",
+        "../envs/classification_env.yaml",
     log: 
         "logs/metaphlan_classification/{sample}_classification.log"
     shell: 
@@ -268,7 +271,7 @@ rule concatenate_clean_samples:
     input: 
         cln_out = expand("../results/metaphlan_out/taxa_profile/{sample}_taxa_prof.txt", sample = samples),
     conda: 
-        "../envs/metaphlan_classification.yaml",
+        "../envs/classification_env.yaml",
     shell: 
         "merge_metaphlan_tables.py {input.cln_out} > {output.concat_tbl}" 
 
@@ -295,6 +298,8 @@ rule generate_clean_metaphlan_summaries:
         spp_table = "../results/metaphlan_out/clean_summaries/species_table_tidy.txt", 
     input:
         concat_tbl = "../results/metaphlan_out/taxa_profile_clean/merged_tbl/merged_taxa_prof_clean.txt",
+    conda:  
+        "../envs/r_and_plotting_env.yaml",
     script:
         "../scripts/generate_metaphlan_summaries.R" 
 
