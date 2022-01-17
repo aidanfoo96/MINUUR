@@ -1,19 +1,44 @@
 #!/usr/bin/env Rscript
 library(tidyverse)
-cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+library(MetBrewer)
 
-data <- read_tsv(snakemake@input[["long_read_tbl"]])
+#### Import Kraken Data
+concatenated_kraken_summaries <- read_tsv(snakemake@input[["concatenated_kraken_summary"]], 
+                                            col_names = c("proportion_of_reads", 
+                                                        "number_of_reads", 
+                                                        "number_of_reads2",
+                                                        "read_code", 
+                                                        "read_code2", 
+                                                        "classification_status", 
+                                                        "file_path"))
 
-plot <- data %>% 
-  filter(sequence_type == c("reads unmapped:", "classified_reads")) %>%
-  ggplot() + 
-  aes(x = sample, y = num_reads, fill = sequence_type) + 
-  geom_bar(stat = "identity", position = "fill") + 
-  scale_fill_brewer(palette="Set2", labels = c("Classified Reads", "Unclassified Reads")) + 
-  coord_flip() + 
-  ylab("Proportion of Reads") + xlab("Sample") + 
-  labs(title = "Proportion of Classified to Unclassified Reads") + 
-  guides(fill = guide_legend("Sequence Type")) + 
-  theme_minimal()
+concatenated_kraken_summaries_clean <- concatenated_kraken_summaries %>%
+  separate(file_path, into = c("junk", "filename"), sep = "classified_summary/") %>%
+  separate(filename, into = c("sample", "junk2"), sep = "_classified_summary.txt") %>%
+  select(sample, proportion_of_reads, number_of_reads, classification_status) 
+
+
+#### Plot Proportion of Classified vs Unclassified Reads from Kraken
+plot_kraken_proportion <- function(kraken_table){
   
-ggsave(snakemake@output[["classified_proportions"]], height = 15, width = 15)  
+  concatenated_kraken_summaries_clean_plot <- kraken_table %>%
+    ggplot() + 
+    aes(x = sample, y = number_of_reads, fill = classification_status) + 
+    geom_bar(stat = "identity", position = "fill") + 
+    theme_bw(base_size = 15) + 
+    scale_fill_manual(values = met.brewer("Redon", n = 2, type = "continuous"), 
+                      labels = c("Classified Reads", "Unclassified Reads")) + 
+    xlab("Sample") + 
+    ylab("Proportion of Reads") + 
+    theme(legend.title = element_blank(), 
+          axis.text.x = element_text(angle = 60, vjust = 1, hjust = 1), 
+          legend.position = "top")
+  
+  return(concatenated_kraken_summaries_clean_plot)
+  
+}
+
+kraken_classification_proportions <- plot_kraken_proportion(concatenated_kraken_summaries_clean)
+
+#### Save file
+ggsave(snakemake@output[["classified_proportions"]], kraken_classification_proportions)
