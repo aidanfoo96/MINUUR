@@ -3,7 +3,6 @@ channels:
   - bioconda
   - conda-forge
 dependencies: 
-  - kraken2
-  - krakentools
-  - metaphlan
-
+  - kraken2=2.1.2
+  - krakentools=1.2
+  - metaphlan=3.0.13
