@@ -1,9 +1,9 @@
 MInUUR is still in development - any feedback is welcome! Please contact: 248064@lstmed.ac.uk or dm me on Twitter: https://twitter.com/fooheesoon
 
 # MInUUR - Microbial INsight Using Unmapped Reads
-MInUUR is a snakemake pipeline to extract unmapped whole genome shotgun sequencing reads and utilise a range of metagenomic analyses to characterise host-associated microbes. Orginally, MInUUR was intended to be used for the extraction of mosquito-associated bacterial symbionts, however, its application can be used in other host-associated WGS data. MInUUR aims to leverage pre-existing WGS data to 'scavenge' for microbial information pertaining to host associated microbiomes - the key advantage being metagenomic reads as inputs to produce species level classifications, functional inference and assembly of metagenome assembled genomes (MAGs). 
+MInUUR is a snakemake pipeline to extract unmapped whole genome shotgun sequencing reads and utilise a range of metagenomic analyses to characterise host-associated microbes. Orginally, MInUUR was intended to be used for the extraction of mosquito-associated bacterial symbionts, however, its application can be applied to other host-associated WGS data. MInUUR aims to leverage pre-existing WGS data to 'scavenge' for microbial information pertaining to host associated microbiomes - the key advantage being metagenomic reads as inputs to produce genus & species level classifications, functional inference and assembly of metagenome assembled genomes (MAGs). 
 
-MInUUR utilises several softwares in its pipeline: 
+MInUUR utilises several pieces of software in its pipeline: 
 - Kraken2 to classify microbial taxa to species level from read sequences
 - KrakenTools to extract classified reads pertaining to microbes for downstream analysis
 - Bracken to reestimate taxonomic abundance from Kraken2 taxonomic report
@@ -47,4 +47,7 @@ MetaPhlAn3 requires a database file containing clade specific marker genes. Inst
 
 #### HUMAnN3 Database 
 [Humann3](https://github.com/biobakery/humann) requires two databases, the ChocoPhlAn database and translated search databases. The choices of databases and download links are available on the github page above. 
+
+### Running Snakemake
+Once the configuration file has been configured to the users choosing (see WIKI), run `snakemake -np` to test the pipeline runs as expected. Use `snakemake --cores N --use-conda` to run the pipeline, with `N` denoting the number of cores for parrelization. If no parrelization is required, use `--cores 1`. 
 
