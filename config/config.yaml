@@ -6,7 +6,7 @@
 #####################################################
 
 # Samples: provide file path to the samples names here
-samples: ../config/samples_fastq.tsv.txt
+samples: ../config/samples_fastq.tsv
 
 # Kraken Database: provide file path to your kraken database here
 kraken_db_location: ../resources/kraken_db/
