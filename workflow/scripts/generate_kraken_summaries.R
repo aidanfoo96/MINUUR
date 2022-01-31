@@ -80,4 +80,3 @@ write.table(total_reads_per_study, file = snakemake@output[["classified_reads"]]
 pdf(snakemake@output[["classified_reads_plot"]])
 print(classified_reads_plot)
 dev.off()
-
