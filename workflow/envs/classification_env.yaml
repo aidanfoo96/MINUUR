@@ -6,3 +6,4 @@ dependencies:
   - kraken2=2.1.2
   - krakentools=1.2
   - metaphlan=3.0.13
+  - bracken=2.6.1

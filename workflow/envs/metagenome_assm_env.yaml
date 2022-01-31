@@ -3,5 +3,5 @@ channels:
   - bioconda
   - conda-forge
 dependencies: 
-  - megahit
-  - quast
+  - megahit=1.2.9
+  - quast=5.0.2

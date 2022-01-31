@@ -1,0 +1,8 @@
+channels:
+  - defaults
+  - bioconda
+  - conda-forge
+dependencies: 
+  - checkm-genome
+  - samtools=1.14
+  - metabat2=2.12.1

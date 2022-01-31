@@ -2,6 +2,5 @@ channels:
   - defaults
   - bioconda
   - conda-forge
-  - biobakery
 dependencies: 
-  - kneaddata
+  - bowtie2=2.4.4
