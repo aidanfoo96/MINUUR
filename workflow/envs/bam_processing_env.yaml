@@ -4,5 +4,5 @@ channels:
   - conda-forge
   - yuxiang
 dependencies: 
-  - samtools 
-  - bam2fastq
+  - samtools=1.14
+  - bam2fastq=1.1.0
