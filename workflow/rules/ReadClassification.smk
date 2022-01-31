@@ -232,6 +232,27 @@ rule plot_stratified_classifications:
         "../scripts/plot_kraken_heatmaps.R"
 
 
+rule plot_classifications_spatial: 
+    """
+        Generate "Spatial" Plots of Read Classifications
+        Uses same read theshold as plot_stratified_classifications
+    """
+    output: 
+        genus_spatial_plot = "../results/kraken_results/plots/genus_spatial_plot.pdf", 
+        species_spatial_plot = "../results/kraken_results/plots/species_spatial_plot.pdf",
+    input: 
+        genus_table = "../results/kraken_results/tables/genus_table_tidy.txt",
+        spp_table = "../results/kraken_results/tables/species_table_tidy.txt",
+    params: 
+        strat_thresh = config["KrakenSummaries"]["StratThreshold"],
+        genus_thresh = config["KrakenSummaries"]["GenusReadThreshold"],
+        species_thresh = config["KrakenSummaries"]["SpeciesReadThreshold"],
+    conda: 
+        "../envs/r_and_plotting_env.yaml",
+    script: 
+        "../scripts/plot_kraken_spatial.R"
+
+
 rule generate_metaphlan_report: 
     """
         Classify unmapped reads using MetaPhlAn3

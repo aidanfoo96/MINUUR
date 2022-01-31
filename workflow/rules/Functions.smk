@@ -89,9 +89,8 @@ def RunPipeline(wildcards):
                     "../results/kraken_results/plots/genus_heatmap.pdf", 
                     "../results/kraken_results/classified_summary/{sample}_classified_summary.txt", 
                     "../results/kraken_results/concatenated_kraken_summary.txt",
-
-
-
+                    "../results/kraken_results/plots/genus_spatial_plot.pdf", 
+                    "../results/kraken_results/plots/species_spatial_plot.pdf",
                 ],
                 sample = samples
             )
