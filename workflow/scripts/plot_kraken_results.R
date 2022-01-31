@@ -1,12 +1,13 @@
 ### Load Packages
 #!/usr/bin/env Rscript
 library(tidyverse)
+library(MetBrewer)
 
 ### Define and import data from {input} snakemake
 columns <- c("Spp", "read_count")
 data <- read_tsv(snakemake@input[["krak"]], col_names = columns)
 
-### Hacky way to separate the Kraken out into R readable format
+### Separate the Kraken out into R readable format
 clean_output <- function(kraken_table){
   kraken_table_clean <- kraken_table %>%
     separate(Spp, 
