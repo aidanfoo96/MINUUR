@@ -1,4 +1,4 @@
 results/
 resources/
-workflow/data
-workflow/logs
+workflow/data/
+workflow/logs/
