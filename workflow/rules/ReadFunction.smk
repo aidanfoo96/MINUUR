@@ -38,6 +38,7 @@ rule generate_humann_profile:
         gene_fam = "../results/humann_out/{sample}_humann3_profile/{sample}_unmapped_conc_genefamilies.tsv",
         path_abun = "../results/humann_out/{sample}_humann3_profile/{sample}_unmapped_conc_pathabundance.tsv",
         path_cov = "../results/humann_out/{sample}_humann3_profile/{sample}_unmapped_conc_pathcoverage.tsv",
+        unmapped_humann_tmp = "../results/humann_out/{sample}_humann3_profile/{sample}_unmapped_conc_humann_temp/{sample}_unmapped_conc_bowtie2_aligned.tsv",
     input: 
         concat_reads = "../results/concatenated_fastq/{sample}_unmapped_conc.fastq",
         mtphlan_prof = "../results/metaphlan_out/taxa_profile/{sample}_taxa_prof.txt",
@@ -200,7 +201,7 @@ rule get_bowtie2_alignment_statistics:
     output:
         summarised_genes = "../results/humann_out/summarised_bowtie2_stats/{sample}_bowtie2_alignment_summarised_gene_number.tsv",
     input: 
-        bowtie2_humann_align = "../results/humann_out/{sample}_humann3_profile/{sample}_unmapped_conc_humann_temp/{sample}_unmapped_conc_bowtie2_aligned.tsv",
+        bowtie2_humann_align = "../results/humann_out/{sample}_humann3_profile/{sample}_unmapped_conc_humann_temp/{sample}_unmapped_conc_bowtie2_aligned.tsv", 
     conda: 
         "../envs/r_and_plotting_env.yaml",
     script: 
@@ -221,3 +222,5 @@ rule combine_bowtie2_humann_stat:
             awk '{{print $0 "\t" {params.filename}}}' {input.summarised_genes} > {output.combined_summarised_genes}
          """
 
+
+## Add a rule to colour a specific taxa + function in plot! 
