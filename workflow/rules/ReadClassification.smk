@@ -229,7 +229,7 @@ rule plot_stratified_classifications:
     conda: 
         "../envs/r_and_plotting_env.yaml",
     script: 
-        "../scripts/plot_facet_species.R"
+        "../scripts/plot_kraken_heatmaps.R"
 
 
 rule generate_metaphlan_report: 
