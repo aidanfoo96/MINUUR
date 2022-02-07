@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:18.04 as base
 
 # File Author / Maintainer
 LABEL org.opencontainers.image.authors="lcerdeira@gmail.com"
@@ -56,37 +56,10 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
   python3-setuptools \
   tzdata \
   r-base \
-  #cmake=3.5.1-1ubuntu3 \
-  # gcc-4.9 \
-  # g++-4.9 \
-  # gcc-4.9-base \
-  # gcc-4.8 \
-  # g++-4.8 \
-  # gcc-4.8-base \
-  # gcc-4.7 \
-  # g++-4.7 \
-  # gcc-4.7-base \
-  # gcc-4.6 \
-  # g++-4.6 \
-  # gcc-4.6-base \
-  # && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 100 \
-  # && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 100 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log
 
 WORKDIR /
-
-#get and make megahit (Installed via apt-get) after GCC++ crashed
-
-#RUN git clone https://github.com/voutcn/megahit.git
-#RUN git submodule update --init
-#WORKDIR megahit
-#RUN mkdir build && cd build 
-#RUN cmake .. -DCMAKE_BUILD_TYPE=Release
-#RUN make -j4 install
-#RUN megahit --test && megahit --test --kmin-1pass
-#ENTRYPOINT ["megahit"]
-#WORKDIR /
 
 #get and install QUAST
 RUN wget https://downloads.sourceforge.net/project/quast/quast-5.0.2.tar.gz
@@ -190,6 +163,3 @@ WORKDIR MINUUR
 
 RUN cd $PWD/workflow/scripts
 RUN ./install_db.sh
-
-
-
