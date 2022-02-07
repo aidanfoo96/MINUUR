@@ -63,8 +63,8 @@ RUN git clone https://github.com/voutcn/megahit.git
 #RUN git submodule update --init
 WORKDIR megahit
 RUN mkdir build && cd build 
-RUN cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PWD/megahit .. && make -j4 install
-RUN megahit --test && megahit --test --kmin-1pass
+RUN cmake -DCMAKE_BUILD_TYPE=Release .. && make -j4 install
+#RUN megahit --test && megahit --test --kmin-1pass
 ENTRYPOINT ["megahit"]
 WORKDIR /
 
