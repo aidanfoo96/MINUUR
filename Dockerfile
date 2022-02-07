@@ -61,32 +61,36 @@ WORKDIR /
 #get and make megahit
 RUN git clone https://github.com/voutcn/megahit.git
 #RUN git submodule update --init
-WORKDIR /megahit
+WORKDIR megahit
 RUN mkdir build && cd build 
-RUN cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/megahit .. && make -j4 install
+RUN cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$PWD/megahit .. && make -j4 install
 RUN megahit --test && megahit --test --kmin-1pass
 ENTRYPOINT ["megahit"]
+WORKDIR /
 
 #get and install QUAST
 RUN wget https://downloads.sourceforge.net/project/quast/quast-5.0.2.tar.gz
 RUN tar -xzf quast-5.0.2.tar.gz && rm quast-5.0.2.tar.gz
-WORKDIR /quast-5.0.2
+WORKDIR quast-5.0.2
 RUN ./setup.py install_full
+WORKDIR /
 
 #get and install samtools
 RUN wget https://github.com/samtools/samtools/releases/download/1.14/samtools-1.14.tar.bz2
 RUN tar -xvf samtools-1.14.tar.bz2 && rm samtools-1.14.tar.bz2
-WORKDIR /samtools-1.14
+WORKDIR samtools-1.14
 RUN ./configure && make && make install
+WORKDIR /
 
 #get and install metabat2
 RUN git clone https://bitbucket.org/berkeleylab/metabat.git
-WORKDIR /metabat
+WORKDIR metabat
 RUN mkdir build && cd build 
 RUN cmake -DCMAKE_INSTALL_PREFIX=/metabat ..  # add -DCMAKE_INSTALL_PREFIX=MY_PREFIX if needed
 RUN make
 RUN make install
 RUN cd .. && rm -rf build
+WORKDIR /
 
 #get and install CheckM
 RUN pip3 install numpy
@@ -112,41 +116,46 @@ RUN unzip fastqc_v0.11.9.zip && \
 RUN wget -q http://ftp.tue.mpg.de/ebio/projects/struo2/GTDB_release202/kraken2/
 RUN wget https://github.com/DerrickWood/kraken2/archive/refs/tags/v2.1.2.tar.gz
 RUN tar -xvf v2.1.2.tar.gz && rm v2.1.2.tar.gz
-WORKDIR /Kraken2
+WORKDIR Kraken2
 RUN ./install_kraken2.sh Kraken2
-RUN cp /Kraken2{,-build,-inspect} $HOME/bin
+RUN cp $PWD/Kraken2{,-build,-inspect} $HOME/bin
+WORKDIR /
 
 #get and install KrakenTools: v1.2
 RUN wget https://github.com/jenniferlu717/KrakenTools/archive/refs/tags/v1.2.tar.gz
 RUN tar -xvf v1.2.tar.gz && rm v1.2.tar.gz
-WORKDIR /KrakenTools
-RUN ln -s /KrakenTools /usr/local/bin/
+WORKDIR KrakenTools
+RUN ln -s $PWD/KrakenTools /usr/local/bin/
+WORKDIR /
 
 #get and install Metaphlan3: v3.0.13
 RUN wget https://github.com/biobakery/MetaPhlAn/archive/refs/tags/3.0.14.tar.gz
 RUN tar -xvf 3.0.14.tar.gz && rm 3.0.14.tar.gz
-WORKDIR /Metaphlan
+WORKDIR Metaphlan
 RUN pip install metaphlan
 RUN $ metaphlan --install --bowtie2db /Metaphlan/metaphlan_databases
+WORKDIR /
 
 #get and install Bracken: v2.5.0 (note: used the v2.6.2)
 
 RUN wget https://github.com/jenniferlu717/Bracken/archive/refs/tags/v2.6.2.tar.gz
 RUN tar -xvf v2.6.2.tar.gz && rm v2.6.2.tar.gz
-WORKDIR /Bracken
+WORKDIR Bracken
 RUN ./install_bracken.sh Bracken
-RUN cd /Bracken/src/ && make
+RUN cd $PWD/Bracken/src/ && make
+WORKDIR /
 
 #get and install HUMmaNn3: v3.0.0
 RUN wget https://files.pythonhosted.org/packages/27/f9/d07bd76dd7dd5732c4d29d58849e96e4828c8a7dc95cf7ae58622f37591a/humann-3.0.1.tar.gz
 RUN tar -xvf humann-3.0.1.tar.gz && rm humann-3.0.1.tar.gz
-WORKDIR /humann
+WORKDIR humann
 RUN pip install humann
-RUN humann_databases --download chocophlan full /humann
-RUN humann_databases --download uniref uniref90_diamond /humann
-RUN humann_databases --download uniref uniref90_ec_filtered_diamond /humann
-RUN humann_databases --download uniref uniref50_diamond /humann
-RUN humann_databases --download uniref uniref50_ec_filtered_diamond /humann
+RUN humann_databases --download chocophlan full $PWD/humann
+RUN humann_databases --download uniref uniref90_diamond $PWD/humann
+RUN humann_databases --download uniref uniref90_ec_filtered_diamond $PWD/humann
+RUN humann_databases --download uniref uniref50_diamond $PWD/humann
+RUN humann_databases --download uniref uniref50_ec_filtered_diamond $PWD/humann
+WORKDIR /
 
 #get and install R packages
 RUN Rscript -e "install.packages('tidyverse')"
@@ -159,7 +168,8 @@ WORKDIR MINUUR
 
 #download the DBs for minuur
 
-WORKDIR /MINUUR/workflow/scripts
+RUN cd $PWD/workflow/scripts
 RUN ./install_db.sh
 
 RUN export LC_ALL=C.UTF-8 && export LANG=C.UTF-8
+
