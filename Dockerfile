@@ -1,4 +1,4 @@
-FROM ubuntu:18.04 as base
+FROM ubuntu:bionic-20220128
 
 # File Author / Maintainer
 LABEL org.opencontainers.image.authors="lcerdeira@gmail.com"
@@ -6,6 +6,8 @@ LABEL org.opencontainers.image.authors="lcerdeira@gmail.com"
 #configure time zone and install tzdata for base -r installation
 
 RUN export DEBIAN_FRONTEND=noninteractive && ln -fs /usr/share/zoneinfo/Europe/London /etc/localtime
+
+ENV export LC_ALL=C.UTF-8 && export LANG=C.UTF-8
 
 #get bits and pieces
 RUN apt-get update && apt-get install --yes --no-install-recommends \
@@ -31,7 +33,7 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
   automake \
   snakemake \
   make \
-  clang-9 \
+  #clang-9 \
   g++ \
   zlib1g-dev \
   libbz2-dev \
@@ -53,6 +55,21 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
   python3-setuptools \
   tzdata \
   r-base \
+  cmake=3.5.1-1ubuntu3 \
+  gcc-4.9 \
+  g++-4.9 \
+  gcc-4.9-base \
+  gcc-4.8 \
+  g++-4.8 \
+  gcc-4.8-base \
+  gcc-4.7 \
+  g++-4.7 \
+  gcc-4.7-base \
+  gcc-4.6 \
+  g++-4.6 \
+  gcc-4.6-base \
+  && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 100 \
+  && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 100 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /var/log/dpkg.log
 
@@ -63,7 +80,8 @@ RUN git clone https://github.com/voutcn/megahit.git
 #RUN git submodule update --init
 WORKDIR megahit
 RUN mkdir build && cd build 
-RUN cmake -DCMAKE_BUILD_TYPE=Release .. && make -j4 install
+RUN cmake .. -DCMAKE_BUILD_TYPE=Release
+RUN make -j4 install
 #RUN megahit --test && megahit --test --kmin-1pass
 ENTRYPOINT ["megahit"]
 WORKDIR /
@@ -171,5 +189,5 @@ WORKDIR MINUUR
 RUN cd $PWD/workflow/scripts
 RUN ./install_db.sh
 
-RUN export LC_ALL=C.UTF-8 && export LANG=C.UTF-8
+
 
