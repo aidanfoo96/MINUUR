@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
   python3-cutadapt \
   git \
   bedtools \
+  python-setuptools \
   cmake \
   build-essential \
   gcc-multilib \
