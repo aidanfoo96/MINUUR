@@ -31,6 +31,8 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
   automake \
   snakemake \
   make \
+  clang-9 \
+  g++ \
   zlib1g-dev \
   libbz2-dev \
   liblzma-dev \
@@ -42,6 +44,9 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
   gnupg2 \
   datamash \
   bwa \
+  bzip2 \
+  libgomp1  \
+  gzip \
   git-lfs \
   curl \
   unzip \
@@ -58,8 +63,9 @@ RUN git clone https://github.com/voutcn/megahit.git
 #RUN git submodule update --init
 WORKDIR /megahit
 RUN mkdir build && cd build 
-RUN cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=MY_PREFIX=$WORKDIR/megahit
-RUN make -j4 
+RUN cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/megahit .. && make -j4 install
+RUN megahit --test && megahit --test --kmin-1pass
+ENTRYPOINT ["megahit"]
 
 #get and install QUAST
 RUN wget https://downloads.sourceforge.net/project/quast/quast-5.0.2.tar.gz
@@ -77,7 +83,7 @@ RUN ./configure && make && make install
 RUN git clone https://bitbucket.org/berkeleylab/metabat.git
 WORKDIR /metabat
 RUN mkdir build && cd build 
-RUN cmake -DCMAKE_INSTALL_PREFIX=$WORKDIR/metabat ..  # add -DCMAKE_INSTALL_PREFIX=MY_PREFIX if needed
+RUN cmake -DCMAKE_INSTALL_PREFIX=/metabat ..  # add -DCMAKE_INSTALL_PREFIX=MY_PREFIX if needed
 RUN make
 RUN make install
 RUN cd .. && rm -rf build
@@ -121,7 +127,7 @@ RUN wget https://github.com/biobakery/MetaPhlAn/archive/refs/tags/3.0.14.tar.gz
 RUN tar -xvf 3.0.14.tar.gz && rm 3.0.14.tar.gz
 WORKDIR /Metaphlan
 RUN pip install metaphlan
-RUN $ metaphlan --install --bowtie2db $WORKDIR/Metaphlan/metaphlan_databases
+RUN $ metaphlan --install --bowtie2db /Metaphlan/metaphlan_databases
 
 #get and install Bracken: v2.5.0 (note: used the v2.6.2)
 
