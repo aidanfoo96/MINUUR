@@ -55,10 +55,10 @@ WORKDIR /
 
 #get and make megahit
 RUN git clone https://github.com/voutcn/megahit.git
-RUN git submodule update --init
+#RUN git submodule update --init
 WORKDIR $WORKDIR/megahit
 RUN mkdir build && cd build 
-RUN cmake .. -DCMAKE_BUILD_TYPE=Release  # add -DCMAKE_INSTALL_PREFIX=MY_PREFIX if needed
+RUN cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=MY_PREFIX=$WORKDIR/megahit
 RUN make -j4 
 
 #get and install QUAST
