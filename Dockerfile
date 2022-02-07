@@ -148,3 +148,13 @@ RUN pip install humann
 RUN Rscript -e "install.packages('tidyverse')"
 RUN Rscript -e "install.packages('ggplot2')"
 RUN Rscript -e "install.packages('MetBrewer')"
+
+#get and install MInUUR
+RUN git clone https://github.com/aidanfoo96/MINUUR.git
+WORKDIR /
+
+#get and install the DBs
+
+WORKDIR /
+WORKDIR $WORKDIR/MINUUR/workflow/scripts
+RUN ./install_db.sh
