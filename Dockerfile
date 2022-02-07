@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
   pkg-config \ 
   libfreetype6-dev \
   libpng-dev \
+  python \
   python-matplotlib \
   locales \
   bowtie2 \
@@ -22,7 +23,6 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
   git \
   bedtools \
   cmake \
-  megahit \
   build-essential \
   gcc-multilib \
   python3 \
@@ -34,7 +34,6 @@ RUN apt-get update && apt-get install --yes --no-install-recommends \
   automake \
   snakemake \
   make \
-  clang-9 \
   g++ \
   zlib1g-dev \
   libbz2-dev \
@@ -73,16 +72,6 @@ RUN wget https://github.com/samtools/samtools/releases/download/1.14/samtools-1.
 RUN tar -xvf samtools-1.14.tar.bz2 && rm samtools-1.14.tar.bz2
 WORKDIR samtools-1.14
 RUN ./configure && make && make install
-WORKDIR /
-
-#get and install metabat2
-RUN git clone https://bitbucket.org/berkeleylab/metabat.git
-WORKDIR metabat
-RUN mkdir build && cd build 
-RUN cmake -DCMAKE_INSTALL_PREFIX=/metabat ..  # add -DCMAKE_INSTALL_PREFIX=MY_PREFIX if needed
-RUN make
-RUN make install
-RUN cd .. && rm -rf build
 WORKDIR /
 
 #get and install CheckM
@@ -163,3 +152,36 @@ WORKDIR MINUUR
 
 RUN cd $PWD/workflow/scripts
 RUN ./install_db.sh
+
+#get and install metabat2
+RUN git clone https://bitbucket.org/berkeleylab/metabat.git
+WORKDIR metabat
+RUN mkdir build && cd build 
+RUN cmake -DCMAKE_BUILD_TYPE=Release ..
+RUN make
+RUN make install
+RUN cd .. && rm -rf build
+RUN apt-get autoremove --purge -y \
+  cmake \
+  g++ \
+  make \
+  zlib1g-dev 
+WORKDIR /
+
+#get and make megahit
+
+RUN git clone https://github.com/voutcn/megahit.git
+#RUN git submodule update --init
+COPY . $PWD/megahit
+WORKDIR $PWD/megahit
+RUN mkdir build && cd build 
+RUN cmake .. -DCMAKE_BUILD_TYPE=Release
+RUN make -j4 install
+RUN apt-get autoremove --purge -y \
+  cmake \
+  g++ \
+  make \
+  zlib1g-dev 
+#RUN megahit --test && megahit --test --kmin-1pass
+#ENTRYPOINT ["megahit"]
+WORKDIR /
