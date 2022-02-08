@@ -127,8 +127,8 @@ ENV PATH="$PATH:/usr/bin/samtools/samtools-${SAMTOOLSVER}" \
 #Bwa
 RUN mkdir /usr/bin/bwa &&\
   cd /usr/bin/bwa && \
-  wget https://github.com/lh3/bwa/releases/download/${BWAVER}/bwa-${BWAVER}.tar.bz2 &&\
-  tar -xjf ${BWAVER}.tar.bz2 &&\
+  wget https://github.com/lh3/bwa/releases/download/v${BWAVER}/bwa-${BWAVER}.tar.bz2 &&\
+  tar -xjf bwa-${BWAVER}.tar.bz2 &&\
   rm bwa-${BWAVER}.tar.bz2 &&\
   cd bwa-${BWAVER} &&\
   make
