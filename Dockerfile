@@ -337,7 +337,7 @@ RUN mkdir /usr/bin/bracken && \
   tar -xvf v${BRACVER}.tar.gz && \
   rm v${BRACVER}.tar.gz && \
   cd Bracken-${BRACVER} && \
-  ./install_bracken.sh && \
+  bash install_bracken.sh . && \
   cd src/ && \
   make
 
@@ -369,4 +369,4 @@ RUN mkdir /usr/bin/MINUUR && \
   cd /usr/bin/MINUUR && \
   git clone https://github.com/aidanfoo96/MINUUR.git && \
   cd /usr/bin/MINUUR/MINUUR/workflow/scripts && \
-  ./install_db.sh
+  bash install_db.sh .
