@@ -165,10 +165,10 @@ RUN mkdir /usr/bin/kraken2 && \
   wget https://github.com/DerrickWood/kraken2/archive/v${K2VER}.tar.gz && \
   tar -xzf v${K2VER}.tar.gz && \
   rm -rf v${K2VER}.tar.gz && \
-  cd kraken2-v${K2VER} && \
+  cd kraken2-${K2VER} && \
   bash install_kraken2.sh .
 
-ENV PATH="$PATH:/usr/bin/kraken2/kraken2-v${K2VER}" \
+ENV PATH="$PATH:/usr/bin/kraken2/kraken2-${K2VER}" \
   LC_ALL=C
 
 ##### DATABASE INCLUDED WITH THIS DOCKER IMAGE #####
@@ -176,8 +176,8 @@ ENV PATH="$PATH:/usr/bin/kraken2/kraken2-v${K2VER}" \
 ## to a directory in the container (/kraken2-db exists for this purpose, but feel free to use another location)
 ## DL MiniKraken2_8GB database. Built from RefSeq bacteria, archaea, viral, and human libraries.
 ## --strip-components=1 used so that the *.k2d files end up inside /kraken2-db and not another directory
-RUN mkdir /usr/bin/kraken2/kraken2-v${K2VER}/kraken2-db && \
-  cd /usr/bin/kraken2/kraken2-v${K2VER}/kraken2-db && \
+RUN mkdir /usr/bin/kraken2/kraken2-${K2VER}/kraken2-db && \
+  cd /usr/bin/kraken2/kraken2-${K2VER}/kraken2-db && \
   wget --no-check-certificate https://genome-idx.s3.amazonaws.com/kraken/minikraken2_v2_8GB_201904.tgz && \
   tar -zxf --strip-components=1 minikraken2_v2_8GB_201904.tgz && \
   rm -rf minikraken2_v2_8GB_201904.tgz
