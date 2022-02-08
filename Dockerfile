@@ -98,8 +98,8 @@ RUN mkdir /usr/bin/quast && \
   wget https://github.com/ablab/quast/releases/download/quast_${QUAST_VER}/quast-${QUAST_VER}.tar.gz && \
   tar -xzf quast-${QUAST_VER}.tar.gz && \
   rm -rf quast-${QUAST_VER}.tar.gz && \
-  cd /quast-${QUAST_VER} && \
-  /quast-${QUAST_VER}/setup.py install
+  cd quast-${QUAST_VER} && \
+  python setup.py install
 
 ENV PATH="$PATH:/usr/bin/quast/quast-${QUAST_VER}" \
   LC_ALL=C
