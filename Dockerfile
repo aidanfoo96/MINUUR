@@ -166,7 +166,7 @@ RUN mkdir /usr/bin/kraken2 && \
   tar -xzf v${K2VER}.tar.gz && \
   rm -rf v${K2VER}.tar.gz && \
   cd kraken2-v${K2VER} && \
-  ./install_kraken2.sh .
+  bash install_kraken2.sh .
 
 ENV PATH="$PATH:/usr/bin/kraken2/kraken2-v${K2VER}" \
   LC_ALL=C
