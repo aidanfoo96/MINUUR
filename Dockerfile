@@ -30,60 +30,58 @@ ARG HUMVER="3.0.1"
 
 #get bits and pieces
 RUN apt-get update && apt-get install -y --no-install-recommends \
-  wget \
-  pkg-config \ 
-  libfreetype6-dev \
-  libpng-dev \
-  python \
-  perl \
-  python3 \
-  python-matplotlib \
-  python3-distutils-extra \
-  python-simplejson \
-  python-joblib \
-  locales \
-  python3-cutadapt \
-  git \
-  vim \
-  nano \
-  python-setuptools \
-  cmake \
-  gcc-multilib \
-  openjdk-8-jre \
-  python3-pip \
-  libpython3-all-dev \
-  libpython2.7-dev \
+  ant \
   autoconf \
   automake \
-  snakemake \
-  python3-cutadapt \
-  make \
-  g++ \
-  zlib1g-dev \
-  libbz2-dev \
-  liblzma-dev \
-  libcurl4-gnutls-dev \
-  libssl-dev \
-  libboost-all-dev \
-  libncurses5-dev \
-  ant \
-  software-properties-common \
-  gnupg2 \
-  datamash \
-  bwa \
-  bzip2 \
-  libgomp1  \
-  gzip \
-  curl \
-  unzip \
-  default-jre \
-  python3-setuptools \
   build-essential \
-  tzdata \
-  python-pip \
+  bzip2 \
   ca-certificates \
-  rsync \
+  cmake \
   cpanminus \
+  curl \
+  datamash \
+  default-jre \
+  g++ \
+  gcc-multilib \
+  git \
+  gnupg2 \
+  gzip \
+  libboost-all-dev \
+  libbz2-dev \
+  libcurl4-gnutls-dev \
+  libfreetype6-dev \
+  libgomp1  \
+  liblzma-dev \
+  libncurses5-dev \
+  libpng-dev \
+  libpython2.7-dev \
+  libpython3-all-dev \
+  libssl-dev \
+  locales \
+  make \
+  nano \
+  openjdk-8-jre \
+  perl \
+  pkg-config \ 
+  python \
+  python-joblib \
+  python-matplotlib \
+  python-pip \
+  python-setuptools \
+  python-simplejson \
+  python3 \
+  python3-cutadapt \
+  python3-distutils-extra \
+  python3-pip \
+  python3-setuptools \
+  rsync \
+  snakemake \
+  software-properties-common \
+  tzdata \
+  unzip \
+  vim \
+  wget \
+  zlib1g-dev \
   r-base && \
   apt-get autoclean && \
   rm -rf /var/lib/apt/lists/*
