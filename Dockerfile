@@ -31,7 +31,8 @@ ARG HUMVER="3.0.1"
 #get bits and pieces
 RUN apt-get update && apt-get install -y software-properties-common && \
   add-apt-repository ppa:deadsnakes/ppa && \
-  apt-get update && apt-get install -y --no-install-recommends --no-install-suggests \
+  apt-get update && apt-get install -y \
+  #apt-get update && apt-get install -y --no-install-recommends --no-install-suggests \
   wget \
   pkg-config \ 
   libfreetype6-dev \
@@ -39,10 +40,10 @@ RUN apt-get update && apt-get install -y software-properties-common && \
   python \
   perl \
   python3 \
-  python3.7 \
-  python3.7-dev \
+  #python3.7 \
+  #python3.7-dev \
   python-matplotlib \
-  python3-distutils \
+  python3-distutils-extra \
   python-simplejson \
   python-joblib \
   locales \
@@ -62,7 +63,7 @@ RUN apt-get update && apt-get install -y software-properties-common && \
   autoconf \
   automake \
   snakemake \
-  cutadapt \
+  python3-cutadapt \
   make \
   g++ \
   zlib1g-dev \
@@ -70,6 +71,7 @@ RUN apt-get update && apt-get install -y software-properties-common && \
   liblzma-dev \
   libcurl4-gnutls-dev \
   libssl-dev \
+  libboost-all-dev \
   libncurses5-dev \
   ant \
   software-properties-common \
@@ -79,11 +81,11 @@ RUN apt-get update && apt-get install -y software-properties-common && \
   bzip2 \
   libgomp1  \
   gzip \
-  git-lfs \
+  #git-lfs \
   curl \
   unzip \
   default-jre \
-  bio-linux-samtools \
+  #bio-linux-samtools \
   python3-setuptools \
   build-essential \
   tzdata \
@@ -91,11 +93,13 @@ RUN apt-get update && apt-get install -y software-properties-common && \
   ca-certificates \
   rsync \
   cpanminus \
-  locale-gen en_US.UTF-8 \
-  r-base=3.4.4-1ubuntu1 && \
-  python3.7 -m pip install pip --force-reinstall && \
-  python3.7 -m pip install numpy Cython six --force-reinstall && \
-  ln -s /usr/bin/python3.7 /usr/bin/python \
+  locale-gen \
+  en_US.UTF-8 \
+  #r-base=3.4.4-1ubuntu1 && \
+  r-base && \
+  #python3.7 -m pip install pip --force-reinstall && \
+  #python3.7 -m pip install numpy Cython six --force-reinstall && \
+  #ln -s /usr/bin/python3.7 /usr/bin/python \
   apt-get clean && apt-get autoclean && rm -rf /var/lib/apt/lists/*
 
 # for singularity compatibility
@@ -205,7 +209,8 @@ ENV PATH="$PATH:/usr/bin/krakentools/KrakenTools-${KTVER}" \
   LC_ALL=C
 
 # install metaphlan 3
-RUN python3.7 -m pip install metaphlan==${METAPH}
+#RUN python3.7 -m pip install metaphlan==${METAPH}
+RUN python3 -m pip install metaphlan==${METAPH}
 
 #download metaphlan database
 #metaphlan --install --bowtie2db /Metaphlan/metaphlan_databases
