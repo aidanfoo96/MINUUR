@@ -85,8 +85,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   ca-certificates \
   rsync \
   cpanminus \
-  locale-gen \
-  en_US.UTF-8 \
   r-base && \
   apt-get autoclean && \
   rm -rf /var/lib/apt/lists/*
