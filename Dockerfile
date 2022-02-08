@@ -10,7 +10,7 @@ LABEL website="https://github.com/aidanfoo96/MINUUR"
 LABEL license="https://github.com/aidanfoo96/MINUUR/blob/master/LICENSE"
 LABEL maintainer="Louise Cerdeira"
 LABEL maintainer.email="lcerdeira@gmail.com"
-LABEL stage=builder_metaphlan
+#LABEL stage=builder_metaphlan
 
 # So apt doesn't ask questions during install
 ARG DEBIAN_FRONTEND=noninteractive
@@ -26,7 +26,7 @@ ARG BEDTOOLS_VER="2.30.0"
 ARG BRACVER="2.6.2"
 ARG HUMVER="3.0.1"
 
-ENV export LC_ALL=C.UTF-8 && export LANG=C.UTF-8
+#ENV export LC_ALL=C.UTF-8 && export LANG=C.UTF-8
 
 #get bits and pieces
 RUN apt-get update && apt-get install -y software-properties-common && \
@@ -210,8 +210,8 @@ RUN python3.7 -m pip install metaphlan==${METAPH}
 #download metaphlan database
 #metaphlan --install --bowtie2db /Metaphlan/metaphlan_databases
 
-RUN metaphlan --install && \ 
-  mkdir /data 
+RUN metaphlan --install
+#mkdir /data 
 
 # build onto first stage
 # this will make the final docker image ~0.5 GB smaller 
@@ -222,28 +222,28 @@ RUN metaphlan --install && \
 
 # copy over necessary bin and packages 
 
-COPY --from=builder_metaphlan /usr/local/bin /usr/local/bin
-COPY --from=builder_metaphlan /usr/bin/bowtie2/ /usr/bin/bowtie2/
-COPY --from=builder_metaphlan /usr/bin/python3.7 /usr/bin/python3.7
-COPY --from=builder_metaphlan /usr/lib/python3.7 /usr/lib/python3.7
-COPY --from=builder_metaphlan /usr/lib/x86_64-linux-gnu/libexpat.so /usr/lib/x86_64-linux-gnu/libexpat.so
-COPY --from=builder_metaphlan /lib/x86_64-linux-gnu/ /lib/x86_64-linux-gnu/
-COPY --from=builder_metaphlan /usr/local/lib/python3.7/dist-packages/ /usr/local/lib/python3.7/dist-packages/
-COPY --from=builder_metaphlan /usr/lib/python3/dist-packages/* /usr/lib/python3.7/dist-packages/
-COPY --from=builder_metaphlan /usr/bin/R /usr/bin/R
-COPY --from=builder_metaphlan /usr/bin/Rscript /usr/bin/Rscript
-COPY --from=builder_metaphlan /usr/lib/R /usr/lib/R
-COPY --from=builder_metaphlan /usr/local/lib/R /usr/local/lib/R
-COPY --from=builder_metaphlan /etc/R /etc/R
-COPY --from=builder_metaphlan /usr/lib/libR.so /usr/lib/libR.so
+# COPY --from=builder_metaphlan /usr/local/bin /usr/local/bin
+# COPY --from=builder_metaphlan /usr/bin/bowtie2/ /usr/bin/bowtie2/
+# COPY --from=builder_metaphlan /usr/bin/python3.7 /usr/bin/python3.7
+# COPY --from=builder_metaphlan /usr/lib/python3.7 /usr/lib/python3.7
+# COPY --from=builder_metaphlan /usr/lib/x86_64-linux-gnu/libexpat.so /usr/lib/x86_64-linux-gnu/libexpat.so
+# COPY --from=builder_metaphlan /lib/x86_64-linux-gnu/ /lib/x86_64-linux-gnu/
+# COPY --from=builder_metaphlan /usr/local/lib/python3.7/dist-packages/ /usr/local/lib/python3.7/dist-packages/
+# COPY --from=builder_metaphlan /usr/lib/python3/dist-packages/* /usr/lib/python3.7/dist-packages/
+# COPY --from=builder_metaphlan /usr/bin/R /usr/bin/R
+# COPY --from=builder_metaphlan /usr/bin/Rscript /usr/bin/Rscript
+# COPY --from=builder_metaphlan /usr/lib/R /usr/lib/R
+# COPY --from=builder_metaphlan /usr/local/lib/R /usr/local/lib/R
+# COPY --from=builder_metaphlan /etc/R /etc/R
+# COPY --from=builder_metaphlan /usr/lib/libR.so /usr/lib/libR.so
 
 ENV PATH="$PATH:/usr/bin/bowtie2/bowtie2-${BOWTIE2VER}-linux-x86_64" \
   LC_ALL=C
 
-WORKDIR /data
+#WORKDIR /data
 
 # link to python, soft link doesn't get copied from intermed stage
-RUN  ln -s /usr/bin/python3.7 /usr/bin/python 
+#RUN  ln -s /usr/bin/python3.7 /usr/bin/python 
 
 #Bracken
 RUN mkdir /usr/bin/bracken && \
