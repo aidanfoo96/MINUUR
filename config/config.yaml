@@ -16,10 +16,10 @@ kraken_db_location: ../resources/kraken_db/
     # Perform QC and Trimming on Raw Fastq
     # Remove Host Associated Reads from Raw Fastq
     # Convert Raw FASTQ to BAM for Processing Steps
-  # If you have Raw BAM files: 
+    # If you have Raw BAM files: 
     # QC: Activate = False
     # RemoveHostFromFastqGz: Activate = False
-      # Moves the pipeline to: "ProcessBams"
+    # Moves the pipeline to: "ProcessBams"
 input_type: 
   fastq: True
   bam: False
