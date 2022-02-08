@@ -4,4 +4,5 @@ workflow/data/
 workflow/logs/
 .snakemake/
 .DS_Store
-*/.DS_Store
+config/.DS_Store
+docs/_site/*
