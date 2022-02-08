@@ -29,8 +29,7 @@ ARG HUMVER="3.0.1"
 #ENV export LC_ALL=C.UTF-8 && export LANG=C.UTF-8
 
 #get bits and pieces
-RUN apt-get update && apt-get install -y software-properties-common && \
-  apt-get update && apt-get install -y --no-install-recommends --quiet && \
+RUN apt-get update && apt-get install -y --no-install-recommends \
   wget \
   pkg-config \ 
   libfreetype6-dev \
