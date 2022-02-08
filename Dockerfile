@@ -42,7 +42,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   python-simplejson \
   python-joblib \
   locales \
-  bowtie2 \
   python3-cutadapt \
   git \
   vim \
@@ -107,7 +106,7 @@ ENV PATH="$PATH:/usr/bin/quast/quast-${QUAST_VER}" \
 #Bowtie2
 RUN mkdir /usr/bin/bowtie2 && \
   cd /usr/bin/bowtie2 && \
-  wget -q -O bowtie2.zip http://sourceforge.net/projects/bowtie-bio/files/bowtie2/${BOWTIE2VER}/bowtie2-${BOWTIE2VER}-linux-x86_64.zip/download; \
+  wget -q -O bowtie2.zip http://sourceforge.net/projects/bowtie-bio/files/bowtie2/${BOWTIE2VER}/bowtie2-${BOWTIE2VER}-linux-x86_64.zip/download; && \
   unzip bowtie2.zip && \
   rm bowtie2.zip
 
