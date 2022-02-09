@@ -1,8 +1,8 @@
-FROM condaforge/mambaforge:4.10.3-1 AS build_condaforge
+# FROM condaforge/mambaforge:4.10.3-1 AS build_condaforge
 
-LABEL stage=build_condaforge
+# LABEL stage=build_condaforge
 
-RUN mamba install -c bioconda megahit metaphlan metabat2 checkm-genome
+# RUN mamba install -c bioconda megahit metaphlan metabat2 checkm-genome
 
 FROM ubuntu:bionic
 
@@ -350,13 +350,13 @@ RUN mkdir /usr/bin/humann && \
   wget https://files.pythonhosted.org/packages/27/f9/d07bd76dd7dd5732c4d29d58849e96e4828c8a7dc95cf7ae58622f37591a/humann-${HUMVER}.tar.gz && \
   tar -xvf humann-${HUMVER}.tar.gz && rm humann-${HUMVER}.tar.gz && \
   pip install humann && \
-  humann_databases --download chocophlan full /usr/bin/humann/humann-${HUMVER}/humann && \
-  humann_databases --download uniref uniref90_diamond /usr/bin/humann/humann-${HUMVER}/humann && \
-  humann_databases --download uniref uniref90_ec_filtered_diamond /usr/bin/humann/humann-${HUMVER}/humann && \
-  humann_databases --download uniref uniref50_diamond /usr/bin/humann/humann-${HUMVER}/humann && \
-  humann_databases --download uniref uniref50_ec_filtered_diamond /usr/bin/humann/humann-${HUMVER}/humann
+  # humann_databases --download chocophlan full /usr/bin/humann/humann-${HUMVER}/humann && \
+  # humann_databases --download uniref uniref90_diamond /usr/bin/humann/humann-${HUMVER}/humann && \
+  # humann_databases --download uniref uniref90_ec_filtered_diamond /usr/bin/humann/humann-${HUMVER}/humann && \
+  # humann_databases --download uniref uniref50_diamond /usr/bin/humann/humann-${HUMVER}/humann && \
+  # humann_databases --download uniref uniref50_ec_filtered_diamond /usr/bin/humann/humann-${HUMVER}/humann
 
-ENV PATH="$PATH:/usr/bin/humann/humann-${HUMVER}" \
+  ENV PATH="$PATH:/usr/bin/humann/humann-${HUMVER}" \
   LC_ALL=C
 
 #install R packages
