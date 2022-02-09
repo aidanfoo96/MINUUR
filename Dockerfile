@@ -349,7 +349,7 @@ RUN mkdir /usr/bin/humann && \
   cd /usr/bin/humann && \
   wget https://files.pythonhosted.org/packages/27/f9/d07bd76dd7dd5732c4d29d58849e96e4828c8a7dc95cf7ae58622f37591a/humann-${HUMVER}.tar.gz && \
   tar -xvf humann-${HUMVER}.tar.gz && rm humann-${HUMVER}.tar.gz && \
-  pip install humann &&
+  pip install humann 
 # humann_databases --download chocophlan full /usr/bin/humann/humann-${HUMVER}/humann && \
 # humann_databases --download uniref uniref90_diamond /usr/bin/humann/humann-${HUMVER}/humann && \
 # humann_databases --download uniref uniref90_ec_filtered_diamond /usr/bin/humann/humann-${HUMVER}/humann && \
