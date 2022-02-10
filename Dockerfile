@@ -1,9 +1,3 @@
-# FROM condaforge/mambaforge:4.10.3-1 AS build_condaforge
-
-# LABEL stage=build_condaforge
-
-# RUN mamba install -c bioconda megahit metaphlan metabat2 checkm-genome
-
 FROM ubuntu:bionic
 
 # File Author / Maintainer
@@ -89,6 +83,31 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   r-base && \
   apt-get autoclean && \
   rm -rf /var/lib/apt/lists/*
+
+ADD https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh /tmp/miniconda.sh
+
+RUN set -e \
+  && ln -sf bash /bin/sh
+
+RUN set -e \
+  && /bin/bash /tmp/miniconda.sh -b -p /opt/conda \
+  && /opt/conda/bin/conda update -n base -c defaults conda \
+  && /opt/conda/bin/conda clean -ya \
+  && ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh \
+  && echo '. /opt/conda/etc/profile.d/conda.sh' >> /etc/profile \
+  && echo 'conda activate base' >> /etc/profile \
+  && rm -f /tmp/miniconda.sh
+
+ENV PATH /opt/conda/bin:${PATH}
+
+RUN set -e \
+  && conda config --add channels defaults \
+  && conda config --add channels bioconda \
+  && conda config --add channels conda-forge \
+  && conda clean -ya \
+  && rm -rf /root/.cache/pip
+
+ENTRYPOINT ["/opt/conda/bin/conda"]
 
 # RUN apt-get update && apt-get install -y software-properties-common && \
 #   add-apt-repository ppa:deadsnakes/ppa && \
