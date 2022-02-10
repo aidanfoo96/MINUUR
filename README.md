@@ -59,8 +59,8 @@ MetaPhlAn3 requires a database file containing clade specific marker genes. Inst
 #### HUMAnN3 Database 
 [Humann3](https://github.com/biobakery/humann) requires two databases, the ChocoPhlAn database and translated search databases. The choices of databases and download links are available on the github page above. 
 
-### Running Snakemake
-Once the configuration file has been configured to the users choosing (see WIKI), run `snakemake -np` to test the pipeline runs as expected. Use `snakemake --cores N --use-conda` to run the pipeline, with `N` denoting the number of cores for parrelization. If no parrelization is required, use `--cores 1`.
+## Running Snakemake
+Once the configuration file has been configured to the users choosing (see WIKI), run `snakemake -np` to test the pipeline runs as expected. Use `snakemake --cores N --use-conda` to run the pipeline, with `N` denoting the number of cores for parrelization. If no parrelization is required, use `--cores 1`. Each rule of the snakemake pipeline can be run within individual conda environments that deploy the software when required. Run this using `snakemake --cores N --use-conda`
 
 ## Docker image repositories & hosting
 We host all of our docker images on two different repositories and periodically sync the images between the two:
