@@ -386,6 +386,6 @@ RUN Rscript -e "install.packages('tidyverse')" && \
 #MINUUR
 RUN mkdir /usr/bin/MINUUR && \
   cd /usr/bin/MINUUR && \
-  git clone https://github.com/aidanfoo96/MINUUR.git && \
-  cd /usr/bin/MINUUR/MINUUR/workflow/scripts && \
-  bash install_db.sh .
+  git clone https://github.com/aidanfoo96/MINUUR.git
+#cd /usr/bin/MINUUR/MINUUR/workflow/scripts && \
+#bash install_db.sh .
