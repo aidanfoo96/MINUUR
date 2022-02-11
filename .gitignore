@@ -6,3 +6,4 @@ workflow/logs/
 .DS_Store
 config/.DS_Store
 docs/_site/*
+workflow/trimmed/ERR347035.qc.txt
