@@ -154,20 +154,21 @@ rule generate_clean_kraken_summaries:
         "../scripts/generate_kraken_summaries.R"
 
 
-rule generate_classification_summary: 
+rule generate_alignment_summary: 
     """
-        Get classification number from alignment and classification statistics
+        Get alignment and non-alignment number
     """
     output: 
-        human_read_tbl = "../results/kraken_results/classification_stat/classified_reads_wide.txt",
-        long_read_tbl = "../results/kraken_results/classification_stat/classified_reads_long.txt",
+        human_read_tbl = "../results/alignment_stats_ffq/tables/aligned_reads_wide.txt",
+        long_read_tbl = "../results/alignment_stats_ffq/tables/aligned_reads_long.txt",
+        alignment_stat_plot = "../results/alignment_stats_ffq/plots/alignment_stat_plot.pdf"
     input: 
-        classified_reads = "../results/kraken_results/tables/classified_reads_table.txt",
         alignment_stats = "../results/alignment_stats_ffq/concatenated_alignment_statistics.txt",
     conda: 
         "../envs/r_and_plotting_env.yaml",
     script: 
         "../scripts/combined_kraken_alignment_stat_ffq.R"
+
 
 rule get_classified_unclassified_summary: 
     """
