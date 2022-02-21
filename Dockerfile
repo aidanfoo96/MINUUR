@@ -381,7 +381,8 @@ ENV PATH="$PATH:/usr/bin/humann/humann-${HUMVER}" \
 #install R packages
 RUN Rscript -e "install.packages('tidyverse')" && \
   Rscript -e "install.packages('ggplot2')" && \
-  Rscript -e "install.packages('MetBrewer')"
+  Rscript -e "install.packages('MetBrewer')" && \
+  Rscript -e "install.packages('treemapify')"
 
 #MINUUR
 RUN mkdir /usr/bin/MINUUR && \
