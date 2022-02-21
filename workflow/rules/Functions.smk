@@ -171,6 +171,10 @@ def RunPipeline(wildcards):
                     "../results/humann_out/summarised_bowtie2_stats/{sample}_bowtie2_alignment_summarised_gene_number.tsv",
                     "../results/humann_out/summarised_bowtie2_stats/concatenated_bowtie2_alignment_summarised_gene_number.tsv",
                     "../results/humann_out/{sample}_humann3_profile/{sample}_unmapped_conc_humann_temp/{sample}_unmapped_conc_bowtie2_aligned.tsv",
+                    "../results/humann_out/plots/gene_hits.pdf",
+                    "../results/humann_out/plots/gene_and_path_hits_per_sample.pdf",
+                    "../results/humann_out/plots/gene_and_path_hits_per_species.pdf", 
+
                 ],
                 sample = samples
             )

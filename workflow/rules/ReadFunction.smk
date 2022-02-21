@@ -194,6 +194,7 @@ rule plot_function:
     script: 
         "../scripts/extract_humann_function.R"
 
+
 rule get_bowtie2_alignment_statistics:
     """
         Get bowtie2 alignment sensitvity
@@ -206,6 +207,7 @@ rule get_bowtie2_alignment_statistics:
         "../envs/r_and_plotting_env.yaml",
     script: 
         "../scripts/extract_humann_bowtie2_percentidentity.R"
+
 
 rule combine_bowtie2_humann_stat: 
     """
@@ -222,5 +224,21 @@ rule combine_bowtie2_humann_stat:
             awk '{{print $0 "\t" {params.filename}}}' {input.summarised_genes} > {output.combined_summarised_genes}
          """
 
+rule plot_humann_alignment_statistics: 
+    """
+        Get humann gene and metabolic pathway scores & plot
+    """
+    output: 
+        gene_hits = "../results/humann_out/plots/gene_hits.pdf",
+        hits_per_sample = "../results/humann_out/plots/gene_and_path_hits_per_sample.pdf",
+        hits_per_species = "../results/humann_out/plots/gene_and_path_hits_per_species.pdf", 
+    input: 
+        humann_alignment_stats = "../results/humann_out/summarised_bowtie2_stats/concatenated_bowtie2_alignment_summarised_gene_number.tsv", 
+        gene_fam_norelab = "../results/humann_out/concatenated_humann_files/all_samples_genesfamilies_humann3.tsv",
+        path_fam_norelab = "../results/humann_out/concatenated_humann_files/all_samples_pathabundance_humann3.tsv",  
+    conda: 
+        "../envs/r_and_plotting_env.yaml",
+    script: 
+        "../scripts/plot_humann_statistics.R"
 
 ## Add a rule to colour a specific taxa + function in plot! 
