@@ -48,19 +48,16 @@ MINUUR separates unmapped reads from typical host whole genome sequences. A high
 For host removal, read classification, taxonomic abundance estimation and functional read profiling, MINUUR requires several databases to be installed on the users system. To recreate the analysis of our paper, all databases can be downloaded at their following repositories
 
 #### Kraken2 Database
-Download the indexed [Kraken2](https://benlangmead.github.io/aws-indexes/k2) database of your choosing. The standard Kraken2 database may omit for important taxa, as such MINUUR also supports classification using a larger database of Bacterial and Archaeal sequences are available from the [struo2](https://github.com/leylabmpi/Struo2) github repository, which prodvides indexed Kraken2 databases from the [GTDB](https://gtdb.ecogenomic.org/) taxonomy database [available here](http://ftp.tue.mpg.de/ebio/projects/struo2/GTDB_release202/).  
-
-#### Bracken Database
-For reestimatation of the Kraken2 output, the used Kraken database is required to be build for Bracken. Instructions on Bracken-build are available [here](https://ccb.jhu.edu/software/bracken/index.shtml?t=manual).
+Download the indexed [Kraken2 and Bracken](https://benlangmead.github.io/aws-indexes/k2) database of your choosing. The standard Kraken2 database may omit for important taxa, as such MINUUR also supports classification using a larger database of Bacterial and Archaeal sequences are available from the [struo2](https://github.com/leylabmpi/Struo2) github repository, which prodvides indexed Kraken2 databases from the [GTDB](https://gtdb.ecogenomic.org/) taxonomy database [available here](http://ftp.tue.mpg.de/ebio/projects/struo2/GTDB_release202/).  
 
 #### MetaPhlAn3 Database
 MetaPhlAn3 requires a database file containing clade specific marker genes. Installation instructions of metaphlan are found [here](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.0).
 
 #### HUMAnN3 Database 
-[Humann3](https://github.com/biobakery/humann) requires two databases, the ChocoPhlAn database and translated search databases. The choices of databases and download links are available on the github page above. 
+[Humann3](https://github.com/biobakery/humann) requires two databases, the ChocoPhlAn database and UniRef90 translated search databases. The choices of databases and download links are available in the github page above. 
 
 ## Running Snakemake
-Once the configuration file has been configured to the users choosing (see WIKI), navigate to the `workflow` directory and run `snakemake -np` to test the pipeline will run as expected. If the user is happy all rules generate the desired output, use `snakemake --cores N --use-conda` to run the pipeline, with `N` denoting the number of cores for parrelization. If no parrelization is required, use `--cores 1`. Each rule of the snakemake pipeline can be run within individual conda environments that deploy the software when required. Run this using `snakemake --cores N --use-conda`
+Once the configuration file has been configured to the users choosing (see WIKI), navigate to the `workflow` directory and run `snakemake -np` to test the pipeline will run as expected. If the user is happy all rules generate the desired output, use `snakemake --cores N --use-conda` to run the pipeline, with `N` denoting the number of cores for parrelization. If no parrelization is required, use `--cores 1`. Each rule of the pipeline will be run within individual conda environments that deploy the appropriate software where required. Run this using `snakemake --cores N --use-conda`
 
 ## Docker image repositories & hosting
 We host all of our docker images on two different repositories and periodically sync the images between the two:
