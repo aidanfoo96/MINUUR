@@ -45,7 +45,7 @@ Use `git clone https://github.com/aidanfoo96/MINUUR/` and `cd MINUUR/workflow`. 
 MINUUR separates unmapped reads from typical host whole genome sequences. A high quality host genome is required for raw fastq inputs in order to separate reads. Download a high quality reference database of your choosing (in fasta format) and follow [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) build tutorial here to create the index.
 
 ## Database requirements
-For host removal, read classification, taxonomic abundance estimation and functional read profiling, MINUUR requires several databases to be installed on the users system. To recreate the analysis of our paper, all databases can be downloaded at their following repositories
+For host removal, read classification, taxonomic abundance estimation and functional read profiling, MINUUR requires several databases to be installed on the users system. All databases can be downloaded at their following repositories
 
 #### Kraken2 Database
 Download the indexed [Kraken2 and Bracken](https://benlangmead.github.io/aws-indexes/k2) database of your choosing. The standard Kraken2 database may omit for important taxa, as such MINUUR also supports classification using a larger database of Bacterial and Archaeal sequences are available from the [struo2](https://github.com/leylabmpi/Struo2) github repository, which prodvides indexed Kraken2 databases from the [GTDB](https://gtdb.ecogenomic.org/) taxonomy database [available here](http://ftp.tue.mpg.de/ebio/projects/struo2/GTDB_release202/).  
