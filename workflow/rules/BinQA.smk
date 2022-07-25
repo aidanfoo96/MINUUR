@@ -14,6 +14,8 @@ rule lineage_checkm:
         "logs/BinQA/{sample}.log",
     conda:
         "../envs/map_coverage_bin.yaml",
+    benchmark: 
+        "benchmarks/{sample}.checkMLineage.benchmark.txt",
     params: 
         outdir = "../results/binning/checkm_out/{sample}_checkm/",
         indir = "../results/binning/metabat_out/{sample}_bins/",
@@ -39,6 +41,8 @@ rule QA_checkm:
         threads = config["CheckmBinQA"]["Threads"],
         out = "../results/binning/{sample}/checkm_out/lineage.ms",
         direc = "../results/binning/checkm_out/{sample}_checkm/",
+    benchmark: 
+        "benchmarks/{sample}.checkMQA.benchmark.txt",
     conda:
         "../envs/map_coverage_bin.yaml",
     shell: 

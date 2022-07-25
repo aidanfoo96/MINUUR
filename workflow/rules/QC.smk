@@ -35,7 +35,9 @@ rule do_fastqc:
     log: 
         "logs/fastqc/{sample}_{num}.log", 
     threads: 
-        2
+        10
+    benchmark: 
+        "benchmarks/{sample}_{num}.FastQC.benchmark.txt",
     params: 
         outdir="--outdir ../results/qc/fastqc",
     wrapper: 
@@ -57,8 +59,10 @@ rule trim_sequences:
         extra = config["QC"]["CutadaptParams"],
     log: 
         "logs/cutadapt/{sample}.log", 
+    benchmark: 
+        "benchmarks/{sample}.trimming.benchmark.txt",
     threads: 
-        4
+        10
     wrapper:
         "0.77.0/bio/cutadapt/pe"
 
@@ -74,8 +78,10 @@ rule do_fastqc_trimmed:
         fastq2 = "../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq", 
     log: 
         "logs/fastqc_trimmed/{sample}_{num}.log", 
+    benchmark: 
+        "benchmarks/{sample}_{num}.FASTQC_Trimmed.benchmark.txt",
     threads: 
-        2
+        10
     params: 
         outdir="--outdir ../results/qc/fastqc_trimmed",
     wrapper: 
@@ -96,6 +102,8 @@ rule align_fastq:
         "../envs/qc_env.yaml",
     log: 
         "logs/bowtie2_align/{sample}.log", 
+    benchmark: 
+        "benchmarks/{sample}.alignment.benchmark.txt",
     params: 
         db = config['RemoveHostFromFastqGz']["ContaminantIndex"],
         threads = config['RemoveHostFromFastqGz']['Threads'],

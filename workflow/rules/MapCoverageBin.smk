@@ -39,6 +39,8 @@ rule index_megahit_contigs:
         "logs/bwa_index/{sample}.log",
     conda:
         "../envs/map_coverage_bin.yaml",
+    benchmark: 
+        "benchmarks/{sample}.indexCheckm.benchmark.txt",
     params:
         prefix = "../results/megahit_assm/{sample}_assm/{sample}",
         algorithm = "bwtsw",
@@ -60,6 +62,8 @@ rule map_reads_to_contig:
         "../envs/map_coverage_bin.yaml",
     threads: 
         25
+    benchmark: 
+        "benchmarks/{sample}.readMapping.benchmark.txt",
     params: 
         index = "../results/megahit_assm/{sample}_assm/{sample}",
         sorting = "samtools", 
@@ -78,6 +82,8 @@ rule contig_map_stat:
         bam_idx = "../results/binning/{sample}/contig_index/{sample}_sorted.bam",
     conda:
         "envs/map_coverage_bin.yaml",
+    benchmark: 
+        "benchmarks/{sample}.contigstat.benchmark.txt",
     shell: 
         r"""
             samtools flagstat {input.bam_idx} > {output.map_stat}
@@ -94,6 +100,8 @@ rule convert_bam_to_depth:
         bam_idx = "../results/binning/{sample}/contig_index/{sample}_sorted.bam",
     conda:
         "../envs/map_coverage_bin.yaml",
+    benchmark: 
+        "benchmarks/{sample}.contig_depth.benchmark.txt",
     shell: 
         r"""
             jgi_summarize_bam_contig_depths \
@@ -114,6 +122,8 @@ rule metabat_bin:
         contig_depth = "../results/binning/{sample}/contig_depth/{sample}_sorted.depth", 
     conda:
         "../envs/map_coverage_bin.yaml",
+    benchmark: 
+        "benchmarks/{sample}.metabat.benchmark.txt",
     params: 
         outdir = "../results/binning/metabat_out/{sample}_bins/bin/",
         min_contig_len = config["MetagenomeBinning"]["MinimumContigLength"],

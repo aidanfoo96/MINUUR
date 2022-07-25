@@ -9,7 +9,7 @@
 samples: ../config/samples_fastq.tsv
 
 # Kraken Database: provide file path to your kraken database here
-kraken_db_location: ../resources/kraken_db/
+kraken_db_location: /home/db/Kraken2_db/
 
 # FASTQ Processing
   # Activate = True to: 
@@ -81,7 +81,7 @@ ExtractKrakenTaxa:
 BrackenReestimation:
   Activate: True
   # Provide path to Bracken built db
-  BrakenDb: ../resources/kraken_db/
+  BrakenDb: /home/db/Kraken2_db/
   # Choose classification level, S = species, G = genus etc
   ClassificationLvl: 'S'
   DistributionThresh: 10
@@ -102,9 +102,9 @@ MetaphlanClassification:
 HumannAnalysis:
   Activate: True
   # Path to nucleotide database
-  NTDatabase: ../resources/chocophlan/
+  NTDatabase: /home/db/User_dbs/aidan_foo/chocophlan/
   # Path to protein database
-  ProtDatabase: ../resources/uniref/
+  ProtDatabase: /home/db/User_dbs/aidan_foo/uniref/
   Threads: 20
 
 # Rename humann output to alternative naming convention
@@ -130,13 +130,13 @@ MetagenomeAssm:
 # METAGENOME BINNING AND QA
 MetagenomeBinning: 
   Activate: True
-  Threads: 30
+  Threads: 20
   # Minimum contig length required for final binning stage with metabat2
   MinimumContigLength: 1500
 
 # Use Checkm to calculate bin statistics
 CheckmBinQA: 
   Activate: True
-  Threads: 8
+  Threads: 15 
 
 # FINISHED! 

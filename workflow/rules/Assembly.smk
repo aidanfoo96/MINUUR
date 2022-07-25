@@ -36,6 +36,8 @@ rule megahit_assembly:
         "../envs/metagenome_assm_env.yaml",
     log:
         "logs/megahit_assm/{sample}.log",
+    benchmark: 
+        "benchmarks/{sample}.megahit.benchmark.txt",
     params: 
         outdir = "../results/megahit_assm/{sample}_assm/tmp",
         threads = config["MetagenomeAssm"]["Threads"],
@@ -69,6 +71,8 @@ rule quast:
         "../envs/metagenome_assm_env.yaml",
     log:
         "logs/quast/{sample}.log",
+    benchmark: 
+        "benchmarks/{sample}.quast.benchmark.txt",
     params: 
         outdir = "../results/quast_out/{sample}_quast_output/",
         threads = config["MetagenomeAssm"]["Threads"],

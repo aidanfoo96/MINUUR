@@ -57,6 +57,8 @@ rule extract_unmapped_bam_from_fastq:
         sample = "../results/aligned_bam/{sample}_sorted.bam",
     conda: 
         "../envs/bam_processing_env.yaml",
+    benchmark: 
+        "benchmarks/{sample}.BAM_separation.benchmark.txt",
     log: 
         "logs/samtools_extract_ffq/{sample}.log", 
     shell: 
@@ -72,6 +74,8 @@ rule bam_to_fastq_ffq:
         fastq2 = "../results/unmapped_fastq_ffq/{sample}_unmapped_2.fastq",
     input: 
         sample = "../results/unmapped_bam_ffq/{sample}_unmapped.bam",
+    benchmark: 
+        "benchmarks/{sample}.BAMtoFastq.benchmark.txt",
     conda: 
         "../envs/bam_processing_env.yaml",
     shell: 

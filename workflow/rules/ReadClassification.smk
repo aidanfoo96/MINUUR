@@ -60,6 +60,8 @@ rule kraken_classification:
         threads = config["KrakenClassification"]["Threads"],
     log: 
         "logs/kraken2/{sample}_classification.log",
+    benchmark: 
+        "benchmarks/{sample}.kraken_classification.benchmark.txt",
     conda: 
         "../envs/classification_env.yaml",
     shell: 
@@ -90,9 +92,11 @@ rule extract_taxon:
     params: 
         taxa = config["ExtractKrakenTaxa"]["taxon_choice"],
     threads: 
-        8
+        15
     log: 
         "logs/kraken2_taxonextract/{sample}.log",
+    benchmark: 
+        "benchmarks/{sample}.taxon_extract.benchmark.txt",
     shell: 
         """
         extract_kraken_reads.py -k {input.krak_file} \
@@ -114,6 +118,8 @@ rule convert_to_mpa:
         mpa_txt = "../results/kraken_out/mpa_out/{sample}_mpa_conv_report.txt",
     input: 
         krak_file = "../results/kraken_out/mpa_report/{sample}_report.txt",
+    benchmark: 
+        "benchmarks/{sample}.mpa_conversion.benchmark.txt",
     conda: 
         "../envs/classification_env.yaml",
     shell: 
@@ -128,6 +134,8 @@ rule combine_mpa_reports:
         combined_report = "../results/kraken_out/combined_report/kraken_bacterial_report.txt"
     input: 
         mpa_files = expand("../results/kraken_out/mpa_out/{sample}_mpa_conv_report.txt", sample = samples),
+    benchmark: 
+        "benchmarks/mpa_combine.benchmark.txt",
     conda: 
         "../envs/classification_env.yaml",
     shell: 
@@ -269,6 +277,8 @@ rule generate_metaphlan_report:
         proc = config["MetaphlanClassification"]["NProc"]
     conda: 
         "../envs/classification_env.yaml",
+    benchmark: 
+        "benchmarks/{sample}.mpa_classification.benchmark.txt",
     log: 
         "logs/metaphlan_classification/{sample}_classification.log"
     shell: 
@@ -340,6 +350,8 @@ rule bracken_reestimation:
         dist_thresh = config["BrackenReestimation"]["DistributionThresh"],
     conda: 
         "../envs/classification_env.yaml",
+    benchmark: 
+        "benchmarks/{sample}.bracken_reestimation.benchmark.txt",
     log: 
         "logs/bracken_classification/{sample}.log"
     shell: 

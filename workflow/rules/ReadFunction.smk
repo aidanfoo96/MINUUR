@@ -51,6 +51,8 @@ rule generate_humann_profile:
         outdir = directory("../results/humann_out/{sample}_humann3_profile/"),
     log:
         "log/humann_profiling/{sample}.log",
+    benchmark: 
+        "benchmarks/{sample}.humann_classification.benchmark.txt",
     shell: 
         r"""
             humann3 --nucleotide-database {params.nt_db} \
