@@ -4,7 +4,9 @@
     # bowtie2: (Author?)
 ##################################################################
 
+
 from snakemake.utils import validate
+
 
 #-------------------------------------------------------------------#
 def GetInput(wildcards): 
@@ -28,6 +30,7 @@ def GetInput(wildcards):
 
     return [f"{u.fastq1Path}", f"{u.fastq2Path}"]
 
+
 #-------------------------------------------------------------------#
 rule CheckInputs:
     """
@@ -48,7 +51,8 @@ rule CheckInputs:
         "../scripts/check_inputs.py"
 
 
-validate(sample_table, schema = "../schemas/samples.schema.yaml")
+validate(sample_list, schema = "../schemas/samples.schema.yaml")
+
 
 #-------------------------------------------------------------------#
 rule FastQC: 
@@ -59,7 +63,7 @@ rule FastQC:
         html = "../results/qc/fastqc/{sample}_{num}.html", 
         zip = "../results/qc/fastqc/{sample}_{num}_fastqc.zip"
     input: 
-        get_input
+        GetInput
     log: 
         "logs/fastqc/{sample}_{num}.log", 
     threads: 
@@ -70,6 +74,7 @@ rule FastQC:
         outdir="--outdir ../results/qc/fastqc",
     wrapper: 
         "v0.80.1/bio/fastqc"
+
 
 #-------------------------------------------------------------------#
 rule TrimFastq: 
@@ -82,7 +87,7 @@ rule TrimFastq:
         fastq2 = "../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq", 
         qc="trimmed/{sample}.qc.txt",
     input:
-        get_input
+        GetInput
     params: 
         extra = config["QC"]["CutadaptParams"],
     log: 
@@ -134,9 +139,9 @@ rule AlignFastq:
     benchmark: 
         "benchmarks/{sample}.alignment.benchmark.txt",
     params: 
-        db = config['RemoveHostFromFastqGz']["ContaminantIndex"],
+        db = config['RemoveHostFromFastqGz']['ContaminantIndex'],
         threads = config['RemoveHostFromFastqGz']['Threads'],
-        sensitivity = config['RemoveHostFromFastqGz']['AlignmentSensitivty']
+        sensitivity = config['RemoveHostFromFastqGz']['AlignmentSensitivty'],
     shell: 
         r"""
             bowtie2 -x {params.db} \
