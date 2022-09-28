@@ -4,7 +4,8 @@
 #####################################################
 
 
-rule bam_file_statsistic_fq: 
+#-------------------------------------------------------------------#
+rule BamStatsFFQ: 
     """
         Generate Statistics of aligned bam files
     """
@@ -18,7 +19,8 @@ rule bam_file_statsistic_fq:
         "0.79.0/bio/samtools/stats"
 
 
-rule print_bam_statistics_fq: 
+#-------------------------------------------------------------------#
+rule PrintBamStatsFFQ: 
     """
         Extract total, mapped and unmapped reads 
     """
@@ -30,7 +32,8 @@ rule print_bam_statistics_fq:
         "sed -n '8p;14p;16p' {input.sample} > {output.txt}" 
 
 
-rule concatenate_alignment_statistics_fq: 
+#-------------------------------------------------------------------#
+rule ConcatenateBamStat: 
     """
         Concatenate all mapping statistic files 
     """
@@ -47,7 +50,8 @@ rule concatenate_alignment_statistics_fq:
          """
 
 
-rule extract_unmapped_bam_from_fastq:  
+#-------------------------------------------------------------------#
+rule ExtractUnmappedReads:  
     """
         Extract unmapped reads from bam 
     """
@@ -65,7 +69,8 @@ rule extract_unmapped_bam_from_fastq:
         "samtools view -b -f 12 -F 256 {input.sample} > {output.bam} 2> {log}"
 
 
-rule bam_to_fastq_ffq: 
+#-------------------------------------------------------------------#
+rule ConvertUnmappedReadsToFastq: 
     """
         Convert bam to paried Fastq
     """
