@@ -7,16 +7,6 @@ def RunPipeline(wildcards):
     
     final_input = []
     
-    if config["RemoveHostFromFastqGz"]["Activate"]: 
-        final_input.extend(
-            expand(
-                [
-                    "../results/aligned_bam/{sample}_sorted.bam",
-                ],
-                sample = samples
-            )
-        )
-    
     if config["QC"]["Activate"]: 
         final_input.extend(
             expand(
@@ -26,7 +16,7 @@ def RunPipeline(wildcards):
                     "../results/qc/trimmed_fastq/{sample}_trimmed_1.fastq",
                     "../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq",
                     "../results/qc/fastqc_trimmed/{sample}_{num}.html", 
-
+                    "../results/aligned_bam/{sample}_sorted.bam",
                 ],
                 sample = samples,
                 num = [1, 2],
