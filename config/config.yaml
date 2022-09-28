@@ -46,10 +46,9 @@ QC:
 
 # Remove HostReads from Fastq Files and convert to BAM
 RemoveHostFromFastqGz: 
-  Activate: True
   Threads: 12
   # Give path to Bowtie2 indexed host genome
-  ContaminantIndex: /home/db/User_dbs/aidan_foo/bt_db/
+  ContaminantIndex: /home/db/User_dbs/aidan_foo/bt_db/aegypti_db
   AlignmentSensitivty: "--sensitive-local"
   
 # Generate statistics and extract unmapped reads from BAM file
