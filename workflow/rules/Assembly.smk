@@ -3,6 +3,7 @@
     # QUAST: (Gurevich et al., 2013) 
 ####################################################################
 
+
 # Functions to return fastq files depending on configuration 
 def megahit_input_1(wildcards): 
     if config["MetagenomeAssm"]["UseKrakenExtracted"]:             
