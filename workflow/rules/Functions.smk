@@ -21,6 +21,7 @@ def RunPipeline(wildcards):
         final_input.extend(
             expand(
                 [
+                    "../results/.input.check",
                     "../results/qc/fastqc/{sample}_{num}_fastqc.zip",
                     "../results/qc/trimmed_fastq/{sample}_trimmed_1.fastq",
                     "../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq",
