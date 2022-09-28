@@ -11,12 +11,16 @@ samples: ../config/samples_list.tsv
 
 ## If Automatic: 
   ## File names should follow the following rules 
-    ## .fastq.gz file ending 
+    ## .fastq.gz file ending for fastq input
+    ## .bam file ending for bam input 
     ## reads stored in the resources directory 
     ## paired end reads with the naming convention _1.fastq.gz and _2.fastq.gz
 
 ## Manual: 
   ## Specify the filename and location in the manual_sample.tsv 
+input_type: 
+  fastq: True
+  bam: False
 
 input_config: 
   automatic: False
@@ -34,9 +38,6 @@ kraken_db_location: /home/db/Kraken2_db/
     # QC: Activate = False
     # RemoveHostFromFastqGz: Activate = False
     # Moves the pipeline to: "ProcessBams"
-input_type: 
-  fastq: True
-  bam: False
 
 # Perform Quality control on Raw Fastq Reads
 # Perofrm trimming using cutadapt. Input trimming parameters as shown below
