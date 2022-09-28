@@ -1,0 +1,19 @@
+$schema: "http://json-schema.org/draft-06/schema#"
+
+description: an entry in the "fastq_sampels.tsv" sheet 
+properties: 
+  sampleID:
+    type: string
+    description: sample name/identifier 
+  fastq1: 
+    type: string 
+    description: full name of the fastq.gz file to be used for host removal, format should be {sample}_1.fastq.gz
+  fastq2: 
+    type: string 
+    description: full name of the 2nd pair fastq.gz file to be used for host removal, format should be {sample}_2.fastq.gz
+  
+  required: 
+    - sampleID
+    - fastq1
+    - fastq2 
+  
