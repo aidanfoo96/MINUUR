@@ -24,8 +24,8 @@ sample_list = (
 samples = sample_list["sampleID"].tolist()
 
 include: "rules/01_FastqQC.smk"
+include: "rules/02a_BamProcessFromFastq.smk"
 include: "rules/02b_BamProcessRaw.smk"
-include: "rules/BamProcessFromFastq.smk"
 include: "rules/ReadClassification.smk"
 include: "rules/Assembly.smk"
 include: "rules/MapCoverageBin.smk"
