@@ -5,8 +5,22 @@
     # Version: v0.1
 #####################################################
 
-# Samples: provide file path to the samples names here
-samples: ../config/samples_fastq.tsv
+# Samples: provide a path to your samples names here
+# This will be the key identifier to your fastq_files and knowing what to call your fastq files
+samples: ../config/samples_list.tsv
+
+## If Automatic: 
+  ## File names should follow the following rules 
+    ## .fastq.gz file ending 
+    ## reads stored in the resources directory 
+    ## paired end reads with the naming convention _1.fastq.gz and _2.fastq.gz
+
+## Manual: 
+  ## Specify the filename and location in the manual_sample.tsv 
+
+input_config: 
+  automatic: False
+  manual: ../config/sample_table.tsv
 
 # Kraken Database: provide file path to your kraken database here
 kraken_db_location: /home/db/Kraken2_db/
@@ -35,7 +49,7 @@ RemoveHostFromFastqGz:
   Activate: True
   Threads: 12
   # Give path to Bowtie2 indexed host genome
-  ContaminantIndex: ../resources/aedes_ref/aedes_aegypti_idx
+  ContaminantIndex: /home/db/User_dbs/aidan_foo/bt_db/
   AlignmentSensitivty: "--sensitive-local"
   
 # Generate statistics and extract unmapped reads from BAM file
