@@ -5,34 +5,40 @@
     # Version: v0.1
 #####################################################
 
+
+from snakemake.utils import validate
 import pandas as pd
+import os
+
 
 configfile: "../config/config.yaml"
 
-sample_table = (
+
+sample_list = (
     pd.read_csv(config["samples"], sep = "\t", dtype = {"sampleID": str})
     .set_index(["sampleID"], drop = False)
     .sort_index()
 )
 
-samples = sample_table["sampleID"].tolist()
+
+samples = sample_list["sampleID"].tolist()
 
 
 include: "rules/BamProcessRaw.smk"
 include: "rules/BamProcessFromFastq.smk"
 include: "rules/ReadClassification.smk"
-include: "rules/QC.smk"
+include: "rules/01_FastqQC.smk"
 include: "rules/Assembly.smk"
 include: "rules/MapCoverageBin.smk"
 include: "rules/BinQA.smk"
 include: "rules/ReadFunction.smk"
 include: "rules/Functions.smk"
 
+
 rule all:
     """
         Run the whole pipeline according to parameters set in ../config/config.yaml
     """
     input: 
-        RunPipeline
-
+        RunPipeline,
 
