@@ -14,21 +14,21 @@ def GetInput(wildcards):
         Function to determine if input is raw fastq or BAM
     """
     if config["input_config"]["automatic"]:
-        units = pd.read_csv(config["samples"], sep = "\t")
-        units = (
-            units.assign(fastq1Path=f"../resources/" + units["sampleID"] + "_1.fastq.gz")
-            .assign(fastq2Path=f"../resources/" + units["sampleID"] + "_2.fastq.gz")
+        fastqID = pd.read_csv(config["samples"], sep = "\t")
+        fastqID = (
+            fastqID.assign(fastq1Path=f"../resources/" + fastqID["sampleID"] + "_1.fastq.gz")
+            .assign(fastq2Path=f"../resources/" + fastqID["sampleID"] + "_2.fastq.gz")
             .set_index("sampleID")
         )
     else:
         assert os.path.isfile(
             config["input_config"]["manual"]
         ), f"config['input_config']['manual'] doesn't exist. Please create one or use the 'automatic option' with the correct naming scheme specified in the WIKI page"
-        units = pd.read_csv(config["input_config"]["manual"], sep = "\t", index_col="sampleID")
+        fastqID = pd.read_csv(config["input_config"]["manual"], sep = "\t", index_col="sampleID")
 
-    u = units.loc[wildcards.sample, ["fastq1Path", "fastq2Path"]].dropna()
+    final = fastqID.loc[wildcards.sample, ["fastq1Path", "fastq2Path"]].dropna()
 
-    return [f"{u.fastq1Path}", f"{u.fastq2Path}"]
+    return [final"{fastqID.fastq1Path}", final"{fastqID.fastq2Path}"]
 
 
 #-------------------------------------------------------------------#
