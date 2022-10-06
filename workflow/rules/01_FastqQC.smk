@@ -23,12 +23,12 @@ def GetInput(wildcards):
     else:
         assert os.path.isfile(
             config["input_config"]["manual"]
-        ), f"config['input_config']['manual'] doesn't exist. Please create one or use the 'automatic option' with the correct naming scheme specified in the WIKI page"
+        ), f"You haven't specified a samples table. Please create one or use the 'automatic option' with the correct naming scheme specified in MINUUR's WIKI page"
         fastqID = pd.read_csv(config["input_config"]["manual"], sep = "\t", index_col="sampleID")
 
     final = fastqID.loc[wildcards.sample, ["fastq1Path", "fastq2Path"]].dropna()
 
-    return [final"{fastqID.fastq1Path}", final"{fastqID.fastq2Path}"]
+    return [f"{final.fastq1Path}", f"{final.fastq2Path}"]
 
 
 #-------------------------------------------------------------------#
@@ -69,7 +69,7 @@ rule FastQC:
     threads: 
         10
     benchmark: 
-        "benchmarks/{sample}_{num}.FastQC.benchmark.txt",
+        "benchmarks/01_FastqQC/{sample}_{num}.FastQC.benchmark.txt",
     params: 
         outdir="--outdir ../results/qc/fastqc",
     wrapper: 
@@ -83,8 +83,8 @@ rule TrimFastq:
         Trimming parameters specified in contig file under "CutadaptParams" 
     """
     output: 
-        fastq1 = "../results/qc/trimmed_fastq/{sample}_trimmed_1.fastq",
-        fastq2 = "../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq", 
+        fastq1 = temporary("../results/qc/trimmed_fastq/{sample}_trimmed_1.fastq"),
+        fastq2 = temporary("../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq"), 
         qc="trimmed/{sample}.qc.txt",
     input:
         GetInput
@@ -93,7 +93,7 @@ rule TrimFastq:
     log: 
         "logs/cutadapt/{sample}.log", 
     benchmark: 
-        "benchmarks/{sample}.trimming.benchmark.txt",
+        "benchmarks/01_FastqQC/{sample}.trimming.benchmark.txt",
     wrapper:
         "0.77.0/bio/cutadapt/pe"
 
@@ -112,7 +112,7 @@ rule FastQCTrimmed:
     log: 
         "logs/fastqc_trimmed/{sample}_{num}.log", 
     benchmark: 
-        "benchmarks/{sample}_{num}.FASTQC_Trimmed.benchmark.txt",
+        "benchmarks/01_FastqQC/{sample}_{num}.FASTQC_Trimmed.benchmark.txt",
     threads: 
         10
     params: 
@@ -137,7 +137,7 @@ rule AlignFastq:
     log: 
         "logs/bowtie2_align/{sample}.log", 
     benchmark: 
-        "benchmarks/{sample}.alignment.benchmark.txt",
+        "benchmarks/01_FastqQC/{sample}.alignment.benchmark.txt",
     params: 
         db = config['RemoveHostFromFastqGz']['ContaminantIndex'],
         threads = config['RemoveHostFromFastqGz']['Threads'],
@@ -150,3 +150,4 @@ rule AlignFastq:
             samtools view -bS - | samtools sort - \
             -o {output.bam} 2> {log}
          """
+
