@@ -56,13 +56,13 @@ rule ExtractUnmappedReads:
         Extract unmapped reads from bam 
     """
     output: 
-        bam = "../results/unmapped_bam_ffq/{sample}_unmapped.bam",
+        bam = temporary("../results/unmapped_bam_ffq/{sample}_unmapped.bam"),
     input: 
         sample = "../results/aligned_bam/{sample}_sorted.bam",
     conda: 
         "../envs/bam_processing_env.yaml",
     benchmark: 
-        "benchmarks/{sample}.BAM_separation.benchmark.txt",
+        "benchmarks/02_BamProcessFromFastq/{sample}.BAM_separation.benchmark.txt",
     log: 
         "logs/samtools_extract_ffq/{sample}.log", 
     shell: 
@@ -75,13 +75,34 @@ rule ConvertUnmappedReadsToFastq:
         Convert bam to paried Fastq
     """
     output: 
-        fastq1 = "../results/unmapped_fastq_ffq/{sample}_unmapped_1.fastq",
-        fastq2 = "../results/unmapped_fastq_ffq/{sample}_unmapped_2.fastq",
+        fastq1 = temporary("../results/unmapped_fastq_ffq/{sample}_unmapped_1.fastq"),
+        fastq2 = temporary("../results/unmapped_fastq_ffq/{sample}_unmapped_2.fastq"),
     input: 
         sample = "../results/unmapped_bam_ffq/{sample}_unmapped.bam",
     benchmark: 
-        "benchmarks/{sample}.BAMtoFastq.benchmark.txt",
+        "benchmarks/02_BamProcessFromFastq/{sample}.BAMtoFastq.benchmark.txt",
     conda: 
         "../envs/bam_processing_env.yaml",
     shell: 
         "bamToFastq -i {input.sample} -fq {output.fastq1} -fq2 {output.fastq2}"
+
+
+#-------------------------------------------------------------------#
+rule GzipFastqFiles:
+    """
+        Gzip fastq_files 
+    """
+    output: 
+        fastq1gz = "../results/unmapped_fastq_ffq/{sample}_unmapped_1.fastq.gz",
+        fastq2gz = "../results/unmapped_fastq_ffq/{sample}_unmapped_2.fastq.gz",
+    input:
+        fastq1 = "../results/unmapped_fastq_ffq/{sample}_unmapped_1.fastq",
+        fastq2 = "../results/unmapped_fastq_ffq/{sample}_unmapped_2.fastq",
+    conda: 
+        "../envs/bam_processing_env.yaml",
+    shell: 
+        r"""
+            gzip -nc {input.fastq1} > {output.fastq1gz}
+            gzip -nc {input.fastq2} > {output.fastq2gz}
+
+        """
