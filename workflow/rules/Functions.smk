@@ -33,6 +33,8 @@ def RunPipeline(wildcards):
                         "../results/alignment_stats_ffq/{sample}_align_stats.txt",
                         "../results/alignment_stats_ffq/concatenated_alignment_statistics.txt",
                         "../results/unmapped_bam_ffq/{sample}_unmapped.bam",
+                        "../results/unmapped_fastq_ffq/{sample}_unmapped_1.fastq.gz",
+
                     ],
                     sample = samples
                 )
