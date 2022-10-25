@@ -5,6 +5,8 @@
     # Bracken: (Lu et al., 2017)
 ##################################################################
 
+
+#-------------------------------------------------------------------#
 def classification_input_r1(wildcards): 
     if config["ProcessBam"]["FromFastq"]:
         return("../results/unmapped_fastq_ffq/{sample}_unmapped_1.fastq")
@@ -12,14 +14,18 @@ def classification_input_r1(wildcards):
     else: 
         return("../results/unmapped_fastq/{sample}_unmapped_1.fastq")
 
+
+#-------------------------------------------------------------------#
 def classification_input_r2(wildcards): 
     if config["ProcessBam"]["FromFastq"]:
         return("../results/unmapped_fastq_ffq/{sample}_unmapped_2.fastq")
             
     else: 
         return("../results/unmapped_fastq/{sample}_unmapped_2.fastq")
-                
-def classification_sum_input(wildcards): 
+
+
+#-------------------------------------------------------------------#
+       def classification_sum_input(wildcards): 
     input_list = []
     if config["ProcessBam"]["FromFastq"]: 
         input_list.extend(
@@ -43,6 +49,7 @@ def classification_sum_input(wildcards):
     return(input_list)
 
 
+#-------------------------------------------------------------------#
 rule kraken_classification: 
     """
         Read classification of unmapped reads with kraken2
@@ -75,6 +82,7 @@ rule kraken_classification:
          """
 
 
+#-------------------------------------------------------------------#
 rule extract_taxon: 
     """
         Extract taxon (or group) of choosing and convert to fastq 
@@ -110,6 +118,7 @@ rule extract_taxon:
         """
 
 
+#-------------------------------------------------------------------#
 rule convert_to_mpa: 
     """
         Convert kraken output to mpa style report
@@ -126,6 +135,7 @@ rule convert_to_mpa:
         "kreport2mpa.py -r {input.krak_file} -o {output.mpa_txt} --display-header"
 
 
+#-------------------------------------------------------------------#
 rule combine_mpa_reports: 
     """
         Combine MPA reports into one file with samples + taxonomic classification
@@ -142,6 +152,7 @@ rule combine_mpa_reports:
         "combine_mpa.py -i {input.mpa_files} -o {output.combined_report}"
 
 
+#-------------------------------------------------------------------#
 rule generate_clean_kraken_summaries: 
     """
         Generate plots and clean taxonomic summary tables 
@@ -162,6 +173,7 @@ rule generate_clean_kraken_summaries:
         "../scripts/generate_kraken_summaries.R"
 
 
+#-------------------------------------------------------------------#
 rule generate_alignment_summary: 
     """
         Get alignment and non-alignment number
@@ -178,6 +190,7 @@ rule generate_alignment_summary:
         "../scripts/combined_kraken_alignment_stat_ffq.R"
 
 
+#-------------------------------------------------------------------#
 rule get_classified_unclassified_summary: 
     """
         Extract classified and unclassified number from kraken 'metaphlan' style report
@@ -190,6 +203,7 @@ rule get_classified_unclassified_summary:
         "sed -n '1p;2p' {input.krak_mpa_report} > {output.classified_summaries}"
 
 
+#-------------------------------------------------------------------#
 rule concatenate_kraken_mpa_summary:
     """
         Concatenate kraken mpa style summary of 'classified' 'unclassifed reads'
@@ -206,6 +220,7 @@ rule concatenate_kraken_mpa_summary:
          """ 
 
 
+#-------------------------------------------------------------------#
 rule plot_classifiedVsUnclassified_reads: 
     """
         Plot classified vs unclassified reads 
@@ -220,6 +235,7 @@ rule plot_classifiedVsUnclassified_reads:
         "../scripts/plot_classifiedVsunclassified_reads.R"
 
 
+#-------------------------------------------------------------------#
 rule plot_stratified_classifications: 
     """
         Plot heatmaps of genus and species level classifications
@@ -241,6 +257,7 @@ rule plot_stratified_classifications:
         "../scripts/plot_kraken_heatmaps.R"
 
 
+#-------------------------------------------------------------------#
 rule plot_classifications_spatial: 
     """
         Generate "Spatial" Plots of Read Classifications
@@ -262,6 +279,7 @@ rule plot_classifications_spatial:
         "../scripts/plot_kraken_spatial.R"
 
 
+#-------------------------------------------------------------------#
 rule generate_metaphlan_report: 
     """
         Classify unmapped reads using MetaPhlAn3
@@ -294,6 +312,7 @@ rule generate_metaphlan_report:
          """
 
 
+#-------------------------------------------------------------------#
 rule concatenate_clean_samples: 
     """
         Concatenate metaphlan classification tables
@@ -308,6 +327,7 @@ rule concatenate_clean_samples:
         "merge_metaphlan_tables.py {input.cln_out} > {output.concat_tbl}" 
 
 
+#-------------------------------------------------------------------#
 rule clean_metaphlan_report: 
     """
         Generate clean metaphlan classification tables
@@ -320,6 +340,7 @@ rule clean_metaphlan_report:
         "grep 's__\|UNKNOWN' {input.txt_out} | cut -f1,3 > {output.tbl_out}"
 
 
+#-------------------------------------------------------------------#
 rule generate_clean_metaphlan_summaries: 
     """
         Generate classification summaries of kingdom, genus and species 
@@ -336,6 +357,7 @@ rule generate_clean_metaphlan_summaries:
         "../scripts/generate_metaphlan_summaries.R" 
 
 
+#-------------------------------------------------------------------#
 rule bracken_reestimation: 
     """
         Reestimate kraken classified reads using bracken
@@ -363,6 +385,7 @@ rule bracken_reestimation:
          """
 
 
+#-------------------------------------------------------------------#
 rule concatenate_bracken_results: 
     """
         Concatenate Bracken Output
@@ -380,6 +403,7 @@ rule concatenate_bracken_results:
          """
 
 
+#-------------------------------------------------------------------#
 rule plot_bracken_results: 
     """
         Plot Bracken output
@@ -396,3 +420,4 @@ rule plot_bracken_results:
         "../envs/r_and_plotting_env.yaml",
     script: 
         "../scripts/plot_bracken_results.R"
+
