@@ -90,6 +90,8 @@ rule TrimFastq:
         GetInput
     params: 
         extra = config["QC"]["CutadaptParams"],
+    threads: 
+        threads = config["QC"]["CutadaptThreads"],
     log: 
         "logs/cutadapt/{sample}.log", 
     benchmark: 
