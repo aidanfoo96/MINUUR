@@ -44,10 +44,11 @@ kraken_db_location: /home/db/Kraken2_db/
 QC: 
   Activate: True
   CutadaptParams: "--minimum-length 50 -q 30"
+  CutadaptThreads: 10
 
 # Remove HostReads from Fastq Files and convert to BAM
 RemoveHostFromFastqGz: 
-  Threads: 12
+  Threads: 15
   # Give path to directory - allows MINUUR to check there is an existing directory 
   ContaminantDirectory: /home/db/User_dbs/aidan_foo/bt_db/
   # Give path to Bowtie2 indexed host genome
