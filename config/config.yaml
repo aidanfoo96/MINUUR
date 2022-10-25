@@ -48,6 +48,8 @@ QC:
 # Remove HostReads from Fastq Files and convert to BAM
 RemoveHostFromFastqGz: 
   Threads: 12
+  # Give path to directory - allows MINUUR to check there is an existing directory 
+  ContaminantDirectory: /home/db/User_dbs/aidan_foo/bt_db/
   # Give path to Bowtie2 indexed host genome
   ContaminantIndex: /home/db/User_dbs/aidan_foo/bt_db/aegypti_db
   AlignmentSensitivty: "--sensitive-local"
