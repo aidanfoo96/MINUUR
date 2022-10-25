@@ -75,8 +75,8 @@ rule ConvertUnmappedReadsToFastq:
         Convert bam to paried Fastq
     """
     output: 
-        fastq1 = temporary("../results/unmapped_fastq_ffq/{sample}_unmapped_1.fastq"),
-        fastq2 = temporary("../results/unmapped_fastq_ffq/{sample}_unmapped_2.fastq"),
+        fastq1 = "../results/unmapped_fastq_ffq/{sample}_unmapped_1.fastq",
+        fastq2 = "../results/unmapped_fastq_ffq/{sample}_unmapped_2.fastq",
     input: 
         sample = "../results/unmapped_bam_ffq/{sample}_unmapped.bam",
     benchmark: 
