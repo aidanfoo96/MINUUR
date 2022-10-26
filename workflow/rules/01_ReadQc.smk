@@ -83,9 +83,9 @@ rule TrimFastq:
         Trimming parameters specified in contig file under "CutadaptParams" 
     """
     output: 
-        fastq1 = temporary("../results/qc/trimmed_fastq/{sample}_trimmed_1.fastq"),
-        fastq2 = temporary("../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq"), 
-        qc="trimmed/{sample}.qc.txt",
+        fastq1 = "../results/qc/trimmed_fastq/{sample}_trimmed_1.fastq",
+        fastq2 = "../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq", 
+        qc = "trimmed/{sample}.qc.txt",
     input:
         GetInput
     params: 
@@ -130,7 +130,7 @@ rule AlignFastq:
         Generates coordinate sorted bam file
     """
     output: 
-        bam = temporary("../results/aligned_bam/{sample}_sorted.bam"),
+        bam = "../results/aligned_bam/{sample}_sorted.bam",
     input:
         read1 = "../results/qc/trimmed_fastq/{sample}_trimmed_1.fastq",
         read2 = "../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq", 
