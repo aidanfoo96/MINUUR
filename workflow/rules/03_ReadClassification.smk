@@ -10,7 +10,6 @@
 def classification_input_r1(wildcards): 
     if config["ProcessBam"]["FromFastq"]:
         return("../results/unmapped_fastq_ffq/{sample}_unmapped_1.fastq")
-            
     else: 
         return("../results/unmapped_fastq/{sample}_unmapped_1.fastq")
 
@@ -19,13 +18,12 @@ def classification_input_r1(wildcards):
 def classification_input_r2(wildcards): 
     if config["ProcessBam"]["FromFastq"]:
         return("../results/unmapped_fastq_ffq/{sample}_unmapped_2.fastq")
-            
     else: 
         return("../results/unmapped_fastq/{sample}_unmapped_2.fastq")
 
 
 #-------------------------------------------------------------------#
-       def classification_sum_input(wildcards): 
+def classification_sum_input(wildcards): 
     input_list = []
     if config["ProcessBam"]["FromFastq"]: 
         input_list.extend(
@@ -42,7 +40,6 @@ def classification_input_r2(wildcards):
                 [
                     "../results/alignment_stats/concatenated_alignment_statistics.txt",
                 ],
-
             )
         )
     
@@ -50,7 +47,7 @@ def classification_input_r2(wildcards):
 
 
 #-------------------------------------------------------------------#
-rule kraken_classification: 
+rule KrakenClassification: 
     """
         Read classification of unmapped reads with kraken2
     """
@@ -83,7 +80,7 @@ rule kraken_classification:
 
 
 #-------------------------------------------------------------------#
-rule extract_taxon: 
+rule ExtractTaxon: 
     """
         Extract taxon (or group) of choosing and convert to fastq 
     """
@@ -119,7 +116,7 @@ rule extract_taxon:
 
 
 #-------------------------------------------------------------------#
-rule convert_to_mpa: 
+rule ConvertToMpa: 
     """
         Convert kraken output to mpa style report
     """
@@ -136,7 +133,7 @@ rule convert_to_mpa:
 
 
 #-------------------------------------------------------------------#
-rule combine_mpa_reports: 
+rule CombineMpaReports: 
     """
         Combine MPA reports into one file with samples + taxonomic classification
     """
@@ -153,7 +150,7 @@ rule combine_mpa_reports:
 
 
 #-------------------------------------------------------------------#
-rule generate_clean_kraken_summaries: 
+rule GenerateCleanKrakenSummaries: 
     """
         Generate plots and clean taxonomic summary tables 
     """
@@ -174,7 +171,7 @@ rule generate_clean_kraken_summaries:
 
 
 #-------------------------------------------------------------------#
-rule generate_alignment_summary: 
+rule GenerateAlignmentSummary: 
     """
         Get alignment and non-alignment number
     """
@@ -191,7 +188,7 @@ rule generate_alignment_summary:
 
 
 #-------------------------------------------------------------------#
-rule get_classified_unclassified_summary: 
+rule GetClassifiedUnclassifiedSummary: 
     """
         Extract classified and unclassified number from kraken 'metaphlan' style report
     """
@@ -204,7 +201,7 @@ rule get_classified_unclassified_summary:
 
 
 #-------------------------------------------------------------------#
-rule concatenate_kraken_mpa_summary:
+rule ConcatenateKrakenMpaSummary:
     """
         Concatenate kraken mpa style summary of 'classified' 'unclassifed reads'
     """
@@ -221,7 +218,7 @@ rule concatenate_kraken_mpa_summary:
 
 
 #-------------------------------------------------------------------#
-rule plot_classifiedVsUnclassified_reads: 
+rule PlotClassifiedVsUnclassifiedReads: 
     """
         Plot classified vs unclassified reads 
     """
@@ -236,7 +233,7 @@ rule plot_classifiedVsUnclassified_reads:
 
 
 #-------------------------------------------------------------------#
-rule plot_stratified_classifications: 
+rule PlotStratifiedClassifications: 
     """
         Plot heatmaps of genus and species level classifications
     """
@@ -258,7 +255,7 @@ rule plot_stratified_classifications:
 
 
 #-------------------------------------------------------------------#
-rule plot_classifications_spatial: 
+rule PlotClassificationsSpatial: 
     """
         Generate "Spatial" Plots of Read Classifications
         Uses same read theshold as plot_stratified_classifications
@@ -280,7 +277,7 @@ rule plot_classifications_spatial:
 
 
 #-------------------------------------------------------------------#
-rule generate_metaphlan_report: 
+rule GenerateMetaphlanReport: 
     """
         Classify unmapped reads using MetaPhlAn3
     """
@@ -313,7 +310,7 @@ rule generate_metaphlan_report:
 
 
 #-------------------------------------------------------------------#
-rule concatenate_clean_samples: 
+rule ConcatenateCleanSamples: 
     """
         Concatenate metaphlan classification tables
     """
@@ -328,7 +325,7 @@ rule concatenate_clean_samples:
 
 
 #-------------------------------------------------------------------#
-rule clean_metaphlan_report: 
+rule CleanMetaphlanReport: 
     """
         Generate clean metaphlan classification tables
     """
@@ -341,7 +338,7 @@ rule clean_metaphlan_report:
 
 
 #-------------------------------------------------------------------#
-rule generate_clean_metaphlan_summaries: 
+rule GenerateCleanMetaphlanSummaries: 
     """
         Generate classification summaries of kingdom, genus and species 
     """
@@ -358,7 +355,7 @@ rule generate_clean_metaphlan_summaries:
 
 
 #-------------------------------------------------------------------#
-rule bracken_reestimation: 
+rule BrackenReestimation: 
     """
         Reestimate kraken classified reads using bracken
     """
@@ -386,7 +383,7 @@ rule bracken_reestimation:
 
 
 #-------------------------------------------------------------------#
-rule concatenate_bracken_results: 
+rule ConcatenateBrackenResults: 
     """
         Concatenate Bracken Output
     """
@@ -404,7 +401,7 @@ rule concatenate_bracken_results:
 
 
 #-------------------------------------------------------------------#
-rule plot_bracken_results: 
+rule PlotBrackenResults: 
     """
         Plot Bracken output
     """
