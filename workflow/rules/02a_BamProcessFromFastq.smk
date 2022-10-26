@@ -56,7 +56,7 @@ rule ExtractUnmappedReads:
         Extract unmapped reads from bam 
     """
     output: 
-        bam = temporary("../results/unmapped_bam_ffq/{sample}_unmapped.bam"),
+        bam = "../results/unmapped_bam_ffq/{sample}_unmapped.bam",
     input: 
         sample = "../results/aligned_bam/{sample}_sorted.bam",
     conda: 
@@ -106,3 +106,4 @@ rule GzipFastqFiles:
             gzip -nc {input.fastq2} > {output.fastq2gz}
 
         """
+
