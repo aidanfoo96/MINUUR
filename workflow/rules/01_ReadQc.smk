@@ -83,8 +83,8 @@ rule TrimFastq:
         Trimming parameters specified in contig file under "CutadaptParams" 
     """
     output: 
-        fastq1 = "../results/qc/trimmed_fastq/{sample}_trimmed_1.fastq",
-        fastq2 = "../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq", 
+        fastq1 = "../results/qc/trimmed_fastq/{sample}_trimmed_1.fastq.gz",
+        fastq2 = "../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq.gz", 
         qc = "trimmed/{sample}.qc.txt",
     input:
         GetInput
@@ -109,8 +109,8 @@ rule FastQCTrimmed:
         html = "../results/qc/fastqc_trimmed/{sample}_{num}.html", 
         zip = "../results/qc/fastqc_trimmed/{sample}_{num}_fastqc.zip"
     input: 
-        fastq1 = "../results/qc/trimmed_fastq/{sample}_trimmed_1.fastq",
-        fastq2 = "../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq", 
+        fastq1 = "../results/qc/trimmed_fastq/{sample}_trimmed_1.fastq.gz",
+        fastq2 = "../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq.gz", 
     log: 
         "logs/fastqc_trimmed/{sample}_{num}.log", 
     benchmark: 
@@ -132,8 +132,8 @@ rule AlignFastq:
     output: 
         bam = "../results/aligned_bam/{sample}_sorted.bam",
     input:
-        read1 = "../results/qc/trimmed_fastq/{sample}_trimmed_1.fastq",
-        read2 = "../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq", 
+        read1 = "../results/qc/trimmed_fastq/{sample}_trimmed_1.fastq.gz",
+        read2 = "../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq.gz", 
     conda: 
         "../envs/qc_env.yaml",
     log: 

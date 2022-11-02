@@ -13,8 +13,8 @@ def RunPipeline(wildcards):
                 [
                     "../results/.input.check",
                     "../results/qc/fastqc/{sample}_{num}_fastqc.zip",
-                    "../results/qc/trimmed_fastq/{sample}_trimmed_1.fastq",
-                    "../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq",
+                    "../results/qc/trimmed_fastq/{sample}_trimmed_1.fastq.gz",
+                    "../results/qc/trimmed_fastq/{sample}_trimmed_2.fastq.gz",
                     "../results/qc/fastqc_trimmed/{sample}_{num}.html", 
                     "../results/aligned_bam/{sample}_sorted.bam",
                 ],
