@@ -12,6 +12,8 @@
 
 MINUUR is still in development - any feedback is welcome! Please contact: 248064@lstmed.ac.uk or dm me on Twitter: https://twitter.com/fooheesoon
 
+Documentation: https://aidanfoo96.github.io/MINUUR/intro.html
+
 MINUUR is a snakemake pipeline to extract illumina short read shotgun sequencing reads and perform a range of metagenomic analyses to characterise host-associated microbes. MINUUR was developed for my PhD project and was intended to be used for the extraction and characterisation of mosquito-associated bacterial symbionts, however, its application can be applied to other host-associated WGS data. MINUUR aims to output genus & species level read classifications, functional read classifications and assembly of metagenome assembled genomes (MAGs). 
 
 MInUUR utilises several pieces of software in its pipeline: 
