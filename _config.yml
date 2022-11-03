@@ -3,7 +3,7 @@
 
 title: MINUUR - Microbial INsights Using Unmapped Reads
 author: Aidan Foo
-logo: logo.png
+logo: 
 
 # Force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html

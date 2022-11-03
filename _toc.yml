@@ -2,9 +2,13 @@
 # Learn more at https://jupyterbook.org/customize/toc.html
 
 format: jb-book
-root: intro
+root: 01_intro.md
 chapters:
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
-- file: mymarkdownfile.md
+- file: 02_Installation.md
+- file: 03_Inputting_Files.md
+- file: 04_Configuring_The_Workflow.md
+- file: 05_Running_MINUUR.md
+- file: 06_Outputs_Explained.md
+- file: 07_Weird_Things_Happening.md
+
+
