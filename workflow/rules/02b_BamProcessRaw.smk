@@ -5,26 +5,25 @@
 
 
 #-------------------------------------------------------------------#
-def GetInput(wildcards): 
+def GetBamInput(wildcards):
     """
-        Function to determine if input is raw fastq or BAM
+    Function to determine if input is raw fastq or BAM
     """
     if config["input_config"]["automatic"]:
         units = pd.read_csv(config["samples"], sep = "\t")
         units = (
-            units.assign(fastq1Path=f"../resources/" + units["sampleID"] + "_1.fastq.gz")
-            .assign(fastq2Path=f"../resources/" + units["sampleID"] + "_2.fastq.gz")
+            units.assign(BamPath=f"../resources/" + units["sampleID"] + ".bam")
             .set_index("sampleID")
         )
     else:
         assert os.path.isfile(
             config["input_config"]["manual"]
-        ), f"config['input_config']['manual'] doesn't exist. Please create one or use the 'automatic option' with the correct naming scheme specified in the WIKI page"
+            ), f"config['input_config']['manual'] doesn't exist. Please create one or use the 'automatic option' with the correct naming scheme specified in the WIKI page"
         units = pd.read_csv(config["input_config"]["manual"], sep = "\t", index_col="sampleID")
+    
+    u = units.loc[wildcards.sample, ["BamPath"]].dropna()
 
-    u = units.loc[wildcards.sample, ["fastq1Path", "fastq2Path"]].dropna()
-
-    return [f"{u.fastq1Path}", f"{u.fastq2Path}"]
+    return [f"{u.BamPath}"]
  
 
 #-------------------------------------------------------------------#
@@ -35,7 +34,7 @@ rule bam_file_statistic:
     output:
         txt = "../results/bam_stats/{sample}_stats.txt",
     input: 
-        GetInput
+        GetBamInput
     log: 
         "logs/samtool_stats/{sample}.log", 
     shell: 
@@ -82,7 +81,7 @@ rule extract_unmapped_bam:
     output: 
         bam = "../results/unmapped_bam/{sample}_unmapped.bam",
     input: 
-        GetInput
+        GetBamInput
     conda: 
         "../envs/bam_processing_env.yaml",
     log: 

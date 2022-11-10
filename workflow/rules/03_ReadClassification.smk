@@ -180,7 +180,7 @@ rule GenerateAlignmentSummary:
         long_read_tbl = "../results/alignment_stats_ffq/tables/aligned_reads_long.txt",
         alignment_stat_plot = "../results/alignment_stats_ffq/plots/alignment_stat_plot.pdf"
     input: 
-        alignment_stats = "../results/alignment_stats_ffq/concatenated_alignment_statistics.txt",
+        alignment_stats = classification_sum_input,
     conda: 
         "../envs/r_and_plotting_env.yaml",
     script: 
