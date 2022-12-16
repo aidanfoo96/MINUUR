@@ -11,5 +11,6 @@ workflow/trimmed/ERR347035.qc.txt
 workflow/benchmarks/01_FastqQC/SRR5562859.trimming.benchmark.txt
 workflow/trimmed/SRR5562859.qc.txt
 config/samples_list.tsv
-config/samples_list.tsv
 config/sample_table.tsv
+config/sample_table.txt
+
