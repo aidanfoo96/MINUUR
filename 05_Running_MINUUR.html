@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>&lt;no title&gt; &#8212; MINUUR - Microbial INsights Using Unmapped Reads</title>
+    <title>Running MINUUR &#8212; MINUUR - Microbial INsights Using Unmapped Reads</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -52,8 +52,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="06_Outputs_Explained.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="04_Configuring_The_Workflow.html" />
+    <link rel="next" title="Outputs Explained" href="06_Outputs_Explained.html" />
+    <link rel="prev" title="Configuring the Pipeline" href="04_Configuring_The_Workflow.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -103,15 +103,35 @@ const thebe_selector_output = ".output, .cell_output"
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="01_intro.html">
+                <a class="reference internal" href="index.html">
                     Introduction
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="02_Installation.html">
    Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_Inputting_Files.html">
+   Inputting Files To MINUUR
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_Configuring_The_Workflow.html">
+   Configuring the Pipeline
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Running MINUUR
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06_Outputs_Explained.html">
+   Outputs Explained
   </a>
  </li>
 </ul>
@@ -269,50 +289,23 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="simple visible nav section-nav flex-column">
-</ul>
-
-    </nav>
 </div>
     </div>
     <div class="article row">
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1><no title></h1>
+                <h1>Running MINUUR</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="simple visible nav section-nav flex-column">
-</ul>
-
-                        </nav>
                     </div>
                 </div>
             </div>
@@ -320,7 +313,17 @@ title="Print to PDF"
                 
               <div>
                 
-  
+  <section id="running-minuur">
+<h1>Running MINUUR<a class="headerlink" href="#running-minuur" title="Permalink to this headline">#</a></h1>
+<p>To do a dry-run, enter the command</p>
+<p><code class="docutils literal notranslate"><span class="pre">snakemake</span> <span class="pre">-n</span></code>.</p>
+<p>To run the workflow on 3 cores with conda installing all required packages as you go, run:</p>
+<p><code class="docutils literal notranslate"><span class="pre">snakemake</span> <span class="pre">--cores</span> <span class="pre">3</span> <span class="pre">--use-conda</span></code></p>
+<p>I would also recommend tacking on the following command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">snakemake</span> <span class="pre">--cores</span> <span class="pre">3</span> <span class="pre">--use-conda</span> <span class="pre">--keep-going</span></code></p>
+<p>A known error I run into is where MINUUR can’t find any bins from your assemblies. This is common when trying to recover MAGs using this approach since you may not have the required read depth. The <code class="docutils literal notranslate"><span class="pre">--keep-going</span></code> command ensures the pipeline still runs even when you encounter this error. Just know that subsequent steps after binning (CheckM) won’t run since there will be no bins to work on.</p>
+</section>
+
     <script type="text/x-thebe-config">
     {
         requestKernel: true,
@@ -352,13 +355,13 @@ title="Print to PDF"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">&lt;no title&gt;</p>
+            <p class="prev-next-title">Configuring the Pipeline</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="06_Outputs_Explained.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">&lt;no title&gt;</p>
+        <p class="prev-next-title">Outputs Explained</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

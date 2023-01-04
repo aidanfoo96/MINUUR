@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>&lt;no title&gt; &#8212; MINUUR - Microbial INsights Using Unmapped Reads</title>
+    <title>Inputting Files To MINUUR &#8212; MINUUR - Microbial INsights Using Unmapped Reads</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -52,7 +52,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="04_Configuring_The_Workflow.html" />
+    <link rel="next" title="Configuring the Pipeline" href="04_Configuring_The_Workflow.html" />
     <link rel="prev" title="Installation" href="02_Installation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -103,15 +103,40 @@ const thebe_selector_output = ".output, .cell_output"
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="01_intro.html">
+                <a class="reference internal" href="index.html">
                     Introduction
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="02_Installation.html">
    Installation
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Inputting Files To MINUUR
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_Configuring_The_Workflow.html">
+   Configuring the Pipeline
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05_Running_MINUUR.html">
+   Running MINUUR
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06_Outputs_Explained.html">
+   Outputs Explained
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07_Weird_Things_Happening.html">
+   Weird Things are Happening…What’s the Problem?
   </a>
  </li>
 </ul>
@@ -290,7 +315,22 @@ title="Print to PDF"
         <i class="fas fa-list"></i> Contents
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="simple visible nav section-nav flex-column">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#automatic">
+   Automatic
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#manual">
+   Manual
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#putting-it-all-together">
+   Putting It All Together
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -300,7 +340,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1><no title></h1>
+                <h1>Inputting Files To MINUUR</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -309,7 +349,22 @@ title="Print to PDF"
                             <h2> Contents </h2>
                         </div>
                         <nav aria-label="Page">
-                            <ul class="simple visible nav section-nav flex-column">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#automatic">
+   Automatic
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#manual">
+   Manual
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#putting-it-all-together">
+   Putting It All Together
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -320,7 +375,33 @@ title="Print to PDF"
                 
               <div>
                 
-  
+  <section class="tex2jax_ignore mathjax_ignore" id="inputting-files-to-minuur">
+<h1>Inputting Files To MINUUR<a class="headerlink" href="#inputting-files-to-minuur" title="Permalink to this headline">#</a></h1>
+<p>Inputting your files to MINUUR can be done in one of two ways:</p>
+<section id="automatic">
+<h2>Automatic<a class="headerlink" href="#automatic" title="Permalink to this headline">#</a></h2>
+<p>You can input a paired fastq file into the <code class="docutils literal notranslate"><span class="pre">resources</span></code> directory of MINUUR. Simply <code class="docutils literal notranslate"><span class="pre">mv</span></code> or <code class="docutils literal notranslate"><span class="pre">cp</span></code> some raw paired gzipped fastq files into this directory. The caveat, however, is this uses a strict naming scheme, where your files must be named in the following format:</p>
+<p><code class="docutils literal notranslate"><span class="pre">{samplename}_1.fastq.gz</span></code> and <code class="docutils literal notranslate"><span class="pre">{samplename}_2.fastq.gz</span></code></p>
+<p>Your <code class="docutils literal notranslate"><span class="pre">{samplename}</span></code> must then be specified in the sample_list.tsv file located in the <code class="docutils literal notranslate"><span class="pre">config</span></code> directory and look a little something like this:</p>
+<figure class="align-default">
+<img alt="_images/Sample_table_texample_2.png" src="_images/Sample_table_texample_2.png" />
+</figure>
+</section>
+<section id="manual">
+<h2>Manual<a class="headerlink" href="#manual" title="Permalink to this headline">#</a></h2>
+<p>Maybe you have an alternative naming scheme or files deposited in a directory you don’t want them moved from? MINUUR offers a more flexible approach.</p>
+<p>Here, input your sample name and relative path to your data in the <code class="docutils literal notranslate"><span class="pre">samples_table.tsv</span></code> file located in the <code class="docutils literal notranslate"><span class="pre">config</span></code> directory. Similar to above, please also specify your sample names in the <code class="docutils literal notranslate"><span class="pre">sample_list.tsv</span></code> file. Both files should look a little like this:</p>
+<figure class="align-default">
+<img alt="_images/sample_list_example.png" src="_images/sample_list_example.png" />
+</figure>
+</section>
+<section id="putting-it-all-together">
+<h2>Putting It All Together<a class="headerlink" href="#putting-it-all-together" title="Permalink to this headline">#</a></h2>
+<p>By now you should have downloaded the taxonomic databases you might be interested in, configured your data inputs using either Manual or Automatic Options and placed your host reference genome someone (maybe in the resources directory of MINUUR), but that doesn’t really matter.</p>
+<p>If you think all is well, you can try running <code class="docutils literal notranslate"><span class="pre">snakemake</span> <span class="pre">-np</span></code> from the <code class="docutils literal notranslate"><span class="pre">working</span></code> directory of MINUUR. This will perform a dry run of your analysis and print a load of inputs and outputs that you’re intending to run. Have a look at some of the steps and you can see what might be happening under the hood. Cool. However, if you tried running this for real, you’d likely run into a string of errors. That’s because you haven’t <em>configured</em> your workflow yet. We need to specify some paths towards certain databases and steps you want to run / don’t want to run and the behaviour of certain parameters. Juicy. Lets talk about this next.</p>
+</section>
+</section>
+
     <script type="text/x-thebe-config">
     {
         requestKernel: true,
@@ -358,7 +439,7 @@ title="Print to PDF"
     <a class='right-next' id="next-link" href="04_Configuring_The_Workflow.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">&lt;no title&gt;</p>
+        <p class="prev-next-title">Configuring the Pipeline</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>&lt;no title&gt; &#8212; MINUUR - Microbial INsights Using Unmapped Reads</title>
+    <title>Configuring the Pipeline &#8212; MINUUR - Microbial INsights Using Unmapped Reads</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -52,8 +52,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="05_Running_MINUUR.html" />
-    <link rel="prev" title="&lt;no title&gt;" href="03_Inputting_Files.html" />
+    <link rel="next" title="Running MINUUR" href="05_Running_MINUUR.html" />
+    <link rel="prev" title="Inputting Files To MINUUR" href="03_Inputting_Files.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -103,15 +103,35 @@ const thebe_selector_output = ".output, .cell_output"
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="01_intro.html">
+                <a class="reference internal" href="index.html">
                     Introduction
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="02_Installation.html">
    Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_Inputting_Files.html">
+   Inputting Files To MINUUR
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Configuring the Pipeline
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05_Running_MINUUR.html">
+   Running MINUUR
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06_Outputs_Explained.html">
+   Outputs Explained
   </a>
  </li>
 </ul>
@@ -290,7 +310,37 @@ title="Print to PDF"
         <i class="fas fa-list"></i> Contents
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="simple visible nav section-nav flex-column">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pre-processing">
+   Pre-Processing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#quality-control-and-host-separation">
+   Quality Control and Host Separation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#read-classification">
+   Read Classification
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#functional-read-profiling">
+   Functional Read Profiling
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#metagenome-assembly">
+   Metagenome Assembly
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#woohoo-i-ve-configured-my-pipeline-now-let-me-run-it">
+   Woohoo, I’ve configured my pipeline, now let me run it!
+  </a>
+ </li>
 </ul>
 
     </nav>
@@ -300,7 +350,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1><no title></h1>
+                <h1>Configuring the Pipeline</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -309,7 +359,37 @@ title="Print to PDF"
                             <h2> Contents </h2>
                         </div>
                         <nav aria-label="Page">
-                            <ul class="simple visible nav section-nav flex-column">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pre-processing">
+   Pre-Processing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#quality-control-and-host-separation">
+   Quality Control and Host Separation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#read-classification">
+   Read Classification
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#functional-read-profiling">
+   Functional Read Profiling
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#metagenome-assembly">
+   Metagenome Assembly
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#woohoo-i-ve-configured-my-pipeline-now-let-me-run-it">
+   Woohoo, I’ve configured my pipeline, now let me run it!
+  </a>
+ </li>
 </ul>
 
                         </nav>
@@ -320,7 +400,217 @@ title="Print to PDF"
                 
               <div>
                 
-  
+  <section id="configuring-the-pipeline">
+<h1>Configuring the Pipeline<a class="headerlink" href="#configuring-the-pipeline" title="Permalink to this headline">#</a></h1>
+<p>Navigate to the <code class="docutils literal notranslate"><span class="pre">config</span></code> directory of MINUUR and open the file <code class="docutils literal notranslate"><span class="pre">config.yaml</span></code>. You will come across a list of options of how you want the pipeline to run. Let’s go through these options.</p>
+<section id="pre-processing">
+<h2>Pre-Processing<a class="headerlink" href="#pre-processing" title="Permalink to this headline">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">samples</span><span class="p">:</span> <span class="o">../</span><span class="n">config</span><span class="o">/</span><span class="n">samples_list</span><span class="o">.</span><span class="n">tsv</span>
+
+<span class="n">input_type</span><span class="p">:</span> 
+  <span class="n">fastq</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">bam</span><span class="p">:</span> <span class="kc">False</span>
+
+<span class="n">input_config</span><span class="p">:</span> 
+  <span class="n">automatic</span><span class="p">:</span> <span class="kc">False</span>
+  <span class="n">manual</span><span class="p">:</span> <span class="o">../</span><span class="n">config</span><span class="o">/</span><span class="n">sample_table</span><span class="o">.</span><span class="n">tsv</span>
+</pre></div>
+</div>
+<p><strong>Samples</strong></p>
+<p>Do not edit this - this will point to your <code class="docutils literal notranslate"><span class="pre">sample_list.tsv</span></code> file in which you’ll have listed your sample names.</p>
+<p><strong>input_type</strong></p>
+<p>Choose between fastq or bam. Most likely your input will be a fastq file. Some of the samples I processed were bam files so I needed this option to start the run at this point. Note that if you have a mixture of bam and fastq files, MINUUR will not be able to process both simultanesouly. Please do them one at a time.</p>
+<p><strong>input_config</strong></p>
+<p>Choose how you want to specify your files. <code class="docutils literal notranslate"><span class="pre">automatic</span></code> or <code class="docutils literal notranslate"><span class="pre">manual</span></code>. To understand the difference between the two, look back at the <a class="reference internal" href="03_Inputting_Files.html"><span class="doc std std-doc">previous</span></a> section.</p>
+<p><strong>kraken_db_location</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kraken_db_location</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">Kraken2_db</span><span class="o">/</span>
+</pre></div>
+</div>
+<p>Provide a path to where you’ve put your indexed Kraken2 database.</p>
+</section>
+<section id="quality-control-and-host-separation">
+<h2>Quality Control and Host Separation<a class="headerlink" href="#quality-control-and-host-separation" title="Permalink to this headline">#</a></h2>
+<p><strong>QC</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">QC</span><span class="p">:</span> 
+  <span class="n">Activate</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">CutadaptParams</span><span class="p">:</span> <span class="s2">&quot;--minimum-length 50 -q 30&quot;</span>
+  <span class="n">CutadaptThreads</span><span class="p">:</span> <span class="mi">10</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Activate:</span></code> Insert <code class="docutils literal notranslate"><span class="pre">True</span></code> if you would like to perform QC on your samples, <code class="docutils literal notranslate"><span class="pre">False</span></code> if you would like to skip.</p>
+<p><code class="docutils literal notranslate"><span class="pre">CutadaptParams</span></code>: Insert specific cutadapt parameters. For my reads I trimmed each read &lt;50 bp and &lt;30 phred score</p>
+<p><code class="docutils literal notranslate"><span class="pre">CutadaptThreads</span></code>: specify the number of threads you’d like to use</p>
+<p><strong>Remove Host From Fastq Gz</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RemoveHostFromFastqGz</span><span class="p">:</span> 
+  <span class="n">Threads</span><span class="p">:</span> <span class="mi">15</span>
+  <span class="c1"># Give path to directory - allows MINUUR to check there is an existing directory </span>
+  <span class="n">ContaminantDirectory</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">User_dbs</span><span class="o">/</span><span class="n">aidan_foo</span><span class="o">/</span><span class="n">bt_db</span><span class="o">/</span>
+  <span class="c1"># Give path to Bowtie2 indexed host genome</span>
+  <span class="n">ContaminantIndex</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">User_dbs</span><span class="o">/</span><span class="n">aidan_foo</span><span class="o">/</span><span class="n">bt_db</span><span class="o">/</span><span class="n">aegypti_db</span>
+  <span class="n">AlignmentSensitivty</span><span class="p">:</span> <span class="s2">&quot;--sensitive-local&quot;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Threads</span></code>: Specify the number of threads for bowtie2 to use to separate your indexed host reference</p>
+<p><code class="docutils literal notranslate"><span class="pre">ContaminantDirectory</span></code>: Specify the directory your indexed reference database is stored. This is used as a CheckPoint for the pipeline to confirm you have a host to separate</p>
+<p><code class="docutils literal notranslate"><span class="pre">ContaminantIndex</span></code>: Specify the path to your bowtie2 indexed host to separate. You will have a list of <code class="docutils literal notranslate"><span class="pre">host.1.bt1,</span> <span class="pre">host.2.bt2,</span> <span class="pre">host.3.bt2,</span> <span class="pre">host.4.bt2,</span> <span class="pre">host.rev.1.bt2,</span> <span class="pre">host.rev.2.bt2</span></code>. When specify this path, do so like <code class="docutils literal notranslate"><span class="pre">/path/to/your/host</span></code> - exclude the extension.</p>
+<p><code class="docutils literal notranslate"><span class="pre">AlignmentSensitivity</span></code>: specify the sensitivity and alignment type to align your reads. Options for this include</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="s2">&quot;--very-fast-local&quot;</span>
+<span class="o">-</span> <span class="s2">&quot;--fast-local&quot;</span>
+<span class="o">-</span> <span class="s2">&quot;--sensitive-local&quot;</span>
+<span class="o">-</span> <span class="s2">&quot;--very-sensitive-local&quot;</span> 
+<span class="o">-</span> <span class="s2">&quot;--very-fast-global&quot;</span> 
+<span class="o">-</span> <span class="s2">&quot;--fast-global&quot;</span>
+<span class="o">-</span> <span class="s2">&quot;--sensitive-global&quot;</span>
+<span class="o">-</span> <span class="s2">&quot;--very-sensitive-global&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ProcessBam</span><span class="p">:</span>
+  <span class="n">Activate</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="c1"># Activate if input was Fastq (prior). If Input is bam then FromFastq = False</span>
+  <span class="n">FromFastq</span><span class="p">:</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Activate</span></code>: Pick <code class="docutils literal notranslate"><span class="pre">True</span></code> if you would like to generate some statistics of your alignments.</p>
+<p><code class="docutils literal notranslate"><span class="pre">FromFastq</span></code>: Pick <code class="docutils literal notranslate"><span class="pre">True</span></code> if you input fastq files. If you had bam files choose <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</section>
+<section id="read-classification">
+<h2>Read Classification<a class="headerlink" href="#read-classification" title="Permalink to this headline">#</a></h2>
+<p>After QC, you will have some gzipped fastq files pertaining to reads that didn’t map to your host in question. Cool! Lets see how much microbial information we can get from this. One path you can take is to classify those reads against the Kraken2 database you downloaded.</p>
+<p><strong>Kraken Classification</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">KrakenClassification</span><span class="p">:</span>
+  <span class="n">Activate</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">Threads</span><span class="p">:</span> <span class="mi">20</span>
+  <span class="n">ConfidenceScore</span><span class="p">:</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Activate</span></code> : Pick <code class="docutils literal notranslate"><span class="pre">True</span></code> if you would like to do some taxonomic classifications with Kraken2</p>
+<p><code class="docutils literal notranslate"><span class="pre">Threads</span></code>: Choose the number of threads Kraken should use for classification</p>
+<p><code class="docutils literal notranslate"><span class="pre">ConfidenceScore</span></code>: Choose a number between 0 - 1 which sets how stringent the Kraken2 classifications will be. I picked 0, the default. 1 = very stringent.</p>
+<p><strong>Kraken Summaries</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">KrakenSummaries</span><span class="p">:</span> 
+  <span class="n">Activate</span><span class="p">:</span> <span class="kc">True</span> 
+  <span class="n">GenusReadThreshold</span><span class="p">:</span> <span class="mi">6000</span>
+  <span class="n">SpeciesReadThreshold</span><span class="p">:</span> <span class="mi">10000</span>
+  <span class="n">StratThreshold</span><span class="p">:</span> <span class="mi">10000</span>
+  <span class="n">KrakenDbStandard</span><span class="p">:</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Activate</span></code>: Use <code class="docutils literal notranslate"><span class="pre">True</span></code> to get some summary data of your Kraken2 classifications. These can be more easily parsed and wrangled in R - especially in the Tidyverse.</p>
+<p><code class="docutils literal notranslate"><span class="pre">GenusReadThreshold</span></code>: MINUUR will attempt to make some plots of genus level classifications for you. Set a threshold for your plots so they don’t appear to crowded.</p>
+<p><code class="docutils literal notranslate"><span class="pre">SpeciesReadThreshold</span></code>: Same as above but for species level classification.</p>
+<p><code class="docutils literal notranslate"><span class="pre">StratThreshold</span></code>: Again, a read threshold when making stratified plots of all your classifications.</p>
+<p><strong>Extract Kraken Classified Reads</strong></p>
+<p>This option is useful if you are interested in a specific taxon or just want to filter out bacterial / archael / viral reads. I’ve found this option useful when I wanted to do some metagenome assemblies but found a lot of reads unclassified. This could mean two things 1. There are reads left over from your host or 2. There are potentially mirobes present in your unmapped reads not present in the database. You can choose if you’d like to filter out those bacterial reads and use the resultant paired fastq files for metagenome assembly and binning in the later steps</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ExtractKrakenTaxa</span><span class="p">:</span> 
+  <span class="n">Activate</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">taxon_choice</span><span class="p">:</span> <span class="s2">&quot;2&quot;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Activate</span></code>: Use <code class="docutils literal notranslate"><span class="pre">True</span></code> to activate this option</p>
+<p><code class="docutils literal notranslate"><span class="pre">taxon_choice</span></code>: Use “2” to filter all bacteria. This is the taxonomy ID for <a class="reference external" href="https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?mode=Info&amp;id=2&amp;lvl=3&amp;lin=f&amp;keep=1&amp;srchmode=1&amp;unlock">bacteria</a></p>
+<p><strong>Bracken Reestimation</strong></p>
+<p>Bracken is used to redistribute Kraken2 classified reads to estimate taxonomic abundance in your sample. This will help remove some of the over/under estimation of classified reads at species and genus level.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BrackenReestimation</span><span class="p">:</span>
+  <span class="n">Activate</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">BrakenDb</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">Kraken2_db</span><span class="o">/</span>
+  <span class="n">ClassificationLvl</span><span class="p">:</span> <span class="s1">&#39;S&#39;</span>
+  <span class="n">DistributionThresh</span><span class="p">:</span> <span class="mi">10</span>
+  <span class="n">PlotThreshold</span><span class="p">:</span> <span class="mi">10000</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Activate</span></code>: Pick <code class="docutils literal notranslate"><span class="pre">True</span></code> if you would like to use Bracken to reestimate reads</p>
+<p><code class="docutils literal notranslate"><span class="pre">BrackenDb</span></code>: Give a path to your Bracken Database. FYI - if you downloaded the Kraken2 index from the link given <a class="reference external" href="02_Installation.md#installing-a-database">prior</a>, a bracken database is also included here, so specify the same path to your Kraken2 database.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ClassificationLvl</span></code>: choose <code class="docutils literal notranslate"><span class="pre">S</span></code> for species or <code class="docutils literal notranslate"><span class="pre">G</span></code> for genus. Bracken will estimate taxonomic abundance at these levels accordingly.</p>
+<p><code class="docutils literal notranslate"><span class="pre">PlotThreshold</span></code>: MINUUR will try and make some plots for you - set a read threshold so the plots don’t appear to crowded.</p>
+<p><strong>MetaPhlAn3 Classification</strong></p>
+<p>An alternative to Kraken2 is MetaPhlAn3. MetaPhlAn3 uses a marker gene appraoch for read classification. I found MetaPhlAn3 to perform poorly compared to Kraken2 for my mosquito metagenomic data.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MetaphlanClassification</span><span class="p">:</span>
+  <span class="n">Activate</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">Database</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">User_db</span><span class="o">/</span><span class="n">metaphlan_db</span>
+  <span class="n">CleanMetaphlanReport</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">NProc</span><span class="p">:</span> <span class="mi">8</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Activate</span></code>: Choose <code class="docutils literal notranslate"><span class="pre">True</span></code> to activate MetaPhlAn</p>
+<p><code class="docutils literal notranslate"><span class="pre">Database</span></code>: Give a path to your metaphlan database</p>
+<p><code class="docutils literal notranslate"><span class="pre">CleanMetaphlanReport</span></code>: Produce a summary file of your MetaPhlAn classifications to easily parse</p>
+<p><code class="docutils literal notranslate"><span class="pre">NProc</span></code>: Set the number of threads</p>
+</section>
+<section id="functional-read-profiling">
+<h2>Functional Read Profiling<a class="headerlink" href="#functional-read-profiling" title="Permalink to this headline">#</a></h2>
+<p>A second path MINUUR can take is to assign function to those unmapped reads. This will use MetaPhlAn3 to classify your reads then assign functions to those taxa using reads of interest. There are a couple other options I’ve included here too, including the use of a search term to filter a specific function you might be interested in.</p>
+<p><strong>Humann Anlaysis</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HumannAnalysis</span><span class="p">:</span>
+  <span class="n">Activate</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">NTDatabase</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">User_dbs</span><span class="o">/</span><span class="n">aidan_foo</span><span class="o">/</span><span class="n">chocophlan</span><span class="o">/</span>
+  <span class="n">ProtDatabase</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">User_dbs</span><span class="o">/</span><span class="n">aidan_foo</span><span class="o">/</span><span class="n">uniref</span><span class="o">/</span>
+  <span class="n">Threads</span><span class="p">:</span> <span class="mi">20</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Activate</span></code>: Pick <code class="docutils literal notranslate"><span class="pre">True</span></code> if you would like to do some functional read profiling</p>
+<p><code class="docutils literal notranslate"><span class="pre">NTDatabase</span></code>: Specify a path to the chocophlan nucleotide database (remember to look for the database links in the previous <a class="reference external" href="02_Installation#databases">section</a>)</p>
+<p><code class="docutils literal notranslate"><span class="pre">ProtDatabase</span></code>: Specify a path to a uniref database</p>
+<p><code class="docutils literal notranslate"><span class="pre">Threads</span></code>: Specify the number of threads you would like to use</p>
+<p><strong>Rename Humann Profiles</strong></p>
+<p>This option will allow you to rename the classified gene families to UniRef90 or other annotations.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RenameHumannGeneNames</span><span class="p">:</span> 
+  <span class="n">Activate</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">Rename</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">User_dbs</span><span class="o">/</span><span class="n">aidan_foo</span><span class="o">/</span><span class="n">utility_mapping</span><span class="o">/</span><span class="n">map_uniref90_name</span><span class="o">.</span><span class="n">txt</span><span class="o">.</span><span class="n">bz2</span> 
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Activate</span></code>: Pick <code class="docutils literal notranslate"><span class="pre">True</span></code> to activate this part of the analysis</p>
+<p><code class="docutils literal notranslate"><span class="pre">Rename</span></code>: Provide a path to a utility mapping file</p>
+<p><strong>Get Biological Process</strong></p>
+<p>If you’ve ran Humann and would like to extract a specific function of interest (to see if its there!) you can do so here</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GetBiologicalProcess</span><span class="p">:</span>   
+  <span class="n">Activate</span><span class="p">:</span> <span class="kc">False</span>
+  <span class="n">Process</span><span class="p">:</span> 
+    <span class="s2">&quot;siderophore&quot;</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Activate</span></code>: Pick <code class="docutils literal notranslate"><span class="pre">True</span></code> if you would like to use this option</p>
+<p><code class="docutils literal notranslate"><span class="pre">Process</span></code>: use a character of interest. For example, I was interested in seeing what kind of genes my mosquito associated bacteria had related to siderophores, so I used “siderophore”</p>
+</section>
+<section id="metagenome-assembly">
+<h2>Metagenome Assembly<a class="headerlink" href="#metagenome-assembly" title="Permalink to this headline">#</a></h2>
+<p>The third path MINUUR takes is to try and do some metagenome assemblies, followed by binning of the resultant contigs and metagenome assembled genome QC. This was of most interest to me (and maybe you too!) as it meant I could recover MAGs associated to mosquitoes for further analysis. However…this won’t always work. Given that the reads we’re trying to assemble were never intended for metagenome assemblies it is possible you’ll never get a set of high-quality MAGs. Nevertheless it’s still worth trying! And I’ve had good success using this approach, especailly when the number of classified reads are high enough for a particular taxon. Around ~200,000 worked for me.</p>
+<p><strong>Metagenome Assembly</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MetagenomeAssm</span><span class="p">:</span> 
+  <span class="n">Activate</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">UseKrakenExtracted</span><span class="p">:</span> <span class="kc">False</span>
+  <span class="n">Threads</span><span class="p">:</span> <span class="mi">14</span>
+  <span class="n">Memory</span><span class="p">:</span> <span class="mf">0.5</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Activate</span></code>: If <code class="docutils literal notranslate"><span class="pre">True</span></code> will perform metagenome assemblies with MegaHit on your paried unmapped fastq files.</p>
+<p><code class="docutils literal notranslate"><span class="pre">UseKrakenExtracted</span></code>: Another way to do your assemblies. If you extracted some taxa of interest, or extracted all bacterial classified reads, you can choose to do this option and perform metagenome assemblies on those reads. I found that assemblies with Kraken2 classified reads result in fewer MAGs but had less contamination and higher-completeness. Check out my <a class="reference external" href="https://www.biorxiv.org/content/biorxiv/early/2022/08/11/2022.08.09.5">paper</a> for more info.</p>
+<p><strong>Binning</strong></p>
+<p>Binning is where we can pull some actual genomes from our assembeld contigs. MINUUR uses MetaBat2 to do this.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">MetagenomeBinning</span><span class="p">:</span> 
+  <span class="n">Activate</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">Threads</span><span class="p">:</span> <span class="mi">20</span>
+  <span class="n">MinimumContigLength</span><span class="p">:</span> <span class="mi">1500</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Activate</span></code>: Use <code class="docutils literal notranslate"><span class="pre">True</span></code> if you’d like to bin your genomes</p>
+<p><code class="docutils literal notranslate"><span class="pre">Threads</span></code>: set the number of threads to use</p>
+<p><code class="docutils literal notranslate"><span class="pre">MinimumContigLength</span></code>: Don’t use contigs below a given threshold. The minimum here is 1500bp. If you go lower than this, you will raise an error.</p>
+<p><strong>Bin Quality Assurance</strong></p>
+<p>Check the quality of those bins! MINUUR will use CheckM to assess bin quality</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CheckmBinQA</span><span class="p">:</span> 
+  <span class="n">Activate</span><span class="p">:</span> <span class="kc">True</span>
+  <span class="n">Threads</span><span class="p">:</span> <span class="mi">15</span> 
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Activate</span></code>: Use <code class="docutils literal notranslate"><span class="pre">True</span></code> to activate</p>
+<p><code class="docutils literal notranslate"><span class="pre">Threads</span></code>: specify the number of threads</p>
+</section>
+<section id="woohoo-i-ve-configured-my-pipeline-now-let-me-run-it">
+<h2>Woohoo, I’ve configured my pipeline, now let me run it!<a class="headerlink" href="#woohoo-i-ve-configured-my-pipeline-now-let-me-run-it" title="Permalink to this headline">#</a></h2>
+<p>By now you should a configured pipeline, with all the things you want to run and paths specified to all your databases. Lets run it!</p>
+</section>
+</section>
+
     <script type="text/x-thebe-config">
     {
         requestKernel: true,
@@ -352,13 +642,13 @@ title="Print to PDF"
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">&lt;no title&gt;</p>
+            <p class="prev-next-title">Inputting Files To MINUUR</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="05_Running_MINUUR.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">&lt;no title&gt;</p>
+        <p class="prev-next-title">Running MINUUR</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
