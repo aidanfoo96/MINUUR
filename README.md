@@ -1,6 +1,6 @@
 <!-- ![MINUUR_Logo](assets/img/logo.png) -->
 
-# MInUUR - Microbial INsight Using Unmapped Reads
+# MINUUR - Microbial INsights Using Unmapped Reads
 
 ![Code Count](https://img.shields.io/github/languages/count/aidanfoo96/MINUUR)
 ![Main Code Base](https://img.shields.io/github/languages/top/aidanfoo96/MINUUR)
@@ -10,11 +10,13 @@
 ![Open Issues](https://img.shields.io/github/issues-raw/aidanfoo96/MINUURT)
 ![Repo Size](https://img.shields.io/github/repo-size/aidanfoo96/MINUUR)
 
-MInUUR is still in development - any feedback is welcome! Please contact: 248064@lstmed.ac.uk or dm me on Twitter: https://twitter.com/fooheesoon
+MINUUR is still in development - any feedback is welcome! Please contact: 248064@lstmed.ac.uk or dm me on Twitter: https://twitter.com/fooheesoon
 
-MInUUR is a snakemake pipeline to extract unmapped whole genome shotgun sequencing reads and utilise a range of metagenomic analyses to characterise host-associated microbes. Orginally, MInUUR was intended to be used for the extraction of mosquito-associated bacterial symbionts, however, its application can be applied to other host-associated WGS data. MInUUR aims to leverage pre-existing WGS data to 'scavenge' for microbial information pertaining to host associated microbiomes - the key advantage being metagenomic reads as inputs to produce genus & species level classifications, functional inference and assembly of metagenome assembled genomes (MAGs). 
+Jupyter Book Available Here: https://aidanfoo96.github.io/MINUUR/
 
-MInUUR utilises several pieces of software in its pipeline: 
+MINUUR is a snakemake pipeline to extract unmapped whole genome shotgun sequencing reads and utilise a range of metagenomic analyses to characterise host-associated microbes. Orginally, MINUUR was intended to be used for the extraction of mosquito-associated bacterial symbionts, however, its application can be applied to other host-associated WGS data. MINUUR aims to leverage pre-existing WGS data to recover microbial information pertaining to host associated microbiomes - the key advantage being metagenomic reads as inputs to produce genus & species level classifications, functional inference and assembly of metagenome assembled genomes (MAGs). 
+
+MINUUR utilises several pieces of software in its pipeline: 
 - Kraken2 to classify microbial taxa to species level from read sequences
 - KrakenTools to extract classified reads pertaining to microbes for downstream analysis
 - Bracken to reestimate taxonomic abundance from Kraken2 taxonomic report
