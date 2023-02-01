@@ -97,7 +97,7 @@ rule TrimFastq:
     benchmark: 
         "benchmarks/01_FastqQC/{sample}.trimming.benchmark.txt",
     wrapper:
-        "0.77.0/bio/cutadapt/pe"
+        "v1.21.6/bio/cutadapt/pe"
 
 
 #-------------------------------------------------------------------#

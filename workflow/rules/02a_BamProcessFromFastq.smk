@@ -13,6 +13,8 @@ rule BamStatsFFQ:
         txt = "../results/bam_stats_ffq/{sample}_stats.txt",
     input: 
         sample = "../results/aligned_bam/{sample}_sorted.bam",
+    conda: 
+        "../envs/bam_processing_env.yaml",
     log: 
         "logs/samtool_stats_ffq/{sample}.log", 
     wrapper: 
