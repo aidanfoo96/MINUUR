@@ -115,7 +115,7 @@ MetaphlanClassification:
   NProc: 8
 
 # FUNCTIONAL PROFILING OF READS
-# Perform Functional Profiling of reads with Humann3?
+# Perform Functional Profiling of reads with Humann3? - LEGACY: this analysis was not included in the paper. Likely to remove this in the future. 
 HumannAnalysis:
   Activate: True
   # Path to nucleotide database
