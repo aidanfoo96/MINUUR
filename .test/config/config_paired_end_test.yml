@@ -1,6 +1,6 @@
 # Samples: provide a path to your samples names here
 # This will be the key identifier to your fastq_files and knowing what to call your fastq files
-samples: samples_list.tsv
+samples: config/samples_list.tsv
 
 ## If Automatic: 
   ## File names should follow the following rules 
@@ -17,7 +17,7 @@ input_type:
 
 input_config: 
   automatic: False
-  manual: sample_table.txt
+  manual: config/sample_table.txt
 
 # Kraken Database: provide file path to your kraken database here
 kraken_db_location: /home/fooa/lstm_scratch/dbs/kraken_db/
