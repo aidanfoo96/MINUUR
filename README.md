@@ -9,7 +9,7 @@
 ![Last Commit](https://img.shields.io/github/last-commit/aidanfoo96/MINUUR)
 ![Open Issues](https://img.shields.io/github/issues-raw/aidanfoo96/MINUURT)
 ![Repo Size](https://img.shields.io/github/repo-size/aidanfoo96/MINUUR)
-![MINUUR](https://github.com/github/docs/actions/workflows/run_pipeline.yml/badge.svg)
+![MINUUR](https://github.com/aidanfoo96/MINUUR/actions/workflows/run_pipeline.yml/badge.svg)
 
 Doi for manuscript: https://doi.org/10.12688/wellcomeopenres.19155.1
 
