@@ -1,5 +1,5 @@
 name: Run MINUUR
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+run-name: ${{ github.actor }} is testing MINUUR 🚀
 on: [push]
 jobs:
   RunMINUURWorkflow:
@@ -15,7 +15,6 @@ jobs:
       - name: List files in the repository
         run: |
           ls 
-      - run: echo "🍏 This job's status is ${{ job.status }}."
       - name: Get working directory
         run: | 
           pwd 
@@ -24,4 +23,6 @@ jobs:
         with:
           directory: '.'
           snakefile: 'workflow/Snakefile'
-          args: '--cores 4 --use-conda --conda-cleanup-pkgs cache --until '
+          args: '--cores 4 --use-conda --conda-cleanup-pkgs cache --until lineage_checkm GenerateCleanMetaphlanSummaries'
+      - run: echo "🍏 This job's status is ${{ job.status }}."
+
