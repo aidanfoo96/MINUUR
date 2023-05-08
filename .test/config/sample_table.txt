@@ -1,2 +1,2 @@
 sampleID	fastq1Path	fastq2Path	bam
-Fastq1_Subsample	test_data/Fastq1_Subsample.fq.gz	test_data/Fastq2_Subsample.fq.gz	
+Fastq1_Subsample	config/test_data/Fastq1_Subsample.fq.gz	config/test_data/Fastq2_Subsample.fq.gz	
