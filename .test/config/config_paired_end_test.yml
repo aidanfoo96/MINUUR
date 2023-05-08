@@ -1,1 +1,131 @@
+# Samples: provide a path to your samples names here
+# This will be the key identifier to your fastq_files and knowing what to call your fastq files
+samples: samples_list.tsv
 
+## If Automatic: 
+  ## File names should follow the following rules 
+    ## .fastq.gz file ending for fastq input
+    ## .bam file ending for bam input 
+    ## reads stored in the resources directory 
+    ## paired end reads with the naming convention _1.fastq.gz and _2.fastq.gz
+
+## Manual: 
+  ## Specify the filename and location in the manual_sample.tsv 
+input_type: 
+  fastq: True
+  bam: False
+
+input_config: 
+  automatic: False
+  manual: sample_table.txt
+
+# Kraken Database: provide file path to your kraken database here
+kraken_db_location: /home/fooa/lstm_scratch/dbs/kraken_db/
+
+# FASTQ Processing
+  # Activate = True to: 
+    # Perform QC and Trimming on Raw Fastq
+    # Remove Host Associated Reads from Raw Fastq
+    # Convert Raw FASTQ to BAM for Processing Steps
+    # If you have Raw BAM files: 
+    # QC: Activate = False
+    # RemoveHostFromFastqGz: Activate = False
+    # Moves the pipeline to: "ProcessBams"
+
+# Perform Quality control on Raw Fastq Reads
+# Perofrm trimming using cutadapt. Input trimming parameters as shown below
+QC: 
+  Activate: True
+  CutadaptParams: "--minimum-length 50 -q 30"
+  CutadaptThreads: 10
+
+# Remove HostReads from Fastq Files and convert to BAM
+RemoveHostFromFastqGz: 
+  Threads: 15
+  # Give path to directory - allows MINUUR to check there is an existing directory 
+  ContaminantDirectory: /home/fooa/lstm_scratch/MosquitoDB/
+  # Give path to Bowtie2 indexed host genome
+  ContaminantIndex: /home/fooa/lstm_scratch/MosquitoDB/AedesaegyptiRef
+  AlignmentSensitivty: "--sensitive-local"
+  
+# Generate statistics and extract unmapped reads from BAM file
+ProcessBam:
+  Activate: True
+  # Activate if input was Fastq (prior). If Input is bam then FromFastq = False
+  FromFastq: True
+
+# READ CLASSIFICATION 
+  # Perform read classification with Kraken2 and MetaPhlAn3 on unmapped reads 
+  # Input are QC trimmed unmapped reads processed above
+
+# Classify Unmapped Reads with Kraken
+KrakenClassification:
+  Activate: True
+  Threads: 20
+  # Confidence score between 0-1 (0 = default, 1 = very stringent)
+  ConfidenceScore: 0
+
+# Generate Clean Kraken Summaries + Plots
+KrakenSummaries: 
+  Activate: True 
+  # Set threshold for read count for genus heatmap
+  GenusReadThreshold: 6000
+  # Set threshold for read count for species heatmap
+  SpeciesReadThreshold: 10000
+  # Set threshold for read count for stratified species heatmap 
+  StratThreshold: 10000
+  # TRUE = standard kraken database
+  # FALSE = custom kraken database
+  KrakenDbStandard: True
+
+# Extract a taxon/phylogeny of your choosing
+  # Extract kraken associated reads for a group of taxa 
+  # Can be used either for the Users other downstream analysis steps or as input for metagenome assembly stage 
+  # Output = paired fastq file of specific taxa
+ExtractKrakenTaxa: 
+  Activate: False
+  # Place TaxID number here (e.g. Extract bacteria = 2)
+  taxon_choice: "2"
+
+# Perform Baysian reestiamation of Kraken Classified Reads using Bracken
+BrackenReestimation:
+  Activate: False
+  # Provide path to Bracken built db
+  BrakenDb: /home/fooa/lstm_scratch/dbs/kraken_db/
+  # Choose classification level, S = species, G = genus etc
+  ClassificationLvl: 'S'
+  DistributionThresh: 10
+  # Set plot threshold
+  PlotThreshold: 10000
+
+# Perform Read Classification with MetaPhlAn3
+MetaphlanClassification:
+  Activate: False
+  # Provide path to MetaPhlAn3 database
+  Database: /home/fooa/lstm_scratch/dbs/metaphlan_db/
+  # Generate clean metaphlan tables + plots
+  CleanMetaphlanReport: True
+  NProc: 8
+
+# METAGENOME ASSEMBLY
+# Do Metagenome Assembly from Unmapped Fastq Files
+MetagenomeAssm: 
+  Activate: True
+  # Use the kraken extracted reads? e.g. if taxa = 2, perform metagenome assembly on only bacterial associated reads 
+  UseKrakenExtracted: False
+  Threads: 14
+  Memory: 0.5
+
+# METAGENOME BINNING AND QA
+MetagenomeBinning: 
+  Activate: True
+  Threads: 20
+  # Minimum contig length required for final binning stage with metabat2
+  MinimumContigLength: 1500
+
+# Use Checkm to calculate bin statistics
+CheckmBinQA: 
+  Activate: True
+  Threads: 15 
+
+# FINISHED! 
