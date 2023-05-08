@@ -21,7 +21,7 @@ jobs:
       - name: Snakemake workflow
         uses: snakemake/snakemake-github-action@v1
         with:
-          directory: '.'
+          directory: '.test'
           snakefile: 'workflow/Snakefile'
           args: '--cores 4 --use-conda --configfile config/config.yaml --conda-cleanup-pkgs cache --until lineage_checkm GenerateCleanMetaphlanSummaries'
       - run: echo "🍏 This job's status is ${{ job.status }}."
