@@ -1,2 +1,2 @@
 sampleID	fastq1Path	fastq2Path	bam
-Fastq1_Subsample	../workflow/data/Fastq1_Subsample.fq	../workflow/data/Fastq2_Subsample.fq	
+Fastq1_Subsample	../workflow/data/Fastq1_Subsample.fq.gz	../workflow/data/Fastq2_Subsample.fq.gz	
