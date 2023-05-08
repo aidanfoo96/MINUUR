@@ -138,62 +138,6 @@ def RunPipeline(wildcards):
             )
         )
 
-    if config["HumannAnalysis"]["Activate"]: 
-        final_input.extend(
-            expand(
-                [
-                    "../results/concatenated_fastq/{sample}_unmapped_conc.fastq",
-                    "../results/humann_out/{sample}_humann3_profile/{sample}_unmapped_conc_genefamilies.tsv",
-                    "../results/humann_out/{sample}_humann3_profile/{sample}_unmapped_conc_pathabundance.tsv",
-                    "../results/humann_out/{sample}_humann3_profile/{sample}_unmapped_conc_pathcoverage.tsv",
-                    "../results/humann_out/sorted_abundance_profiles/{sample}_unmapped_conc_genefamilies.tsv", 
-                    "../results/humann_out/sorted_abundance_profiles/{sample}_unmapped_conc_pathabundance.tsv", 
-                    "../results/humann_out/sorted_abundance_profiles/{sample}_unmapped_conc_pathcoverage.tsv",
-                    "../results/humann_out/concatenated_humann_files/all_samples_genesfamilies_humann3.tsv",
-                    "../results/humann_out/concatenated_humann_files/all_samples_pathabundance_humann3.tsv", 
-                    "../results/humann_out/concatenated_humann_files/all_samples_pathcoverage_humann3.tsv",
-                    "../results/humann_out/concatenated_humann_files/relative_abund/all_samples_genefamilies_humann3_relab.tsv",
-                    "../results/humann_out/concatenated_humann_files/relative_abund/all_samples_pathabundance_humann3_relab.tsv",
-                    "../results/humann_out/concatenated_humann_files/relative_abund/all_samples_pathcoverage_humann3_relab.tsv",
-                    "../results/humann_out/concatenated_humann_files/relab_strat/all_samples_genefamilies_humann3_relab_stratified.tsv",
-                    "../results/humann_out/concatenated_humann_files/relab_strat/all_samples_genefamilies_humann3_relab_unstratified.tsv",
-                    "../results/humann_out/concatenated_humann_files/relab_strat/all_samples_pathabundance_humann3_relab_stratified.tsv",
-                    "../results/humann_out/concatenated_humann_files/relab_strat/all_samples_pathabundance_humann3_relab_unstratified.tsv",
-                    "../results/humann_out/concatenated_humann_files/relab_strat/all_samples_pathcoverage_humann3_relab_stratified.tsv",
-                    "../results/humann_out/concatenated_humann_files/relab_strat/all_samples_pathcoverage_humann3_relab_unstratified.tsv",
-                    "../results/humann_out/summarised_bowtie2_stats/{sample}_bowtie2_alignment_summarised_gene_number.tsv",
-                    "../results/humann_out/summarised_bowtie2_stats/concatenated_bowtie2_alignment_summarised_gene_number.tsv",
-                    "../results/humann_out/{sample}_humann3_profile/{sample}_unmapped_conc_humann_temp/{sample}_unmapped_conc_bowtie2_aligned.tsv",
-                    "../results/humann_out/plots/gene_hits.pdf",
-                    "../results/humann_out/plots/gene_and_path_hits_per_sample.pdf",
-                    "../results/humann_out/plots/gene_and_path_hits_per_species.pdf", 
-
-                ],
-                sample = samples
-            )
-        )
-
-    if config["HumannAnalysis"]["Activate"]:
-        final_input.extend(
-            expand(
-                [
-                    "../results/humann_out/concatenated_humann_files/renamed_abund_tbl/all_samples_genesfamilies_humann3_relab_stratified_uniref90.tsv",
-                ]
-                
-            )
-        )
-
-    if config["GetBiologicalProcess"]["Activate"]: 
-        final_input.extend(
-            expand(
-                [
-                    "../results/humann_out/extracted_function/{role}_extracted_function_bar.pdf",
-                    "../results/humann_out/extracted_function/{role}_extracted_function_heatmap.pdf",
-                ],
-                role = config["GetBiologicalProcess"]["Process"]
-            )
-        )
-    
     if config["MetagenomeAssm"]["Activate"]: 
         final_input.extend(
             expand(
