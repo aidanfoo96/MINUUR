@@ -10,6 +10,8 @@
 ![Open Issues](https://img.shields.io/github/issues-raw/aidanfoo96/MINUURT)
 ![Repo Size](https://img.shields.io/github/repo-size/aidanfoo96/MINUUR)
 
+Doi for manuscript: https://doi.org/10.12688/wellcomeopenres.19155.1
+
 Please follow the tutorial in my Jupyter Book Available Here: https://aidanfoo96.github.io/MINUUR/ for reproduction of my analysis or to apply in your host of interest :) 
 
 MINUUR is a snakemake pipeline I developed to extract non-host sequencing reads from mosquito whole genome sequencing data and utilise a range of metagenomic analyses to characterise potential host-associated microbes. Its application can be applied to other host-associated WGS data. MINUUR aims to leverage pre-existing WGS data to recover microbial information pertaining to host associated microbiomes.
