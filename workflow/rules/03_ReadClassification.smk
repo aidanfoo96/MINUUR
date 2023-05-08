@@ -304,6 +304,7 @@ rule GenerateMetaphlanReport:
             -o {output.txt_out} \
             --unknown_estimation \
             --add_viruses \
+            --bowtie2db {params.db_loc} \
             --nproc {params.proc} 2> {log}
             
          """
