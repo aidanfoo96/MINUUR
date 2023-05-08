@@ -43,9 +43,9 @@ QC:
 RemoveHostFromFastqGz: 
   Threads: 15
   # Give path to directory - allows MINUUR to check there is an existing directory 
-  ContaminantDirectory: /home/fooa/lstm_scratch/MosquitoDB/
+  ContaminantDirectory: test_data/MosquitoDB
   # Give path to Bowtie2 indexed host genome
-  ContaminantIndex: /home/fooa/lstm_scratch/MosquitoDB/AedesaegyptiRef
+  ContaminantIndex: test_data/MosquitoDB/AegyptiRef
   AlignmentSensitivty: "--sensitive-local"
   
 # Generate statistics and extract unmapped reads from BAM file
