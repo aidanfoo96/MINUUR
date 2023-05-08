@@ -1,8 +1,8 @@
-name: GitHub Actions Demo
+name: Run MINUUR
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  RunMINUURWorkflow:
     runs-on: ubuntu-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
@@ -19,3 +19,9 @@ jobs:
       - name: Get working directory
         run: | 
           pwd 
+      - name: Snakemake workflow
+        uses: snakemake/snakemake-github-action@v1
+        with:
+          directory: '.'
+          snakefile: 'workflow/Snakefile'
+          args: '--cores 4 --use-conda --conda-cleanup-pkgs cache --until '
