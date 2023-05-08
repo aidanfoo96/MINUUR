@@ -1,2 +1,2 @@
 sampleID	fastq1Path	fastq2Path	bam
-SRR12072563	../../../mosquito_data_for_MINUUR_SRR12072563_1.fastq.gz	../../../mosquito_data_for_MINUUR_SRR12072563_2.fastq.gz	
+Fastq1_Subsample	../workflow/data/Fastq1_Subsample.fq	../workflow/data/Fastq2_Subsample.fq	
