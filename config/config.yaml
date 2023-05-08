@@ -24,10 +24,10 @@ input_type:
 
 input_config: 
   automatic: False
-  manual: ../config/sample_table.tsv
+  manual: ../config/sample_table.txt
 
 # Kraken Database: provide file path to your kraken database here
-kraken_db_location: /home/db/Kraken2_db/
+kraken_db_location: /home/fooa/lstm_scratch/dbs/kraken_db/
 
 # FASTQ Processing
   # Activate = True to: 
@@ -50,9 +50,9 @@ QC:
 RemoveHostFromFastqGz: 
   Threads: 15
   # Give path to directory - allows MINUUR to check there is an existing directory 
-  ContaminantDirectory: /home/db/User_dbs/aidan_foo/bt_db/
+  ContaminantDirectory: /home/fooa/lstm_scratch/MosquitoDB/
   # Give path to Bowtie2 indexed host genome
-  ContaminantIndex: /home/db/User_dbs/aidan_foo/bt_db/aegypti_db
+  ContaminantIndex: /home/fooa/lstm_scratch/MosquitoDB/AedesaegyptiRef
   AlignmentSensitivty: "--sensitive-local"
   
 # Generate statistics and extract unmapped reads from BAM file
@@ -90,15 +90,15 @@ KrakenSummaries:
   # Can be used either for the Users other downstream analysis steps or as input for metagenome assembly stage 
   # Output = paired fastq file of specific taxa
 ExtractKrakenTaxa: 
-  Activate: True
+  Activate: False
   # Place TaxID number here (e.g. Extract bacteria = 2)
   taxon_choice: "2"
 
 # Perform Baysian reestiamation of Kraken Classified Reads using Bracken
 BrackenReestimation:
-  Activate: True
+  Activate: False
   # Provide path to Bracken built db
-  BrakenDb: /home/db/Kraken2_db/
+  BrakenDb: /home/fooa/lstm_scratch/dbs/kraken_db/
   # Choose classification level, S = species, G = genus etc
   ClassificationLvl: 'S'
   DistributionThresh: 10
@@ -107,33 +107,12 @@ BrackenReestimation:
 
 # Perform Read Classification with MetaPhlAn3
 MetaphlanClassification:
-  Activate: True
+  Activate: False
   # Provide path to MetaPhlAn3 database
-  Database: /home/db/User_db/metaphlan_db
+  Database: /home/fooa/lstm_scratch/dbs/metaphlan_db/
   # Generate clean metaphlan tables + plots
   CleanMetaphlanReport: True
   NProc: 8
-
-# FUNCTIONAL PROFILING OF READS
-# Perform Functional Profiling of reads with Humann3? - LEGACY: this analysis was not included in the paper. Likely to remove this in the future. 
-HumannAnalysis:
-  Activate: True
-  # Path to nucleotide database
-  NTDatabase: /home/db/User_dbs/aidan_foo/chocophlan/
-  # Path to protein database
-  ProtDatabase: /home/db/User_dbs/aidan_foo/uniref/
-  Threads: 20
-
-# Rename humann output to alternative naming convention
-RenameHumannGeneNames: 
-  Activate: True
-  Rename: /home/db/User_dbs/aidan_foo/utility_mapping/map_uniref90_name.txt.bz2 
-
-# Extract function: extract an identified function of choosing 
-GetBiologicalProcess:   
-  Activate: False
-  Process: 
-    siderophore: "siderophore"
 
 # METAGENOME ASSEMBLY
 # Do Metagenome Assembly from Unmapped Fastq Files
