@@ -2,12 +2,10 @@
 
 # MINUUR - Microbial INsights Using Unmapped Reads
 
-![Code Count](https://img.shields.io/github/languages/count/aidanfoo96/MINUUR)
 ![Main Code Base](https://img.shields.io/github/languages/top/aidanfoo96/MINUUR)
-![Version](https://img.shields.io/badge/version-1.0-red)
 ![License](https://img.shields.io/badge/license-GPLv3-blue)
 ![Last Commit](https://img.shields.io/github/last-commit/aidanfoo96/MINUUR)
-![Open Issues](https://img.shields.io/github/issues-raw/aidanfoo96/MINUURT)
+![Open Issues](https://img.shields.io/github/issues-raw/aidanfoo96/MINUUR)
 ![Repo Size](https://img.shields.io/github/repo-size/aidanfoo96/MINUUR)
 ![MINUUR](https://github.com/aidanfoo96/MINUUR/actions/workflows/run_pipeline.yml/badge.svg)
 
