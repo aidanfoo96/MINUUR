@@ -193,4 +193,14 @@ def RunPipeline(wildcards):
             )
         )
 
+    if config["BUSCO"]["Activate"]:
+        final_input.extend(
+            expand(
+                [
+
+                    "../results/binnning/metabat_out/busco/busco_downloads"
+                ]
+            )
+        )
+
     return(final_input)

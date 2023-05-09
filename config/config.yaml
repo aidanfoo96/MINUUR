@@ -135,4 +135,8 @@ CheckmBinQA:
   Activate: True
   Threads: 15 
 
+# Run BUSCO - helps check if low quality MAGs are Eukaryotic
+BUSCO: 
+  Activate: True
+
 # FINISHED! 

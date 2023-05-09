@@ -83,3 +83,30 @@ rule plot_QA_stats:
         "../envs/r_and_plotting_env.yaml",
     script:
         "../scripts/plot_checkm_QA.R" 
+
+rule remove_NoExtensionMAGs: 
+    """
+        Removes MAGs that do not end in .fa - 0Kb
+    """
+    input: 
+        data = expand("../results/binning/metabat_out/{sample}_bins/", sample = samples),
+    shell: 
+        r'''
+            find {input.data} -not -name '*.fa' -type f -delete
+        '''
+
+rule run_BUSCO: 
+    """
+        Run BUSCO
+        Checks is certain MAGs are eukaryotic
+    """
+    output:
+        dataset_dir=directory("../results/binnning/metabat_out/busco/busco_downloads"),
+    input: 
+        direc = expand("../results/binning/metabat_out/{sample}_bins/", sample=samples),
+    params:
+        mode="genome",
+        lineage="metazoa_odb10",
+    threads: 8
+    wrapper:
+        "v1.28.0/bio/busco"
