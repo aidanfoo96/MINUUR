@@ -134,11 +134,6 @@ const thebe_selector_output = ".output, .cell_output"
    Outputs Explained
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="07_Weird_Things_Happening.html">
-   Weird Things are Happening…What’s the Problem?
-  </a>
- </li>
 </ul>
 
     </div>
@@ -423,7 +418,6 @@ title="Print to PDF"
 <li><p>An indexed Kraken2 Database (alternatively a manually created Kraken2 database if you are interested in finding specific taxa). Used for classifying those unmapped reads.</p></li>
 <li><p>An indexed Bracken Database. An extra step to reestimate relative abundance from your Kraken2 Classifications.</p></li>
 <li><p>A MetaPhlAn3 Database - you can use this in parallel or alternatively to Kraken2 since MetaPhlAn3 uses marker genes instead of k-mers - an alternative way to classify your unmapped reads. I found Kraken2 to work better when classifying unmapped reads from mosquitoes.</p></li>
-<li><p>A HUMAnN3 Database - Here a ChocoPhlAn database and UniRef90 database can be used to search for functional profiles from predicted taxa - this would be used in conjunction with MetaPhlAn3’s classifications.</p></li>
 </ol>
 <p>That’s quite a few databases…</p>
 <p>You can pick and choose what analysis to do and is relevent to you, so feel free to omit any database you are not interested in. Certain steps can be ignored using the configuration file (more on this later, but to skip ahead look <a class="reference internal" href="04_Configuring_The_Workflow.html"><span class="doc std std-doc">here</span></a>).</p>
@@ -437,7 +431,6 @@ title="Print to PDF"
 <li><p><a class="reference external" href="https://benlangmead.github.io/aws-indexes/k2">Kraken2</a></p></li>
 <li><p><a class="reference external" href="https://benlangmead.github.io/aws-indexes/k2">Bracken</a> (the Kraken and Bracken index can be used for the same analysis if downloaded from this repository)</p></li>
 <li><p><a class="reference external" href="https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.0">MetaPhlAn3</a></p></li>
-<li><p><a class="reference external" href="https://github.com/biobakery/humann">Humann3</a></p></li>
 </ul>
 </section>
 <section id="a-host">

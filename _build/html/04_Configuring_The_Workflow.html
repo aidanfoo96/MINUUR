@@ -327,11 +327,6 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#functional-read-profiling">
-   Functional Read Profiling
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#metagenome-assembly">
    Metagenome Assembly
   </a>
@@ -373,11 +368,6 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#read-classification">
    Read Classification
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#functional-read-profiling">
-   Functional Read Profiling
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -536,41 +526,6 @@ title="Print to PDF"
 <p><code class="docutils literal notranslate"><span class="pre">CleanMetaphlanReport</span></code>: Produce a summary file of your MetaPhlAn classifications to easily parse</p>
 <p><code class="docutils literal notranslate"><span class="pre">NProc</span></code>: Set the number of threads</p>
 </section>
-<section id="functional-read-profiling">
-<h2>Functional Read Profiling<a class="headerlink" href="#functional-read-profiling" title="Permalink to this headline">#</a></h2>
-<p>A second path MINUUR can take is to assign function to those unmapped reads. This will use MetaPhlAn3 to classify your reads then assign functions to those taxa using reads of interest. There are a couple other options I’ve included here too, including the use of a search term to filter a specific function you might be interested in.</p>
-<p><strong>Humann Anlaysis</strong></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">HumannAnalysis</span><span class="p">:</span>
-  <span class="n">Activate</span><span class="p">:</span> <span class="kc">True</span>
-  <span class="n">NTDatabase</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">User_dbs</span><span class="o">/</span><span class="n">aidan_foo</span><span class="o">/</span><span class="n">chocophlan</span><span class="o">/</span>
-  <span class="n">ProtDatabase</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">User_dbs</span><span class="o">/</span><span class="n">aidan_foo</span><span class="o">/</span><span class="n">uniref</span><span class="o">/</span>
-  <span class="n">Threads</span><span class="p">:</span> <span class="mi">20</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">Activate</span></code>: Pick <code class="docutils literal notranslate"><span class="pre">True</span></code> if you would like to do some functional read profiling</p>
-<p><code class="docutils literal notranslate"><span class="pre">NTDatabase</span></code>: Specify a path to the chocophlan nucleotide database (remember to look for the database links in the previous <a class="reference external" href="02_Installation#databases">section</a>)</p>
-<p><code class="docutils literal notranslate"><span class="pre">ProtDatabase</span></code>: Specify a path to a uniref database</p>
-<p><code class="docutils literal notranslate"><span class="pre">Threads</span></code>: Specify the number of threads you would like to use</p>
-<p><strong>Rename Humann Profiles</strong></p>
-<p>This option will allow you to rename the classified gene families to UniRef90 or other annotations.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">RenameHumannGeneNames</span><span class="p">:</span> 
-  <span class="n">Activate</span><span class="p">:</span> <span class="kc">True</span>
-  <span class="n">Rename</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">db</span><span class="o">/</span><span class="n">User_dbs</span><span class="o">/</span><span class="n">aidan_foo</span><span class="o">/</span><span class="n">utility_mapping</span><span class="o">/</span><span class="n">map_uniref90_name</span><span class="o">.</span><span class="n">txt</span><span class="o">.</span><span class="n">bz2</span> 
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">Activate</span></code>: Pick <code class="docutils literal notranslate"><span class="pre">True</span></code> to activate this part of the analysis</p>
-<p><code class="docutils literal notranslate"><span class="pre">Rename</span></code>: Provide a path to a utility mapping file</p>
-<p><strong>Get Biological Process</strong></p>
-<p>If you’ve ran Humann and would like to extract a specific function of interest (to see if its there!) you can do so here</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GetBiologicalProcess</span><span class="p">:</span>   
-  <span class="n">Activate</span><span class="p">:</span> <span class="kc">False</span>
-  <span class="n">Process</span><span class="p">:</span> 
-    <span class="s2">&quot;siderophore&quot;</span>
-</pre></div>
-</div>
-<p><code class="docutils literal notranslate"><span class="pre">Activate</span></code>: Pick <code class="docutils literal notranslate"><span class="pre">True</span></code> if you would like to use this option</p>
-<p><code class="docutils literal notranslate"><span class="pre">Process</span></code>: use a character of interest. For example, I was interested in seeing what kind of genes my mosquito associated bacteria had related to siderophores, so I used “siderophore”</p>
-</section>
 <section id="metagenome-assembly">
 <h2>Metagenome Assembly<a class="headerlink" href="#metagenome-assembly" title="Permalink to this headline">#</a></h2>
 <p>The third path MINUUR takes is to try and do some metagenome assemblies, followed by binning of the resultant contigs and metagenome assembled genome QC. This was of most interest to me (and maybe you too!) as it meant I could recover MAGs associated to mosquitoes for further analysis. However…this won’t always work. Given that the reads we’re trying to assemble were never intended for metagenome assemblies it is possible you’ll never get a set of high-quality MAGs. Nevertheless it’s still worth trying! And I’ve had good success using this approach, especailly when the number of classified reads are high enough for a particular taxon. Around ~200,000 worked for me.</p>
@@ -604,6 +559,13 @@ title="Print to PDF"
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">Activate</span></code>: Use <code class="docutils literal notranslate"><span class="pre">True</span></code> to activate</p>
 <p><code class="docutils literal notranslate"><span class="pre">Threads</span></code>: specify the number of threads</p>
+<p>Optionally you can also use BUSCO to assess bin quality</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">BUSCO</span><span class="p">:</span> 
+  <span class="n">Activate</span><span class="p">:</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Activate</span></code>: Use <code class="docutils literal notranslate"><span class="pre">True</span></code> to activate</p>
+<p>This can help identify whether low quality MAGs pertain to any eukaryotic type assemblies</p>
 </section>
 <section id="woohoo-i-ve-configured-my-pipeline-now-let-me-run-it">
 <h2>Woohoo, I’ve configured my pipeline, now let me run it!<a class="headerlink" href="#woohoo-i-ve-configured-my-pipeline-now-let-me-run-it" title="Permalink to this headline">#</a></h2>
