@@ -38,9 +38,9 @@ Once Mamba is installed run
 Use `git clone https://github.com/aidanfoo96/MINUUR/` and `cd MINUUR/workflow`. This is the reference point from which the pipeline will be run. See the JupyterBooks page for a full tutorial on establishing the configuration to run this pipeline. 
 
 ### Update 09/05/2023: 
-Added Github actions 
-Dummy dataset now included in `workflow/data`, tutorial for running this is included in the JupyterBooks page. Use this to ensure the pipeline works on your machine. 
-Added the option to run BUSCO to help assess eukaryotic contamination in MAGs
+- Added Github actions 
+- Dummy dataset now included in `workflow/data`, tutorial for running this is included in the JupyterBooks page. Use this to ensure the pipeline works on your machine. 
+- Added the option to run BUSCO to help assess eukaryotic contamination in MAGs
 
 Any feedback or bugs please open an issue or contact: aidan.foo@lstmed.ac.uk
 
