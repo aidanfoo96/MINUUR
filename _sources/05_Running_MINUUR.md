@@ -13,3 +13,5 @@ I would also recommend tacking on the following command:
 `snakemake --cores 3 --use-conda --keep-going` 
 
 A known error I run into is where MINUUR can't find any bins from your assemblies. This is common when trying to recover MAGs using this approach since you may not have the required read depth. The `--keep-going` command ensures the pipeline still runs even when you encounter this error. Just know that subsequent steps after binning (CheckM) won't run since there will be no bins to work on.
+
+MINUUR also includes some dummy data - if you just specify the paths to each database and leave all options the same, the pipeline should run within ~15 minutes using the dummy data. 

@@ -186,57 +186,6 @@ MetaphlanClassification:
 
 `NProc`: Set the number of threads
 
-###### Functional Read Profiling 
-
-A second path MINUUR can take is to assign function to those unmapped reads. This will use MetaPhlAn3 to classify your reads then assign functions to those taxa using reads of interest. There are a couple other options I've included here too, including the use of a search term to filter a specific function you might be interested in.
-
-**Humann Anlaysis**
-
-```
-HumannAnalysis:
-  Activate: True
-  NTDatabase: /home/db/User_dbs/aidan_foo/chocophlan/
-  ProtDatabase: /home/db/User_dbs/aidan_foo/uniref/
-  Threads: 20
-```
-
-`Activate`: Pick `True` if you would like to do some functional read profiling
-
-`NTDatabase`: Specify a path to the chocophlan nucleotide database (remember to look for the database links in the previous [section](02_Installation#databases))
-
-`ProtDatabase`: Specify a path to a uniref database 
-
-`Threads`: Specify the number of threads you would like to use 
-
-**Rename Humann Profiles**
-
-This option will allow you to rename the classified gene families to UniRef90 or other annotations. 
-
-```
-RenameHumannGeneNames: 
-  Activate: True
-  Rename: /home/db/User_dbs/aidan_foo/utility_mapping/map_uniref90_name.txt.bz2 
-```
-
-`Activate`: Pick `True` to activate this part of the analysis 
-
-`Rename`: Provide a path to a utility mapping file 
-
-**Get Biological Process**
-
-If you've ran Humann and would like to extract a specific function of interest (to see if its there!) you can do so here 
-
-```
-GetBiologicalProcess:   
-  Activate: False
-  Process: 
-    "siderophore"
-```
-
-`Activate`: Pick `True` if you would like to use this option 
-
-`Process`: use a character of interest. For example, I was interested in seeing what kind of genes my mosquito associated bacteria had related to siderophores, so I used "siderophore" 
-
 ###### Metagenome Assembly 
 
 The third path MINUUR takes is to try and do some metagenome assemblies, followed by binning of the resultant contigs and metagenome assembled genome QC. This was of most interest to me (and maybe you too!) as it meant I could recover MAGs associated to mosquitoes for further analysis. However...this won't always work. Given that the reads we're trying to assemble were never intended for metagenome assemblies it is possible you'll never get a set of high-quality MAGs. Nevertheless it's still worth trying! And I've had good success using this approach, especailly when the number of classified reads are high enough for a particular taxon. Around ~200,000 worked for me.
@@ -285,6 +234,16 @@ CheckmBinQA:
 `Activate`: Use `True` to activate 
 
 `Threads`: specify the number of threads 
+
+Optionally you can also use BUSCO to assess bin quality 
+
+```
+BUSCO: 
+  Activate: True
+```
+`Activate`: Use `True` to activate
+
+This can help identify whether low quality MAGs pertain to any eukaryotic type assemblies
 
 ###### Woohoo, I've configured my pipeline, now let me run it!
 
