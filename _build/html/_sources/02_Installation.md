@@ -13,7 +13,6 @@ MINUUR uses large taxonomic databases to run several parts of its workflow. You 
 1. An indexed Kraken2 Database (alternatively a manually created Kraken2 database if you are interested in finding specific taxa). Used for classifying those unmapped reads. 
 2. An indexed Bracken Database. An extra step to reestimate relative abundance from your Kraken2 Classifications.
 3. A MetaPhlAn3 Database - you can use this in parallel or alternatively to Kraken2 since MetaPhlAn3 uses marker genes instead of k-mers - an alternative way to classify your unmapped reads. I found Kraken2 to work better when classifying unmapped reads from mosquitoes. 
-4. A HUMAnN3 Database - Here a ChocoPhlAn database and UniRef90 database can be used to search for functional profiles from predicted taxa - this would be used in conjunction with MetaPhlAn3's classifications.
 
 That's quite a few databases...
 
@@ -29,7 +28,6 @@ If you require these databases, please go to the relevent pages and install them
 - [Kraken2](https://benlangmead.github.io/aws-indexes/k2)
 - [Bracken](https://benlangmead.github.io/aws-indexes/k2) (the Kraken and Bracken index can be used for the same analysis if downloaded from this repository)
 - [MetaPhlAn3](https://github.com/biobakery/MetaPhlAn/wiki/MetaPhlAn-3.0)
-- [Humann3](https://github.com/biobakery/humann)
 
 ### A Host 
 MINUUR tries to recover metagenomic information from a host in question. In my case, this was from a load of mozzies. In your case...it might be something cooler. To account for different hosts, MINUUR is flexible when inputting a target host of interest. There's a caveat, however. Your host of interest must be indexed using bowtie2. Follow the instructions [here](https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml#the-bowtie2-build-indexer). If you make your way to the top of the link provided, you will find some ready-made indexes of some common organisms (maybe yours is there!). If not, you'll need to index a chromosome-assembled fasta file of your organism in question and specify a path to your indexed reference in the configuration file.  

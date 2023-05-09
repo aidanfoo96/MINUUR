@@ -322,6 +322,7 @@ title="Print to PDF"
 <p>I would also recommend tacking on the following command:</p>
 <p><code class="docutils literal notranslate"><span class="pre">snakemake</span> <span class="pre">--cores</span> <span class="pre">3</span> <span class="pre">--use-conda</span> <span class="pre">--keep-going</span></code></p>
 <p>A known error I run into is where MINUUR can’t find any bins from your assemblies. This is common when trying to recover MAGs using this approach since you may not have the required read depth. The <code class="docutils literal notranslate"><span class="pre">--keep-going</span></code> command ensures the pipeline still runs even when you encounter this error. Just know that subsequent steps after binning (CheckM) won’t run since there will be no bins to work on.</p>
+<p>MINUUR also includes some dummy data - if you just specify the paths to each database and leave all options the same, the pipeline should run within ~15 minutes using the dummy data.</p>
 </section>
 
     <script type="text/x-thebe-config">
