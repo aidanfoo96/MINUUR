@@ -15,18 +15,18 @@ Please follow the tutorial in my Jupyter Book Available Here: https://aidanfoo96
 
 MINUUR is a snakemake pipeline I developed to extract non-host sequencing reads from mosquito whole genome sequencing data and utilise a range of metagenomic analyses to characterise potential host-associated microbes. Its application can be applied to other host-associated WGS data. MINUUR aims to leverage pre-existing WGS data to recover microbial information pertaining to host associated microbiomes.
 
-MINUUR utilises several pieces of software in its pipeline: 
-- Kraken2 to classify microbial taxa to species level from read sequences
-- KrakenTools to extract classified reads pertaining to microbes for downstream analysis
-- Bracken to reestimate taxonomic abundance from Kraken2 taxonomic report
-- MetaPhlan3 to classify microbial taxa using marker genes
-- Megahit to perform metagenome assembly 
-- Quast to generate assembly statistics
-- MetaBat2 to bin assembled contigs
-- CheckM to assess bin quality
+MINUUR utilises: 
+- KRAKEN2: Classify taxa from unmapped read sequences
+- KrakenTools: extract classified reads for downstream analysis
+- BRACKEN: reestimate taxonomic abundance from KRAKEN2
+- MetaPhlan3: Classify taxa using marker genes
+- MEGAHIT: Metagenome assemblies using unmapped reads
+- QUAST: Assembly statistics from MEGAHIT assemblies
+- MetaBat2: Bin contiguous sequences from MEGAHIT
+- CheckM: Assess bin quality from MetaBat2
 
 ## Installation of Snakemake
-MInUUR is run using the bioinformatics workflow manager [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html)
+MINUUR is run using the workflow manager [Snakemake](https://snakemake.readthedocs.io/en/stable/index.html)
 
 Snakemake is best installed using the package manager [Mamba](https://github.com/mamba-org/mamba)
 
@@ -35,7 +35,12 @@ Once Mamba is installed run
 `mamba create -c bioconda -c conda-forge --name snakemake snakemake`
 
 ## Installation of MINUUR
-Use `git clone https://github.com/aidanfoo96/MINUUR/` and `cd MINUUR/workflow`. This is the reference point from which the pipeline will be run. See the JupyterBooks page for a full tutorial on establishing the configuration file to run this pipeline
+Use `git clone https://github.com/aidanfoo96/MINUUR/` and `cd MINUUR/workflow`. This is the reference point from which the pipeline will be run. See the JupyterBooks page for a full tutorial on establishing the configuration to run this pipeline. 
 
-Any feedback or bugs please open a issue or contact: aidan.foo@lstmed.ac.uk
+### Update 09/05/2023: 
+Added Github actions 
+Dummy dataset now included in `workflow/data`, tutorial for running this is included in the JupyterBooks page. Use this to ensure the pipeline works on your machine. 
+Added the option to run BUSCO to help assess eukaryotic contamination in MAGs
+
+Any feedback or bugs please open an issue or contact: aidan.foo@lstmed.ac.uk
 
