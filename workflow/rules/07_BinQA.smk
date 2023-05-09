@@ -101,9 +101,9 @@ rule run_BUSCO:
         Checks is certain MAGs are eukaryotic
     """
     output:
-        dataset_dir=directory("../results/binnning/metabat_out/busco/busco_downloads"),
+        dataset_dir=directory("../results/binning/metabat_out/busco/busco_downloads"),
     input: 
-        direc = expand("../results/binning/metabat_out/{sample}_bins/", sample=samples),
+        direc = expand("../results/binning/metabat_out/{sample}_bins/{sample}", sample=samples),
     params:
         mode="genome",
         lineage="metazoa_odb10",
