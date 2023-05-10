@@ -136,7 +136,10 @@ CheckmBinQA:
   Threads: 15 
 
 # Run BUSCO - helps check if low quality MAGs are Eukaryotic
+# Use --auto-lineage-prok, --auto-lineage-euk or --auto-lineage
 BUSCO: 
   Activate: True
+  Type: "--auto-lineage-prok"
+  Threads: 15
 
 # FINISHED! 

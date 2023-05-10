@@ -2,6 +2,7 @@
     # checkm: (Parks et al., 2015)
 #####################################################
 
+#-------------------------------------------------------------------#
 rule lineage_checkm: 
     """
         Run lineage_wf from checkm to assess quality of metabat bins
@@ -27,6 +28,7 @@ rule lineage_checkm:
             -x .fa {params.indir} {params.outdir} 2> {log}  
          """
 
+#-------------------------------------------------------------------#
 rule QA_checkm: 
     """
         Run qa from checkm to generate .tsv summary file
@@ -51,6 +53,7 @@ rule QA_checkm:
             {input.lineage} {params.direc} 2> {log}
          """
 
+#-------------------------------------------------------------------#
 rule concatenate_checkm_out: 
     """
         Concatenate all qa .tsv files from each checkm run per sample
@@ -66,6 +69,7 @@ rule concatenate_checkm_out:
             awk '{{print $0 "\t" {params.filename}}}' {input.sample} > {output.txt}
          """
 
+#-------------------------------------------------------------------#
 rule plot_QA_stats: 
     """
         Use concatenated .tsv file to generate summary plots 
@@ -84,29 +88,38 @@ rule plot_QA_stats:
     script:
         "../scripts/plot_checkm_QA.R" 
 
+#-------------------------------------------------------------------#
 rule remove_NoExtensionMAGs: 
     """
         Removes MAGs that do not end in .fa - 0Kb
     """
     input: 
-        data = expand("../results/binning/metabat_out/{sample}_bins/", sample = samples),
+        data = expand("../results/binning/metabat_out/{sample}_bins/{sample}", sample = samples),
+    output: 
+        cleaned_data = directory("../results/binning/all_bins/"),
+    params: 
+        indir = expand("../results/binning/metabat_out/{sample}_bins/", sample = samples),
     shell: 
         r'''
-            find {input.data} -not -name '*.fa' -type f -delete
+            find {params.indir} -not -name '*.fa' -type f -delete
+            mkdir -p {output.cleaned_data}
+            cp {params.indir}/*.fa {output.cleaned_data}
         '''
-
+    
+#-------------------------------------------------------------------#
 rule run_BUSCO: 
     """
-        Run BUSCO
-        Checks is certain MAGs are eukaryotic
+        Batch run BUSCO on the MAGs
+        Can check Eukaryotic or Prokaryotic in Config 
     """
     output:
-        dataset_dir=directory("../results/binning/metabat_out/busco/busco_downloads"),
+        out_dir=directory("../results/busco/output"),
+        dataset_dir=directory("resources/busco_downloads"),
     input: 
-        direc = expand("../results/binning/metabat_out/{sample}_bins/{sample}", sample=samples),
+        direc = expand("../results/binning/all_bins/", sample=samples),
     params:
         mode="genome",
-        lineage="metazoa_odb10",
-    threads: 8
+        extra = config["BUSCO"]["Type"],
+    threads: config["BUSCO"]["Threads"],
     wrapper:
         "v1.28.0/bio/busco"

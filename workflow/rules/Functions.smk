@@ -198,8 +198,10 @@ def RunPipeline(wildcards):
             expand(
                 [
 
-                    "../results/binning/metabat_out/busco/busco_downloads"
-                ]
+                    "../results/busco/output",
+                    "../results/binning/all_bins/",
+                ],
+                
             )
         )
 
